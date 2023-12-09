@@ -1,4 +1,4 @@
-import { Image, HStack, Button, Text, Container } from "@chakra-ui/react";
+import { Image, HStack, Button, Flex,Text, Container } from "@chakra-ui/react";
 import TextLink from "../TextLink/TextLink";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
 import Link from "next/link";
@@ -9,7 +9,10 @@ const Header: React.FC = (): JSX.Element => {
   return (
     <Container maxW="container.xl">
       <HStack justify="space-between">
-        <Image w="60px" src="logo-profile.png" alt="logo" />
+        <Flex align="center" > 
+          <Image w="60px" src="logo-profile.png" alt="logo" />
+          <Text fontWeight="semibold">THM Store</Text>
+        </Flex>
 
         <Button
           variant="unstyled"
@@ -23,7 +26,6 @@ const Header: React.FC = (): JSX.Element => {
           <Link href="/contact">Contact</Link>
           <Link href="/about">About</Link>
           <Link href="/register">Sign Up</Link>
-          
 
           <HStack spacing={4}>
             <TextLink link="/">

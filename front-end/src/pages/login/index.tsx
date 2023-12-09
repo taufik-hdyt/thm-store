@@ -1,5 +1,5 @@
 import Layout from "@/components/Layout/Layout";
-import Login from "@/containers/Login/Login";
+import Login from "@/containers/Login";
 import { NextPage } from "next";
 
 const LoginPage: NextPage = (): JSX.Element => {
