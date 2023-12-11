@@ -63,7 +63,7 @@ const Login: React.FC = (): JSX.Element => {
             </Box>
 
             <HStack mt={8} justify="space-between">
-              <Button size="lg" colorScheme="red">
+              <Button size="lg" bg="primary" color="white">
                 Login
               </Button>
               <Button fontWeight="400" color="red" variant="unstyled">

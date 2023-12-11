@@ -8,6 +8,7 @@ import {
   Button,
   GridItem,
 } from "@chakra-ui/react";
+import Link from "next/link";
 
 const Register: React.FC = (): JSX.Element => {
   return (
@@ -40,12 +41,12 @@ const Register: React.FC = (): JSX.Element => {
               <Input variant="flushed" type="password" placeholder="Password" />
             </Stack>
 
-            <Button mt={6} size="lg" rounded="sm" colorScheme="red">
+            <Button color="white" mt={6} size="lg" rounded="sm" bg="#39A7FF">
               Create Account
             </Button>
 
             <Text display="flex" gap={2}>
-              Already have account?
+              Already have account? <Link href="/login"><Text fontWeight="semibold" color="primary">Login</Text></Link>
             </Text>
           </Stack>
         </Stack>

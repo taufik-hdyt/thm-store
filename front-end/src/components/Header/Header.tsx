@@ -7,8 +7,8 @@ import { FaHeart } from "react-icons/fa";
 
 const Header: React.FC = (): JSX.Element => {
   return (
-    <Container maxW="container.xl">
-      <HStack justify="space-between">
+    
+      <HStack justify="space-between" px={10}>
         <Flex align="center" > 
           <Image w="60px" src="logo-profile.png" alt="logo" />
           <Text fontWeight="semibold">THM Store</Text>
@@ -40,7 +40,7 @@ const Header: React.FC = (): JSX.Element => {
           </HStack>
         </HStack>
       </HStack>
-    </Container>
+    
   );
 };
 
