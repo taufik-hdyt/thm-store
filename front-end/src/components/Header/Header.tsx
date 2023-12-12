@@ -2,13 +2,10 @@ import { Image, HStack, Button, Flex, Text } from "@chakra-ui/react";
 import TextLink from "../TextLink/TextLink";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
 import Link from "next/link";
-import { GiHamburgerMenu } from "react-icons/gi";
-import { FaHeart } from "react-icons/fa";
+import { IoIosHeartEmpty  } from "react-icons/io";
 
-interface IProps {
-  onOpenSideBar: () => void;
-}
-const Header: React.FC<IProps> = ({onOpenSideBar}): JSX.Element => {
+
+const Header: React.FC = (): JSX.Element => {
   return (
     <HStack justify="space-between" px={{ base: 0, md: 10 }}>
       <Link href="/">
@@ -18,8 +15,8 @@ const Header: React.FC<IProps> = ({onOpenSideBar}): JSX.Element => {
         </Flex>
       </Link>
 
-      <Button onClick={onOpenSideBar} variant="unstyled" p={0} display={{ base: "block", md: "none" }}>
-        <GiHamburgerMenu size={25} />
+      <Button variant="unstyled" p={0} display={{ base: "block", md: "none" }}>
+        <IoIosHeartEmpty  size={25} />
       </Button>
       <HStack spacing={8} display={{ base: "none", md: "flex" }}>
         <Link href="/">Home</Link>
@@ -29,7 +26,7 @@ const Header: React.FC<IProps> = ({onOpenSideBar}): JSX.Element => {
 
         <HStack spacing={4}>
           <TextLink link="/">
-            <FaHeart size={24} />
+            <IoIosHeartEmpty  color="red" size={24} />
           </TextLink>
           <TextLink link="/">
             <FaShoppingCart size={24} />

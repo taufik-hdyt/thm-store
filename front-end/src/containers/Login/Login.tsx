@@ -5,17 +5,23 @@ import {
   Grid,
   Stack,
   Input,
-  HStack,
+
   Button,
   GridItem,
   InputGroup,
   InputRightElement,
+  FormControl,
+  FormErrorMessage,
+  Link,
 } from "@chakra-ui/react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import React, { useState } from "react";
+import { useLoginAction } from "./Login.action";
 
 const Login: React.FC = (): JSX.Element => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
+
+  const { formik, handleForm, loadingLogin } = useLoginAction();
   return (
     <Box>
       <Grid
@@ -23,7 +29,7 @@ const Login: React.FC = (): JSX.Element => {
         rowGap={{ base: "6", md: "" }}
         mt={8}
       >
-        <GridItem>
+        <GridItem display={{ base: "none", md: "block" }}>
           <Image
             roundedRight="xl"
             h="80vh"
@@ -33,44 +39,75 @@ const Login: React.FC = (): JSX.Element => {
             alt="image"
           />
         </GridItem>
-        <Stack justify="center" align="center">
-          <Stack w="400px">
-            <Text fontSize="3xl" fontWeight="600">
-              Log in
-            </Text>
-            <Text>Enter your details below</Text>
 
-            <Box mt={8}>
-              <Input variant="flushed" placeholder="Email" />
+        <Stack justify="center" align="center" px={{ base: 3, md: 0 }}>
+          <form onSubmit={formik.handleSubmit}>
+            <Stack w={{ base: "full", md: "400px" }}>
+              <Text fontSize="3xl" fontWeight="600">
+                Log in
+              </Text>
+              <Text>Enter your details below</Text>
 
-              <InputGroup mt={4}>
-                <Input
-                  type={showPassword ? "text" :"password"}
-                  variant="flushed"
-                  placeholder="Password"
-                />
-                <InputRightElement
-                  onClick={() => setShowPassword(!showPassword)}
-                  cursor="pointer"
-                >
-                  {showPassword ? (
-                    <FaEyeSlash color="gray.300" />
-                  ) : (
-                    <FaEye color="gray.300" />
-                  )}
-                </InputRightElement>
-              </InputGroup>
-            </Box>
+              <Box mt={8}>
+                <FormControl isInvalid={formik.errors.email ? true : false}>
+                  <Input
+                    name="email"
+                    variant="flushed"
+                    placeholder="Email"
+                    onChange={handleForm}
+                  />
+                  <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
+                </FormControl>
 
-            <HStack mt={8} justify="space-between">
-              <Button size="lg" bg="primary" color="white">
-                Login
-              </Button>
-              <Button fontWeight="400" color="red" variant="unstyled">
+                <FormControl isInvalid={formik.errors.password ? true : false}>
+                  <InputGroup mt={4}>
+                    <Input
+                      name="password"
+                      type={showPassword ? "text" : "password"}
+                      variant="flushed"
+                      placeholder="Password"
+                      onChange={handleForm}
+                    />
+                    <InputRightElement
+                      onClick={() => setShowPassword(!showPassword)}
+                      cursor="pointer"
+                    >
+                      {showPassword ? (
+                        <FaEyeSlash color="gray.300" />
+                      ) : (
+                        <FaEye color="gray.300" />
+                      )}
+                    </InputRightElement>
+                  </InputGroup>
+                  <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
+                </FormControl>
+              </Box>
+              <Button textAlign="end" fontWeight="400" variant="unstyled">
                 Forgot Password ?
               </Button>
-            </HStack>
-          </Stack>
+
+
+              <Button
+                isLoading={loadingLogin}
+                type="submit"
+                colorScheme="blue"
+                size="lg"
+                bg="primary"
+                color="white"
+              >
+                Login
+              </Button>
+
+              <Text mt={4} justifyContent="center" display="flex" gap={2}>
+                Already have account?{" "}
+                <Link href="/register">
+                  <Text fontWeight="semibold" color="primary">
+                    Register
+                  </Text>
+                </Link>
+              </Text>
+            </Stack>
+          </form>
         </Stack>
       </Grid>
     </Box>

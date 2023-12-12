@@ -3,10 +3,16 @@ import type { AppProps } from "next/app";
 import { ChakraProvider } from "@chakra-ui/react";
 import { myNewTheme } from "@/styles/theme";
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
+
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ChakraProvider theme={myNewTheme}>
-      <Component {...pageProps} />
-    </ChakraProvider>
+    <QueryClientProvider client={queryClient}>
+      <ChakraProvider theme={myNewTheme}>
+        <Component {...pageProps} />
+      </ChakraProvider>
+    </QueryClientProvider>
   );
 }
