@@ -1,15 +1,17 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+} from "typeorm";
 
 @Entity("customers")
-export class User {
+export class Customer {
   @PrimaryGeneratedColumn()
   customer_id: number;
 
   @Column()
-  first_name: string;
-
-  @Column()
-  last_name: string;
+  fullname: string;
 
   @Column()
   email: string;
@@ -18,9 +20,14 @@ export class User {
   password: string;
 
   @Column()
+  profile_picture: string;
+
+  @Column ({nullable: true})
   address: string;
+
+  @Column("boolean", { default: false })
+  isAdmin: boolean;
 
   @CreateDateColumn({ type: "time with time zone" })
   createdAt: Date;
-
 }
