@@ -25,4 +25,10 @@ router.post(
 
 router.get("/auth", jwtAuth, CustomerControllers.auth);
 
+// customers
+router.get("/customers", jwtAuth, CustomerControllers.find);
+router.get("/customer/:id", jwtAuth, CustomerControllers.findOne);
+router.patch("/customer/:id", jwtAuth, CustomerControllers.update);
+router.delete("/customer/:id", jwtAuth, CustomerControllers.delete);
+
 export default router;
