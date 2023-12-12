@@ -38,7 +38,7 @@ export default new (class AuthServices {
       const createdCustomer = await this.CustomerRepository.save(customer);
       return res.status(200).json({
         data: createdCustomer,
-        message: "Success create customer",
+        message: "Success",
       });
     } catch (error) {
       return res.status(500).json({
@@ -55,8 +55,13 @@ export default new (class AuthServices {
           email: email,
         },
       });
+      if (!customerSelected)
+      return res.status(404).json({
+        message: "Email not found",
+      });
+
       if (!email)
-        return res.send(400).json({
+        return res.status(400).json({
           message: "Please enter a email",
         });
 
