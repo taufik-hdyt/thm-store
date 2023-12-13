@@ -34,13 +34,13 @@ const Register: React.FC = (): JSX.Element => {
             alt="image"
           />
         </GridItem>
-        <Stack justify="center" align="center">
-          <Stack w="400px">
+        <Stack justify="center" align="center"  px={{ base: 6, md: 0 }} >
+            <form onSubmit={formik.handleSubmit} style={{width:"100%", display: "flex", justifyContent: "center"}}>
+          <Stack w={{ base: "full", md: "400px" }} >
             <Text fontSize="3xl" fontWeight="600">
               Create an account
             </Text>
             <Text>Enter your details below</Text>
-            <form onSubmit={formik.handleSubmit}>
               <Stack spacing={4} mt={8} >
                 <FormControl isInvalid={formik.errors.fullname ? true : false}>
                   <Input
@@ -87,7 +87,6 @@ const Register: React.FC = (): JSX.Element => {
               >
                 Create Account
               </Button>
-            </form>
 
             <Text display="flex" gap={2}>
               Already have account?{" "}
@@ -98,6 +97,7 @@ const Register: React.FC = (): JSX.Element => {
               </Link>
             </Text>
           </Stack>
+            </form>
         </Stack>
       </Grid>
     </Box>

@@ -1,13 +1,30 @@
-import { Image, HStack, Button, Flex, Text } from "@chakra-ui/react";
+import {
+  Image,
+  HStack,
+  Button,
+  Flex,
+  Text,
+  InputGroup,
+  Input,
+  InputRightElement,
+} from "@chakra-ui/react";
 import TextLink from "../TextLink/TextLink";
-import { FaShoppingCart, FaUser } from "react-icons/fa";
 import Link from "next/link";
-import { IoIosHeartEmpty  } from "react-icons/io";
 
+import { FaUserCircle } from "react-icons/fa";
+import { FaRegCircleUser } from "react-icons/fa6";
+import {
+  IoHomeOutline,
+  IoCartOutline,
+  IoCart,
+  IoHomeSharp,
+} from "react-icons/io5";
+import { IoIosHeartEmpty, IoMdHeartEmpty } from "react-icons/io";
+import { CiSearch } from "react-icons/ci";
 
 const Header: React.FC = (): JSX.Element => {
   return (
-    <HStack justify="space-between" px={{ base: 0, md: 10 }}>
+    <HStack  justify="space-between" px={{ base: 0, md: 20 }}>
       <Link href="/">
         <Flex align="center">
           <Image w="60px" src="logo-profile.png" alt="logo" />
@@ -16,23 +33,32 @@ const Header: React.FC = (): JSX.Element => {
       </Link>
 
       <Button variant="unstyled" p={0} display={{ base: "block", md: "none" }}>
-        <IoIosHeartEmpty  size={25} />
+        <IoIosHeartEmpty size={25} />
       </Button>
-      <HStack spacing={8} display={{ base: "none", md: "flex" }}>
+      <HStack  spacing={10} display={{ base: "none", md: "flex" }}>
         <Link href="/">Home</Link>
         <Link href="/contact">Contact</Link>
         <Link href="/about">About</Link>
-        <Link href="/register">Sign Up</Link>
+        <Link href="/register">Register</Link>
+
+        <InputGroup>
+          <InputRightElement>
+            <CiSearch size={24} />
+          </InputRightElement>
+          <Input
+            placeholder="search for items"
+          />
+        </InputGroup>
 
         <HStack spacing={4}>
           <TextLink link="/">
-            <IoIosHeartEmpty  color="red" size={24} />
+            <IoIosHeartEmpty  size={24} />
           </TextLink>
           <TextLink link="/">
-            <FaShoppingCart size={24} />
+            <IoCartOutline size={24} />
           </TextLink>
-          <TextLink link="/">
-            <FaUser size={24} />
+          <TextLink link="/profile">
+            <FaRegCircleUser size={24} />
           </TextLink>
         </HStack>
       </HStack>

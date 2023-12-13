@@ -7,8 +7,9 @@ import NavbarMobile from "../NavbarMobile/NavbarMobile";
 interface IProps {
   children?: React.ReactNode;
   headTitle?: string;
+  isNavMobile?: boolean
 }
-const Layout: React.FC<IProps> = ({ children, headTitle }): JSX.Element => {
+const Layout: React.FC<IProps> = ({ children, headTitle,isNavMobile }): JSX.Element => {
   const screenSize = useScreenSize();
 
 
@@ -24,7 +25,7 @@ const Layout: React.FC<IProps> = ({ children, headTitle }): JSX.Element => {
 
       {/* <Footer /> */}
 
-      {screenSize.width < 768 && <NavbarMobile />}
+      {screenSize.width < 768 && isNavMobile &&  <NavbarMobile />}
     </Box>
   );
 };

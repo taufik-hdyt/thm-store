@@ -6,6 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 import { Ilogin } from "@/interface/customer.interfaces";
 import { API } from "@/libs/API";
 import axios from "axios";
+import { setCookie } from 'nookies';
 
 export const useLoginAction = () => {
   const toast = useToast();
@@ -41,6 +42,10 @@ export const useLoginAction = () => {
         status:"success",
         position: "top"
       })
+      setCookie(null,'token', res.data.token, {
+        maxAge: 30 * 24 * 60 * 60,
+        path: '/',
+      });
       router.push("/")
     },
     onError: (err) => {

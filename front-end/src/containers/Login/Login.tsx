@@ -5,7 +5,6 @@ import {
   Grid,
   Stack,
   Input,
-
   Button,
   GridItem,
   InputGroup,
@@ -40,8 +39,11 @@ const Login: React.FC = (): JSX.Element => {
           />
         </GridItem>
 
-        <Stack justify="center" align="center" px={{ base: 3, md: 0 }}>
-          <form onSubmit={formik.handleSubmit}>
+        <Stack justify="center" align="center" px={{ base: 6, md: 0 }}>
+          <form
+            onSubmit={formik.handleSubmit}
+            style={{ width: "100%", display: "flex", justifyContent: "center" }}
+          >
             <Stack w={{ base: "full", md: "400px" }}>
               <Text fontSize="3xl" fontWeight="600">
                 Log in
@@ -85,7 +87,6 @@ const Login: React.FC = (): JSX.Element => {
               <Button textAlign="end" fontWeight="400" variant="unstyled">
                 Forgot Password ?
               </Button>
-
 
               <Button
                 isLoading={loadingLogin}

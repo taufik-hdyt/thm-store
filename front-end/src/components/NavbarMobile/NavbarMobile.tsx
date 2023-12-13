@@ -1,4 +1,4 @@
-import { HStack, Link, Stack, Text, Image } from "@chakra-ui/react";
+import { HStack, Link, Stack, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { FaRegCircleUser } from "react-icons/fa6";

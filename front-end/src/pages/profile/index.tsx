@@ -1,13 +1,13 @@
 import Layout from "@/components/Layout";
-import Home from "@/containers/Home/Home";
+import Profile from "@/containers/Profile";
 import { NextPage } from "next";
 
-const HomePage: NextPage = (): JSX.Element => {
+const ProfilePage: NextPage = (): JSX.Element => {
   return (
     <Layout isNavMobile headTitle="Home">
-      <Home />
+      <Profile />
     </Layout>
   );
 };
 
-export default HomePage;
+export default ProfilePage;
