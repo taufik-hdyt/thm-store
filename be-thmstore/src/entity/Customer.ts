@@ -30,4 +30,6 @@ export class Customer {
 
   @CreateDateColumn({ type: "time with time zone" })
   createdAt: Date;
+
+  
 }

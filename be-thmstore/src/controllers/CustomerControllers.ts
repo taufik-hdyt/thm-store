@@ -11,7 +11,7 @@ export default new (class CustomerControllers {
     AuthServices.login(req, res);
   }
   auth(req: Request, res: Response) {
-    AuthServices.authCheck(req, res);
+    AuthServices.profileMe(req, res);
   }
 
   // ==========================

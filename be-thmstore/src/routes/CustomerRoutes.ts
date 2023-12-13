@@ -23,7 +23,7 @@ router.post(
   CustomerControllers.login
 );
 
-router.get("/auth", jwtAuth, CustomerControllers.auth);
+router.get("/user/me", jwtAuth, CustomerControllers.auth);
 
 // customers
 router.get("/customers", jwtAuth, CustomerControllers.find);

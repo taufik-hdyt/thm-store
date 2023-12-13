@@ -98,7 +98,7 @@ export default new (class AuthServices {
       });
     }
   }
-  async authCheck(req: Request, res: Response): Promise<Response> {
+  async profileMe(req: Request, res: Response): Promise<Response> {
     try {
       const loginSession = res.locals.auth;
       const customer = await this.CustomerRepository.findOne({
