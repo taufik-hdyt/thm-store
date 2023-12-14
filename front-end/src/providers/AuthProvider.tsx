@@ -25,7 +25,6 @@ export function AuthProvider({ children, token }: Props) {
       uri: "/user/me",
     })
       .then((res) =>{
-        console.log(res);
         setUser(res.data.data)
       })
       .catch((err) => console.log(err));

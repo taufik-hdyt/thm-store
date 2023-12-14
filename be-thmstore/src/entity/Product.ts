@@ -35,7 +35,7 @@ export class Product {
     onUpdate: "CASCADE",
     onDelete: "CASCADE",
   })
-  @JoinColumn({name: "brand_id"})
+  @JoinColumn({name: "brand_name"})
   brand: Brand;
 
   @ManyToMany(() => Customer, (customer) => customer.products)

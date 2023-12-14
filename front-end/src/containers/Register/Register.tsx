@@ -9,13 +9,18 @@ import {
   GridItem,
   FormControl,
   FormErrorMessage,
+  InputGroup,
+  InputRightElement,
 } from "@chakra-ui/react";
 import Link from "next/link";
 
 import { useRegisterAction } from "./Register.action";
+import { useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Register: React.FC = (): JSX.Element => {
   const { formik, handleForm, loadingCreateCustomer } = useRegisterAction();
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   return (
     <Box>
@@ -63,13 +68,25 @@ const Register: React.FC = (): JSX.Element => {
                   <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
                 </FormControl>
                 <FormControl isInvalid={formik.errors.password ? true : false}>
-                  <Input
-                    variant="flushed"
-                    type="password"
-                    placeholder="Password"
-                    name="password"
-                    onChange={handleForm}
-                  />
+                <InputGroup mt={4}>
+                    <Input
+                      name="password"
+                      type={showPassword ? "text" : "password"}
+                      variant="flushed"
+                      placeholder="Password"
+                      onChange={handleForm}
+                    />
+                    <InputRightElement
+                      onClick={() => setShowPassword(!showPassword)}
+                      cursor="pointer"
+                    >
+                      {showPassword ? (
+                        <FaEyeSlash color="gray.300" />
+                      ) : (
+                        <FaEye color="gray.300" />
+                      )}
+                    </InputRightElement>
+                  </InputGroup>
                   <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
                 </FormControl>
               </Stack>

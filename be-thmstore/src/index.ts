@@ -21,6 +21,7 @@ AppDataSource.initialize()
     // ROUTES
     app.use("/api/v1", CustomerRoutes);
     app.use("/api/v1", BrandRoutes);
+
     
 
 

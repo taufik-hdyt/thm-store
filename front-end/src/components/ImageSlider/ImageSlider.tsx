@@ -1,6 +1,6 @@
-import { Box, Image } from "@chakra-ui/react";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Image } from "@chakra-ui/react";
 import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const ImageSlider: React.FC = (): JSX.Element => {
   const SlideData = [
@@ -28,7 +28,7 @@ const ImageSlider: React.FC = (): JSX.Element => {
   return (
     <Carousel infiniteLoop autoPlay stopOnHover={true}>
       {SlideData.map((item, idx) => (
-        <Image rounded="lg" key={idx} src={item.image} alt="carrousel"h="300px" />
+        <Image rounded="lg" key={idx} src={item.image} alt="carrousel"h={{base:"200px", md:"300px"}}/>
       ))}
     </Carousel>
   );

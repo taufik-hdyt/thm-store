@@ -24,7 +24,7 @@ const NavbarMobile: React.FC = (): JSX.Element => {
             </Text>
           </Stack>
         </Link>
-        <Link href="/brands">
+        <Link href="/products">
           <Stack align="center" spacing={1}>
             <MdLibraryMusic size={24} color="white" />
 

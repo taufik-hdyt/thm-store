@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import { validationSchemaLogin } from "@/utils/validation";
 import { useMutation } from "@tanstack/react-query";
 import { Ilogin } from "@/interface/customer.interfaces";
-import { API } from "@/libs/API";
+import { API, setAuthToken } from "@/libs/API";
 import axios from "axios";
 import { setCookie } from 'nookies';
 
@@ -37,6 +37,7 @@ export const useLoginAction = () => {
       return response;
     },
     onSuccess: (res) => {
+      setAuthToken(res.data.token)
       toast({
         title: res.data.message,
         status:"success",
