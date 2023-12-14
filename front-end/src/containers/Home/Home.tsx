@@ -1,7 +1,8 @@
 "use client";
+import CardProduct from "@/components/CardProduct";
 import ImageSlider from "@/components/ImageSlider";
 import { useAuth } from "@/hooks/useAuth";
-import { Container } from "@chakra-ui/react";
+import { Container, Grid } from "@chakra-ui/react";
 
 const Home: React.FC = (): JSX.Element => {
   const {user} = useAuth()
@@ -11,6 +12,10 @@ const Home: React.FC = (): JSX.Element => {
     <>
       <Container maxW="container.xl">
         <ImageSlider />
+
+        <Grid templateColumns="repeat(auto-fill, minmax(200px, 1fr))">
+          <CardProduct />
+        </Grid>
       </Container>
     </>
   );
