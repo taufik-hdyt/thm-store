@@ -6,6 +6,7 @@ import {
   ManyToOne,
   ManyToMany,
   JoinTable,
+  JoinColumn,
 } from "typeorm";
 import { Brand } from "./Brand";
 import { Customer } from "./Customer";
@@ -34,5 +35,9 @@ export class Product {
     onUpdate: "CASCADE",
     onDelete: "CASCADE",
   })
+  @JoinColumn({name: "brand_id"})
   brand: Brand;
+
+  @ManyToMany(() => Customer, (customer) => customer.products)
+  customers: Customer[];
 }

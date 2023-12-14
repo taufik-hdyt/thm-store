@@ -3,7 +3,10 @@ import {
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
+  ManyToMany,
+  JoinTable,
 } from "typeorm";
+import { Product } from "./Product";
 
 @Entity("customers")
 export class Customer {
@@ -31,5 +34,18 @@ export class Customer {
   @CreateDateColumn({ type: "time with time zone" })
   createdAt: Date;
 
+  @ManyToMany(() => Product, (product) => product.customers)
+  @JoinTable({
+    name: "carts",
+    joinColumn: {
+      name: "product_id",
+      referencedColumnName: "customer_id",
+    },
+    inverseJoinColumn: {
+      name: "customer_id",
+      referencedColumnName: "product_id",
+    },
+  })
+  products: Product[];
   
 }
