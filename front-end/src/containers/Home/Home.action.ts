@@ -5,7 +5,6 @@ import { useQuery } from "@tanstack/react-query";
 
 export const useHomeAction = ()=> {
     const {token} = useAuth()
-
     
     const {data: dataBrands,isLoading,refetch} = useQuery({
         queryKey: ['brands'],

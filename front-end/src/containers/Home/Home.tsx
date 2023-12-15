@@ -30,6 +30,7 @@ const Home: React.FC = (): JSX.Element => {
           w="fit-content"
           ml={{ base: 4, md: 10 }}
           my={6}
+          fontSize="lg"
         >
           Products New
         </Text>
@@ -51,6 +52,7 @@ const Home: React.FC = (): JSX.Element => {
           w="fit-content"
           ml={{ base: 4, md: 10 }}
           my={6}
+          fontSize="lg"
         >
           Brands
         </Text>
