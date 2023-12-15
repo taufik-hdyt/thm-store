@@ -5,6 +5,7 @@ import { Request, Response } from "express";
 import "dotenv/config";
 import CustomerRoutes from "./routes/CustomerRoutes";
 import BrandRoutes from './routes/BrandRoutes'
+import UploadRoutes from './routes/UploadRoutes'
 
 AppDataSource.initialize()
   .then(async () => {
@@ -21,6 +22,7 @@ AppDataSource.initialize()
     // ROUTES
     app.use("/api/v1", CustomerRoutes);
     app.use("/api/v1", BrandRoutes);
+    app.use('/api/v1', UploadRoutes)
 
     
 
