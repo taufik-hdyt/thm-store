@@ -28,6 +28,9 @@ export class Product {
   @Column()
   stock: string;
 
+  @Column()
+  image: string;
+
   @CreateDateColumn({ type: "time with time zone" })
   createdAt: Date;
 
@@ -35,7 +38,7 @@ export class Product {
     onUpdate: "CASCADE",
     onDelete: "CASCADE",
   })
-  @JoinColumn({name: "brand_name"})
+  @JoinColumn({name: "brand_id"})
   brand: Brand;
 
   @ManyToMany(() => Customer, (customer) => customer.products)
