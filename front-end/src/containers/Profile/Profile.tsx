@@ -14,6 +14,7 @@ import {
   Avatar,
   Button,
 } from "@chakra-ui/react";
+import { IoCartOutline } from "react-icons/io5";
 import { RiLockPasswordFill } from "react-icons/ri";
 
 const Profile: React.FC = (): JSX.Element => {
@@ -21,20 +22,12 @@ const Profile: React.FC = (): JSX.Element => {
   console.log(user);
   return (
     <Box px={{ base: 6, md: 20 }}>
-      <Grid
-        gridTemplateColumns={{ base: "1fr", md: "300px 1fr" }}
-        h="100vh"
-        mt={10}
-      >
-        <GridItem display={{ base: "none", md: "block" }}>
-          <Flex gap={1} justify="start">
-            <Text color="gray">Home /</Text>
-            <Text color="black" fontWeight="semibold">
-              MyAccount
-            </Text>
-          </Flex>
-        </GridItem>
 
+      <Grid
+        gridTemplateColumns="1fr"
+        h="100vh"
+        gap={6}
+      >
         <GridItem>
           <Flex gap={1} justify="end">
             <Text>Welcome</Text>

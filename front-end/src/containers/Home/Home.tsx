@@ -73,7 +73,7 @@ const Home: React.FC = (): JSX.Element => {
         <Flex mt={4} p={1}  overflowX="auto" gap={4}>
           {dataBrands?.data.data.map((e: IBrand, idx: number) => (
             <Box key={idx}>
-              <CardBrand imageBrand={e.logo_brand} nameBrand={e.brand_name} />
+              <CardBrand id={e.brand_id} imageBrand={e.logo_brand} nameBrand={e.brand_name} />
             </Box>
           ))}
         </Flex>
