@@ -1,27 +1,19 @@
 import {
-  Image,
-  HStack,
   Button,
   Flex,
-  Text,
-  InputGroup,
-  Input,
-  InputRightElement,
+  HStack,
+  Image,
+  Text
 } from "@chakra-ui/react";
-import TextLink from "../TextLink/TextLink";
 import Link from "next/link";
+import TextLink from "../TextLink/TextLink";
 
-import { FaUserCircle } from "react-icons/fa";
-import { FaRegCircleUser } from "react-icons/fa6";
-import {
-  IoHomeOutline,
-  IoCartOutline,
-  IoCart,
-  IoHomeSharp,
-} from "react-icons/io5";
-import { IoIosHeartEmpty, IoMdHeartEmpty } from "react-icons/io";
-import { CiSearch } from "react-icons/ci";
 import { useAuth } from "@/hooks/useAuth";
+import { FaRegCircleUser } from "react-icons/fa6";
+import { IoIosHeartEmpty } from "react-icons/io";
+import {
+  IoCartOutline
+} from "react-icons/io5";
 
 const Header: React.FC = (): JSX.Element => {
   const { token } = useAuth();
@@ -29,7 +21,7 @@ const Header: React.FC = (): JSX.Element => {
     <HStack justify="space-between" px={{ base: 0, md: 10 }}>
       <Link href="/">
         <Flex align="center">
-          <Image w="60px" src="logo-profile.png" alt="logo" />
+          <Image w="60px" src="https://i.imgur.com/Vgx5X7G.png" alt="logo" />
           <Text fontWeight="semibold">THM Store</Text>
         </Flex>
       </Link>

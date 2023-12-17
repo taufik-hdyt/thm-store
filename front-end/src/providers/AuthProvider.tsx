@@ -1,8 +1,7 @@
-import { authContextType, AuthContext } from "@/hooks/useAuth";
+import { AuthContext, authContextType } from "@/hooks/useAuth";
 import { ICustomer } from "@/interface/customer.interfaces";
 import callApi from "@/utils/fetcher/fetcher";
-import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 type Props = {
   children: React.ReactNode;

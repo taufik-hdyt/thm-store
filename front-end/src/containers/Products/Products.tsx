@@ -6,12 +6,13 @@ import {
   Box,
   Button,
   Flex,
+  Grid,
   HStack,
   Input,
   InputGroup,
   InputLeftElement,
   Select,
-  useDisclosure
+  useDisclosure,
 } from "@chakra-ui/react";
 import { CiSearch } from "react-icons/ci";
 import { IoIosAddCircle } from "react-icons/io";
@@ -30,9 +31,9 @@ const Products: React.FC = (): JSX.Element => {
             <InputLeftElement>
               <CiSearch size={24} />
             </InputLeftElement>
-            <Input placeholder="search for items" />
+            <Input variant="fill" placeholder="search for items" />
           </InputGroup>
-          <Select w="fit-content">
+          <Select variant="fill" w="fit-content">
             {dataBrands?.data.data.map((e: IBrand, idx: number) => (
               <option key={idx}>{e.brand_name}</option>
             ))}
@@ -54,12 +55,7 @@ const Products: React.FC = (): JSX.Element => {
         )}
       </HStack>
 
-      <Flex
-        mt={10}
-        gap="4"
-        flexWrap="wrap"
-        justify="center"
-      >
+      <Grid mt={8} gap={1} templateColumns="repeat(auto-fill, minmax(250px, 1fr))">
         <CardProduct />
         <CardProduct />
         <CardProduct />
@@ -67,9 +63,11 @@ const Products: React.FC = (): JSX.Element => {
         <CardProduct />
         <CardProduct />
         <CardProduct />
-
         <CardProduct />
-      </Flex>
+        <CardProduct />
+        <CardProduct />
+        <CardProduct />
+      </Grid>
 
       {isOpen && (
         <ModalProduct isOpen={isOpen} onClose={onClose} title="Add Product" />

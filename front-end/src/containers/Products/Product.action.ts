@@ -6,7 +6,6 @@ import { useRef } from "react"
 
 export const useProductAction = ()=> {
     const inputImageRef = useRef<HTMLInputElement>(null)
-    const {token} = useAuth()
     const handleChooseImage = ()=> {
         if(inputImageRef.current){
             inputImageRef.current.click()
