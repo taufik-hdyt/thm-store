@@ -12,6 +12,7 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  Spinner,
   Text,
   useToast,
 } from "@chakra-ui/react";
@@ -57,35 +58,46 @@ const CardBrand: React.FC<IProps> = ({
 
   return (
     <Box p={2} w="150px" h="150px" border="1px solid #ebebeb" rounded="lg">
-      {user?.isAdmin && (
-        <Menu placement="top-start" size="sm">
-          <MenuButton>
-            <IconButton icon={<CiMenuKebab />} aria-label="menu" size="xs" />
-          </MenuButton>
-          <MenuList>
-            <MenuItem fontSize="sm" icon={<FaPencilAlt />}>
-              Update
-            </MenuItem>
-            <MenuItem
-              onClick={() => deleteBrand(id)}
-              fontSize="sm"
-              icon={<RiDeleteBin6Line />}
-            >
-              Delete
-            </MenuItem>
-          </MenuList>
-        </Menu>
+      {isPending ? (
+        <Center h="full">
+          <Spinner size="xl" />
+        </Center>
+      ) : (
+        <>
+          {user?.isAdmin && (
+            <Menu placement="top-start" size="sm">
+              <MenuButton>
+                <IconButton
+                  icon={<CiMenuKebab />}
+                  aria-label="menu"
+                  size="xs"
+                />
+              </MenuButton>
+              <MenuList>
+                <MenuItem fontSize="sm" icon={<FaPencilAlt />}>
+                  Update
+                </MenuItem>
+                <MenuItem
+                  onClick={() => deleteBrand(id)}
+                  fontSize="sm"
+                  icon={<RiDeleteBin6Line />}
+                >
+                  Delete
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          )}
+          <Center h="full">
+            <Image
+              bgSize="cover"
+              w="80px"
+              rounded="lg"
+              src={imageBrand}
+              alt={nameBrand}
+            />
+          </Center>
+        </>
       )}
-
-      <Center h="full">
-        <Image
-          bgSize="cover"
-          w="80px"
-          rounded="lg"
-          src={imageBrand}
-          alt={nameBrand}
-        />
-      </Center>
     </Box>
   );
 };

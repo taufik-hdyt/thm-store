@@ -1,5 +1,4 @@
 import { useProductAction } from "@/containers/Products/Product.action";
-import { useUploadImage } from "@/hooks/useUploadImage";
 import {
   Button,
   FormControl,
@@ -16,11 +15,10 @@ import {
   ModalHeader,
   ModalOverlay,
   Stack,
-  Text
+  Text,
 } from "@chakra-ui/react";
-import { useHomeAction } from "../Home.action";
-import { useFormik } from "formik";
 import { useEffect } from "react";
+import { useHomeAction } from "../Home.action";
 
 interface IProps {
   isOpen: boolean;
@@ -33,45 +31,18 @@ const ModalAddBrand: React.FC<IProps> = ({
   title,
 }): JSX.Element => {
   const { handleChooseImage, inputImageRef } = useProductAction();
-  const {addBrand,loadingCreateBrand,isSuccess}= useHomeAction()
-
   const {
+    loadingCreateBrand,
+    isSuccess,
+    formik,
     handleChangeImage,
-    selectedImageFile,
-    setSelectedFile,
-    setSelectedImageFile,
+    handleForm,
     selectedFile,
-    uploadImage,
+    setSelectedFile,
+    selectedImageFile,
+    setSelectedImageFile,
     loadingUploadImage,
-  } = useUploadImage({
-    onError: (err)=> {
-      console.log(err);
-    },
-    onSuccess: (res)=>{
-      addBrand({
-        brand_name: formik.values.brand_name,
-        brand_logos: res.url
-      })
-      
-      
-    }
-  });
-
-  const formik = useFormik({
-    initialValues: {
-      brand_name: ""
-    },
-    onSubmit: ()=> {
-      uploadImage()
-    }
-  })
-
-  const handleForm = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { target } = event;
-    formik.setFieldValue(target.name, target.value);
-  };
-
-
+  } = useHomeAction();
 
   function handleCloseModal() {
     setSelectedFile("");
@@ -79,11 +50,11 @@ const ModalAddBrand: React.FC<IProps> = ({
     onClose();
   }
 
-  useEffect(()=> {
-    if(isSuccess){
-      onClose()
+  useEffect(() => {
+    if (isSuccess) {
+      onClose();
     }
-  },[isSuccess])
+  }, [isSuccess]);
 
   return (
     <Modal size="lg" isOpen={isOpen} onClose={handleCloseModal} isCentered>
@@ -137,7 +108,7 @@ const ModalAddBrand: React.FC<IProps> = ({
           </Button>
           <Button
             isLoading={loadingUploadImage || loadingCreateBrand}
-            onClick={()=>formik.handleSubmit()}
+            onClick={() => formik.handleSubmit()}
             bg="primary"
             color="white"
           >
