@@ -6,6 +6,10 @@ export default new (class BrandControllers {
     ProductServices.find(req,res)
   }
 
+  findOne(req: Request, res: Response) {
+    ProductServices.findOne(req,res)
+  }
+
   create(req: Request, res: Response) {
     ProductServices.create(req,res)
   }

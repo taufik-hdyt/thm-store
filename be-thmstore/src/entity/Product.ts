@@ -1,12 +1,11 @@
 import {
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
-  ManyToOne,
-  ManyToMany,
-  JoinTable,
+  Entity,
   JoinColumn,
+  ManyToMany,
+  ManyToOne,
+  PrimaryGeneratedColumn
 } from "typeorm";
 import { Brand } from "./Brand";
 import { Customer } from "./Customer";
@@ -23,10 +22,10 @@ export class Product {
   description: string;
 
   @Column()
-  price: string;
+  price: number;
 
   @Column()
-  stock: string;
+  stock: number;
 
   @Column()
   image: string;
