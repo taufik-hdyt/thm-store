@@ -5,7 +5,15 @@ import ImageSlider from "@/components/ImageSlider";
 import { useAuth } from "@/hooks/useAuth";
 import { IBrand } from "@/interface/brand.interfaces";
 import { IProducts } from "@/interface/product.interface";
-import { Box, Button, Center, Flex, HStack, Spinner, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Center,
+  Flex,
+  HStack,
+  Spinner,
+  Text,
+} from "@chakra-ui/react";
 import { IoIosAddCircle } from "react-icons/io";
 import { useProductAction } from "../Products/Product.action";
 import { useHomeAction } from "./Home.action";
@@ -29,21 +37,17 @@ const Home: React.FC = (): JSX.Element => {
         </Grid> */}
 
       <Box p={3} bg="white" rounded="lg" mx={{ base: 4, md: 10 }}>
-        <HStack justify="space-between">
-          <Text
-            bg="primary"
-            color="white"
-            fontWeight="bold"
-            px="3"
-            w="fit-content"
-            fontSize="lg"
-            py="1"
-          >
-            Products New
-          </Text>
-
-          {loadingProducts && <Spinner size="lg" />}
-        </HStack>
+        <Text
+          bg="primary"
+          color="white"
+          fontWeight="bold"
+          px="3"
+          w="fit-content"
+          fontSize="lg"
+          py="1"
+        >
+          Products New
+        </Text>
 
         <Flex mt={4} p={1} overflowX="auto" gap={4}>
           {loadingBrands && (
@@ -65,6 +69,7 @@ const Home: React.FC = (): JSX.Element => {
                   price={e.price}
                   stock={e.stock}
                   title={e.product_name}
+                  id={e.product_id}
                 />
               </Box>
             </Box>
@@ -99,6 +104,16 @@ const Home: React.FC = (): JSX.Element => {
           )}
         </HStack>
         <Flex mt={4} p={1} overflowX="auto" gap={4}>
+        {loadingBrands && (
+            <Center w="full">
+              <Lottie
+                animationData={loadingAnimation}
+                autoPlay={true}
+                loop={true}
+                style={{ width: 100 }}
+              />
+            </Center>
+          )}
           {dataBrands?.data.data.map((e: IBrand, idx: number) => (
             <Box key={idx}>
               <CardBrand

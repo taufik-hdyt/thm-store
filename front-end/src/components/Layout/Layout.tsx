@@ -22,7 +22,7 @@ const Layout: React.FC<IProps> = ({ children, headTitle,isNavMobile }): JSX.Elem
         <Header />
       </Box>
 
-      <Box  bg="secondary" minH="100vh" pt="10" >
+      <Box  bg="secondary" minH="100vh" pt="6" >
       {children}
       </Box>
 
