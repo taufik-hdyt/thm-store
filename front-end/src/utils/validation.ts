@@ -8,6 +8,7 @@ export const validationSchemaRegister = yup.object().shape({
     .required("Password is required")
     .min(6, "Password must be at least 6 characters")
     .uppercase("password begins with an uppercase letter")
+    .matches(/\d/, 'Must contain numbers')
     .matches(
       /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/,
       "The password must contain special characters"
@@ -20,7 +21,8 @@ export const validationSchemaLogin = yup.object().shape({
   .string()
   .required("Password is required")
   .min(6, "Password must be at least 6 characters")
-  .uppercase("password begins with an uppercase letter")
+  .uppercase("Password begins with an uppercase letter")
+  // .matches(/\d/, 'Must contain numbers')
   .matches(
     /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/,
     "The password must contain special characters"

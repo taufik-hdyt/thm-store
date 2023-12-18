@@ -3,22 +3,35 @@ import {
   Flex,
   HStack,
   Image,
-  Text
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Text,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import TextLink from "../TextLink/TextLink";
 
 import { useAuth } from "@/hooks/useAuth";
-import { FaRegCircleUser } from "react-icons/fa6";
+import { FaRegCircleUser,FaUser } from "react-icons/fa6";
 import { IoIosHeartEmpty } from "react-icons/io";
-import {
-  IoCartOutline
-} from "react-icons/io5";
+import { IoCartOutline } from "react-icons/io5";
+import { RiLogoutCircleFill } from "react-icons/ri";
+import { useRouter } from "next/router";
+import { destroyCookie } from "nookies";
+
 
 const Header: React.FC = (): JSX.Element => {
   const { token } = useAuth();
+  const router = useRouter()
+  function handleLogout(){
+    destroyCookie(null, "token")
+    router.push("/login")
+  }
+
+
   return (
-    <HStack justify="space-between" px={{ base: 0, md: 10 }}>
+    <HStack justify="space-between" px={{ base: 2, md: 10 }} py={2}>
       <Link href="/">
         <Flex align="center">
           <Image w="60px" src="https://i.imgur.com/Vgx5X7G.png" alt="logo" />
@@ -26,15 +39,15 @@ const Header: React.FC = (): JSX.Element => {
         </Flex>
       </Link>
 
-      <Button variant="unstyled" p={0} display={{ base: "block", lg: "none" }}>
+      {/* <Button variant="unstyled" p={0} display={{ base: "block", lg: "none" }}>
         <IoIosHeartEmpty size={25} />
-      </Button>
+      </Button> */}
       <HStack spacing={10} display={{ base: "none", lg: "flex" }}>
         <Link href="/">Home</Link>
         <Link href="/products">Products</Link>
         <Link href="/contact">Contact</Link>
         <Link href="/about">About</Link>
-        {!token && <Link href="/register">Register</Link>}
+        {/* {!token && <Link href="/register">Register</Link>} */}
 
         {/* <InputGroup>
           <InputRightElement>
@@ -43,6 +56,8 @@ const Header: React.FC = (): JSX.Element => {
           <Input placeholder="search for items" />
         </InputGroup> */}
 
+        {
+          token &&
         <HStack spacing={4}>
           {/* <TextLink link="/">
             <IoIosHeartEmpty size={24} />
@@ -50,10 +65,21 @@ const Header: React.FC = (): JSX.Element => {
           <TextLink link="/">
             <IoCartOutline size={24} />
           </TextLink>
-          <TextLink link="/profile">
-            <FaRegCircleUser size={24} />
-          </TextLink>
+          <Menu>
+            <MenuButton>
+              <FaRegCircleUser size={24} />
+            </MenuButton>
+
+            <MenuList>
+
+              <MenuItem  icon={<FaUser />}>
+                <Link href='/profile'>Profile</Link>
+              </MenuItem>
+              <MenuItem onClick={handleLogout} icon={<RiLogoutCircleFill />}>Logout</MenuItem>
+            </MenuList>
+          </Menu>
         </HStack>
+        }
       </HStack>
     </HStack>
   );

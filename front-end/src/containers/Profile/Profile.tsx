@@ -1,41 +1,31 @@
 import { useAuth } from "@/hooks/useAuth";
 import {
+  Avatar,
   Box,
-  Text,
-  Grid,
-  GridItem,
+  Button,
   Card,
-  Flex,
-  Stack,
   FormControl,
   FormLabel,
+  Grid,
   Input,
-  Textarea,
-  Avatar,
-  Button,
+  Stack,
+  Text,
+  Textarea
 } from "@chakra-ui/react";
-import { IoCartOutline } from "react-icons/io5";
 import { RiLockPasswordFill } from "react-icons/ri";
+import { IoMdLogOut } from "react-icons/io";
+import {destroyCookie} from 'nookies'
+import { useRouter } from "next/router";
 
 const Profile: React.FC = (): JSX.Element => {
   const { user } = useAuth();
-  console.log(user);
-  return (
-    <Box px={{ base: 6, md: 20 }}>
+  
 
-      <Grid
-        gridTemplateColumns="1fr"
-        h="100vh"
-        gap={6}
-      >
-        <GridItem>
-          <Flex gap={1} justify="end">
-            <Text>Welcome</Text>
-            <Text color="primary" fontWeight="semibold">
-              {user?.fullname}
-            </Text>
-          </Flex>
-          <Card px={4} py={6} mt={10}>
+  
+  return (
+    <Box  px={3}>
+        <Box  w="fit-content" mx='auto'>
+          <Card px={4} py={6} >
             <Text fontWeight="semibold" color="primary">
               Edit Your Profile
             </Text>
@@ -74,8 +64,8 @@ const Profile: React.FC = (): JSX.Element => {
               </Box>
             </Stack>
           </Card>
-        </GridItem>
-      </Grid>
+        </Box>
+      
     </Box>
   );
 };

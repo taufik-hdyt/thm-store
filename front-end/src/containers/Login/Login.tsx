@@ -42,12 +42,12 @@ const Login: React.FC = (): JSX.Element => {
           />
         </GridItem>
 
-        <Stack justify="center" align="center" px={{ base: 6, md: 0 }}>
+        <Stack justify="center" align="center" px={{ base: 6, md: 0 }} >
           <form
             onSubmit={formik.handleSubmit}
             style={{ width: "100%", display: "flex", justifyContent: "center" }}
           >
-            <Stack w={{ base: "full", md: "400px" }}>
+            <Stack w={{ base: "full", md: "500px" }} bg="white" rounded="lg" p="3">
               <Text fontSize="3xl" fontWeight="600">
                 Log in
               </Text>

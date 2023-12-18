@@ -8,12 +8,13 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
+import Link from "next/link";
 import { FaInstagram, FaLinkedin, FaTiktok, FaYoutube } from "react-icons/fa";
 
 const Footer: React.FC = (): JSX.Element => {
   return (
     <Box px={10} pt={10}>
-      <Grid gridTemplateColumns="1fr .5fr .5fr .5fr" gap={8}>
+      <Grid gridTemplateColumns={{base: "1fr", md: "1fr .5fr .5fr .5fr"}} gap={8}>
         <Stack>
           <Avatar
             src="https://res.cloudinary.com/doushe6hn/image/upload/v1702611440/thm-store/wsgtz2aummbaotpeq0qq.png"
@@ -28,17 +29,17 @@ const Footer: React.FC = (): JSX.Element => {
         <GridItem>
           <Stack>
             <Text fontWeight="semibold">Company</Text>
-            <Text>About</Text>
-            <Text>Contact</Text>
-            <Text>Help</Text>
+            <Link href="/about">About</Link>
+            <Link href="/contact">Contact</Link>
+            <Link href="/help">Help</Link>
           </Stack>
         </GridItem>
         <GridItem>
           <Stack>
             <Text fontWeight="semibold">Privacy</Text>
-            <Text>Privacy policy</Text>
-            <Text>Cookie policy</Text>
-            <Text>Usage policy</Text>
+            <Link href="#">Privacy policy</Link>
+            <Link href="#">Cookie policy</Link>
+            <Link href="#">Usage policy</Link>
           </Stack>
         </GridItem>
         <GridItem>

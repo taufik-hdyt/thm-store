@@ -17,11 +17,14 @@ import {
 import { CiSearch } from "react-icons/ci";
 import { IoIosAddCircle } from "react-icons/io";
 import { useHomeAction } from "../Home/Home.action";
+import { useProductAction } from "./Product.action";
+import { IProducts } from "@/interface/product.interface";
 
 const Products: React.FC = (): JSX.Element => {
   const { user } = useAuth();
   const { onClose, onOpen, isOpen } = useDisclosure();
   const { dataBrands } = useHomeAction();
+  const { dataProducts, loadingProducts } = useProductAction();
 
   return (
     <Box mx={{ base: 4, md: 10 }} pb={{ base: 20, md: 6 }}>
@@ -33,7 +36,12 @@ const Products: React.FC = (): JSX.Element => {
             </InputLeftElement>
             <Input variant="fill" placeholder="search for items" />
           </InputGroup>
-          <Select variant="fill" w="fit-content">
+          <Select
+            // display={{ base: "none", lg: "flex" }}
+            variant="fill"
+            w="fit-content"
+            display="none"
+          >
             {dataBrands?.data.data.map((e: IBrand, idx: number) => (
               <option key={idx}>{e.brand_name}</option>
             ))}
@@ -45,6 +53,7 @@ const Products: React.FC = (): JSX.Element => {
 
         {user?.isAdmin && (
           <Button
+            display={{ base: "none", lg: "flex" }}
             color="white"
             bg="primary"
             rightIcon={<IoIosAddCircle size={24} color="white" />}
@@ -55,18 +64,27 @@ const Products: React.FC = (): JSX.Element => {
         )}
       </HStack>
 
-      <Grid mt={8} gap={1} templateColumns="repeat(auto-fill, minmax(250px, 1fr))">
-        <CardProduct />
-        <CardProduct />
-        <CardProduct />
-        <CardProduct />
-        <CardProduct />
-        <CardProduct />
-        <CardProduct />
-        <CardProduct />
-        <CardProduct />
-        <CardProduct />
-        <CardProduct />
+      <Grid
+        mt={8}
+        gap="2"
+        // templateColumns="repeat(auto-fill, minmax(250px, 1fr))"
+        gridTemplateColumns={{
+          base: "1fr 1fr",
+          sm: "1fr 1fr 1fr",
+          md: "1fr 1fr 1fr 1fr",
+          lg: "1fr 1fr 1fr 1fr 1fr 1fr",
+        }}
+      >
+        {dataProducts?.data.map((e: IProducts, idx: number) => (
+          <Box key={idx}>
+            <CardProduct
+              image={e.image}
+              title={e.product_name}
+              price={e.price}
+              stock={e.stock}
+            />
+          </Box>
+        ))}
       </Grid>
 
       {isOpen && (

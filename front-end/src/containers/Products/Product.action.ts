@@ -5,15 +5,23 @@ import { useRef } from "react"
 
 
 export const useProductAction = ()=> {
-    const inputImageRef = useRef<HTMLInputElement>(null)
-    const handleChooseImage = ()=> {
-        if(inputImageRef.current){
-            inputImageRef.current.click()
+    const {token} = useAuth()
+
+    const {data: dataProducts, isLoading: loadingProducts} = useQuery({
+        queryKey: ["products"],
+        queryFn: async()=> {
+            const response = await API.get("/products", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                  },
+            })
+
+            return response.data
         }
-    }
+    })
     return {
-        inputImageRef,
-        handleChooseImage,
+        dataProducts,
+        loadingProducts
         
     }
 }

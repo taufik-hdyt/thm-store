@@ -1,7 +1,14 @@
 import { Box, HStack, Image, Stack, Text } from "@chakra-ui/react";
 import { FaCartPlus } from "react-icons/fa6";
 
-const CardProduct: React.FC = (): JSX.Element => {
+
+interface IProps{
+  title?: string
+  price?: number
+  stock?:number
+  image?: string
+}
+const CardProduct: React.FC<IProps> = ({price,stock,title,image}): JSX.Element => {
   const customStyleTitle: React.CSSProperties = {
     display: "-webkit-box",
     WebkitLineClamp: 1,
@@ -11,29 +18,30 @@ const CardProduct: React.FC = (): JSX.Element => {
   return (
     <Box
       p={2}
-      w={{ base: "150px", md: "250px" }}
-      h={{ base: "240px", md: "320px" }}
+      // w={{ base: "150px", md: "250px" }}
+      // h={{ base: "220px", md: "320px" }}
       border="1px solid #ebebeb"
       rounded="lg"
       bg="white"
       boxSizing="border-box"
     >
       <Image
-        bgSize="cover"
+       w="full"
+       h="200px"
         rounded="lg"
-        src="https://nyari.id/cdn/shop/products/2_a9c128de-1dc6-4a1c-a024-33a4d457f851_480x480.jpg?v=1593506407"
-        alt="produc"
+        src={image}
+        alt={title}
       />
       <Text style={customStyleTitle} mt="2" fontWeight="bold">
-        Gitar Akustik Yamaha
+        {title}
       </Text>
       <HStack justify="space-between">
         <Stack spacing={0}>
-          <Text fontWeight="semibold" color="#aeaeae">
-            Rp 1200.000
+          <Text fontSize={{base: 'xs', md: "md"}} fontWeight="semibold" color="#aeaeae">
+            Rp {price}
           </Text>
           <Text fontSize="xs" color="#aeaeae">
-            Stock : 100
+            Stock : {stock}
           </Text>
         </Stack>
         <Box cursor="pointer">

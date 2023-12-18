@@ -28,22 +28,6 @@ export const useHomeAction = () => {
     },
   });
 
-  // DATA PRODUCTS
-  const {
-    data: dataProducts,
-    isLoading: loadingProducts,
-    refetch: refetchProducts,
-  } = useQuery({
-    queryKey: ["products"],
-    queryFn: async () => {
-      const response = await API.get("/products", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      return response.data;
-    },
-  });
 
   const {
     mutate: addBrand,
@@ -110,11 +94,8 @@ export const useHomeAction = () => {
 
   return {
     dataBrands,
-    dataProducts,
     loadingBrands,
-    loadingProducts,
     refetchBrands,
-    refetchProducts,
     loadingCreateBrand,
     isOpen,
     onClose,
