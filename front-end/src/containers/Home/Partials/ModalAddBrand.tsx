@@ -30,7 +30,6 @@ const ModalAddBrand: React.FC<IProps> = ({
   onClose,
   title,
 }): JSX.Element => {
-  const { handleChooseImage, inputImageRef } = useProductAction();
   const {
     loadingCreateBrand,
     isSuccess,
@@ -42,6 +41,8 @@ const ModalAddBrand: React.FC<IProps> = ({
     selectedImageFile,
     setSelectedImageFile,
     loadingUploadImage,
+    handleChooseImage,
+    inputRef
   } = useHomeAction();
 
   function handleCloseModal() {
@@ -94,7 +95,7 @@ const ModalAddBrand: React.FC<IProps> = ({
               <Input readOnly placeholder={selectedFile.name} />
               <Input
                 onChange={handleChangeImage}
-                ref={inputImageRef}
+                ref={inputRef}
                 display="none"
                 type="file"
                 name="image"

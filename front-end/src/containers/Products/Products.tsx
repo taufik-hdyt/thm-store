@@ -5,6 +5,7 @@ import { IBrand } from "@/interface/brand.interfaces";
 import {
   Box,
   Button,
+  Center,
   Flex,
   Grid,
   HStack,
@@ -19,6 +20,7 @@ import { IoIosAddCircle } from "react-icons/io";
 import { useHomeAction } from "../Home/Home.action";
 import { useProductAction } from "./Product.action";
 import { IProducts } from "@/interface/product.interface";
+import { Loading } from "@/components/LoadingAnimation/loadingAnimation";
 
 const Products: React.FC = (): JSX.Element => {
   const { user } = useAuth();
@@ -64,6 +66,12 @@ const Products: React.FC = (): JSX.Element => {
         )}
       </HStack>
 
+      {loadingProducts && (
+          <Center w="full" h="80vh" >
+            <Loading />
+          </Center>
+        )}
+
       <Grid
         mt={8}
         gap="2"
@@ -75,9 +83,11 @@ const Products: React.FC = (): JSX.Element => {
           lg: "1fr 1fr 1fr 1fr 1fr 1fr",
         }}
       >
+       
         {dataProducts?.data.map((e: IProducts, idx: number) => (
           <Box key={idx}>
             <CardProduct
+              id={e.product_id}
               image={e.image}
               title={e.product_name}
               price={e.price}

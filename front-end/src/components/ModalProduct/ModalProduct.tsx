@@ -24,6 +24,7 @@ import {
   Text,
   Textarea,
 } from "@chakra-ui/react";
+import { useEffect, useRef } from "react";
 
 interface IProps {
   isOpen: boolean;
@@ -35,22 +36,38 @@ const ModalProduct: React.FC<IProps> = ({
   onClose,
   title,
 }): JSX.Element => {
-  const { handleChooseImage, inputImageRef } = useProductAction();
   const { dataBrands } = useHomeAction();
+  const inputImageRef = useRef<HTMLInputElement>(null);
+  function handleChooseImage() {
+    if (inputImageRef.current) {
+      inputImageRef.current?.click();
+    }
+  }
 
   const {
     handleChangeImage,
     selectedImageFile,
     setSelectedFile,
     setSelectedImageFile,
-    selectedFile
-  } = useUploadImage({});
+    selectedFile,
+    handleForm,
+    formik,
+    loadingCreateProduct,
+    loadingUploadImage,
+    isSuccess
+  } = useProductAction();
 
   function handleCloseModal() {
     setSelectedFile("");
     setSelectedImageFile("");
     onClose();
   }
+
+  useEffect(()=>{
+    if(isSuccess){
+      onClose()
+    }
+  },[isSuccess])
 
   return (
     <Modal size="2xl" isOpen={isOpen} onClose={handleCloseModal} isCentered>
@@ -62,7 +79,11 @@ const ModalProduct: React.FC<IProps> = ({
           <Grid gridTemplateColumns="1fr 1fr" gap={2}>
             <FormControl>
               <FormLabel>Product Name</FormLabel>
-              <Input placeholder="input your product" />
+              <Input
+                onChange={handleForm}
+                name="name"
+                placeholder="input your product"
+              />
             </FormControl>
             <FormControl>
               <FormLabel>Price</FormLabel>
@@ -70,25 +91,43 @@ const ModalProduct: React.FC<IProps> = ({
                 <InputLeftElement roundedLeft="lg" bg="secondary">
                   <Text fontWeight="semibold">Rp</Text>
                 </InputLeftElement>
-                <Input type="number" placeholder="Price" />
+                <Input
+                  onChange={handleForm}
+                  name="price"
+                  type="number"
+                  placeholder="Price"
+                />
               </InputGroup>
             </FormControl>
             <FormControl>
               <FormLabel>Stock</FormLabel>
-              <Input  type="number" placeholder="Stock" />
+              <Input
+                onChange={handleForm}
+                name="stock"
+                type="number"
+                placeholder="Stock"
+              />
             </FormControl>
             <FormControl>
               <FormLabel>Brand</FormLabel>
-              <Select>
+              <Select onChange={handleForm} name="brand_id">
                 {dataBrands?.data.data.map((e: IBrand, idx: number) => (
-                  <option key={idx}>{e.brand_name}</option>
+                  <option key={idx} value={e.brand_id}>
+                    {e.brand_name}
+                  </option>
                 ))}
               </Select>
             </FormControl>
           </Grid>
           <FormControl mt={4}>
             <FormLabel>Description</FormLabel>
-            <Textarea rows={5} resize="none" placeholder="add product description" />
+            <Textarea
+              onChange={handleForm}
+              name="description"
+              rows={5}
+              resize="none"
+              placeholder="add product description"
+            />
           </FormControl>
 
           {selectedImageFile && (
@@ -101,7 +140,7 @@ const ModalProduct: React.FC<IProps> = ({
             <InputGroup onClick={handleChooseImage} cursor="pointer">
               <InputLeftAddon>
                 <Text roundedLeft="xl" bg="secondary">
-                {selectedImageFile ? "Change" : "Choose"}
+                  {selectedImageFile ? "Change" : "Choose"}
                 </Text>
               </InputLeftAddon>
               <Input readOnly placeholder={selectedFile.name} />
@@ -118,7 +157,12 @@ const ModalProduct: React.FC<IProps> = ({
           <Button onClick={onClose} bg="red" color="white">
             Cancel
           </Button>
-          <Button bg="primary" color="white">
+          <Button
+            isLoading={loadingCreateProduct || loadingUploadImage}
+            onClick={() => formik.handleSubmit()}
+            bg="primary"
+            color="white"
+          >
             Add Product
           </Button>
         </ModalFooter>

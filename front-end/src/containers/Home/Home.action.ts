@@ -5,11 +5,19 @@ import { API } from "@/libs/API";
 import { useDisclosure, useToast } from "@chakra-ui/react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useFormik } from "formik";
+import { useRef } from "react";
 
 export const useHomeAction = () => {
   const { token } = useAuth();
   const toast = useToast();
   const { isOpen, onClose, onOpen } = useDisclosure();
+
+  const inputRef = useRef<HTMLInputElement>(null)
+  function handleChooseImage(){
+    if(inputRef.current){
+      inputRef.current.click()
+    }
+  }
 
   // DATA  BRANDS
   const {
@@ -108,6 +116,8 @@ export const useHomeAction = () => {
     selectedImageFile,
     handleChangeImage,
     loadingUploadImage,
-    formik
+    formik,
+    inputRef,
+    handleChooseImage
   };
 };

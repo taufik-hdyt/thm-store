@@ -2,6 +2,7 @@
 import CardBrand from "@/components/CardBrand";
 import CardProduct from "@/components/CardProduct";
 import ImageSlider from "@/components/ImageSlider";
+import { Loading } from "@/components/LoadingAnimation/loadingAnimation";
 import { useAuth } from "@/hooks/useAuth";
 import { IBrand } from "@/interface/brand.interfaces";
 import { IProducts } from "@/interface/product.interface";
@@ -11,15 +12,12 @@ import {
   Center,
   Flex,
   HStack,
-  Spinner,
-  Text,
+  Text
 } from "@chakra-ui/react";
 import { IoIosAddCircle } from "react-icons/io";
 import { useProductAction } from "../Products/Product.action";
 import { useHomeAction } from "./Home.action";
 import { ModalAddBrand } from "./Partials";
-import Lottie from "lottie-react";
-import loadingAnimation from "../../../public/loading.json";
 
 const Home: React.FC = (): JSX.Element => {
   const { user } = useAuth();
@@ -52,12 +50,7 @@ const Home: React.FC = (): JSX.Element => {
         <Flex mt={4} p={1} overflowX="auto" gap={4}>
           {loadingBrands && (
             <Center w="full">
-              <Lottie
-                animationData={loadingAnimation}
-                autoPlay={true}
-                loop={true}
-                style={{ width: 100 }}
-              />
+              <Loading />
             </Center>
           )}
 
@@ -104,14 +97,9 @@ const Home: React.FC = (): JSX.Element => {
           )}
         </HStack>
         <Flex mt={4} p={1} overflowX="auto" gap={4}>
-        {loadingBrands && (
+          {loadingBrands && (
             <Center w="full">
-              <Lottie
-                animationData={loadingAnimation}
-                autoPlay={true}
-                loop={true}
-                style={{ width: 100 }}
-              />
+              <Loading />
             </Center>
           )}
           {dataBrands?.data.data.map((e: IBrand, idx: number) => (

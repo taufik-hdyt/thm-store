@@ -72,8 +72,8 @@ const Header: React.FC = (): JSX.Element => {
 
             <MenuList>
 
-              <MenuItem  icon={<FaUser />}>
-                <Link href='/profile'>Profile</Link>
+              <MenuItem onClick={()=> router.push("/profile")}  icon={<FaUser />}>
+                Profile
               </MenuItem>
               <MenuItem onClick={handleLogout} icon={<RiLogoutCircleFill />}>Logout</MenuItem>
             </MenuList>
