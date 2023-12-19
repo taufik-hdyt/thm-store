@@ -13,25 +13,50 @@ import Link from "next/link";
 import TextLink from "../TextLink/TextLink";
 
 import { useAuth } from "@/hooks/useAuth";
-import { FaRegCircleUser,FaUser } from "react-icons/fa6";
+import { FaRegCircleUser, FaUser } from "react-icons/fa6";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { IoCartOutline } from "react-icons/io5";
 import { RiLogoutCircleFill } from "react-icons/ri";
 import { useRouter } from "next/router";
 import { destroyCookie } from "nookies";
-
+import { useEffect, useState } from "react";
 
 const Header: React.FC = (): JSX.Element => {
   const { token } = useAuth();
-  const router = useRouter()
-  function handleLogout(){
-    destroyCookie(null, "token")
-    router.push("/login")
+  const router = useRouter();
+  function handleLogout() {
+    destroyCookie(null, "token");
+    router.push("/login");
   }
 
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
-    <HStack justify="space-between" px={{ base: 2, md: 10 }} py={2}>
+    <HStack
+    color={scrolled ? "white" : "black"}
+      justify="space-between"
+      px={{ base: 2, md: 10 }}
+      py={2}
+      bg={
+        scrolled
+          ? "primary"
+          : "transparent"
+      }
+    >
       <Link href="/">
         <Flex align="center">
           <Image w="60px" src="https://i.imgur.com/Vgx5X7G.png" alt="logo" />
@@ -56,30 +81,33 @@ const Header: React.FC = (): JSX.Element => {
           <Input placeholder="search for items" />
         </InputGroup> */}
 
-        {
-          token &&
-        <HStack spacing={4}>
-          {/* <TextLink link="/">
+        {token && (
+          <HStack spacing={4}>
+            {/* <TextLink link="/">
             <IoIosHeartEmpty size={24} />
           </TextLink> */}
-          <TextLink link="/">
-            <IoCartOutline size={24} />
-          </TextLink>
-          <Menu>
-            <MenuButton>
-              <FaRegCircleUser size={24} />
-            </MenuButton>
+            <TextLink link="/">
+              <IoCartOutline size={24} />
+            </TextLink>
+            <Menu>
+              <MenuButton>
+                <FaRegCircleUser size={24} />
+              </MenuButton>
 
-            <MenuList>
-
-              <MenuItem onClick={()=> router.push("/profile")}  icon={<FaUser />}>
-                Profile
-              </MenuItem>
-              <MenuItem onClick={handleLogout} icon={<RiLogoutCircleFill />}>Logout</MenuItem>
-            </MenuList>
-          </Menu>
-        </HStack>
-        }
+              <MenuList>
+                <MenuItem
+                  onClick={() => router.push("/profile")}
+                  icon={<FaUser />}
+                >
+                  Profile
+                </MenuItem>
+                <MenuItem onClick={handleLogout} icon={<RiLogoutCircleFill />}>
+                  Logout
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          </HStack>
+        )}
       </HStack>
     </HStack>
   );

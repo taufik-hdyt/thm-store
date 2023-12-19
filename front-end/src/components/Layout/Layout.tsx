@@ -18,11 +18,11 @@ const Layout: React.FC<IProps> = ({ children, headTitle,isNavMobile }): JSX.Elem
     <Box>
       <Head title={headTitle} />
 
-      <Box borderBottom="2px solid #d9d5d5">
+      <Box pos="fixed" zIndex={999} bg="white" w="full">
         <Header />
       </Box>
 
-      <Box  bg="secondary" minH="100vh" pt="6" >
+      <Box  minH="100vh" pt="32" >
       {children}
       </Box>
 
