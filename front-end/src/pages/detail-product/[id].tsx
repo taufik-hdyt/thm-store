@@ -1,7 +1,8 @@
 import Layout from "@/components/Layout";
 import DetailProduct from "@/containers/Products/DetailProduct";
 import { Text } from "@chakra-ui/react";
-import { NextPage } from "next";
+import { NextPage, NextPageContext } from "next";
+import nookies from "nookies"
 
 const DetailProductPage: NextPage = (): JSX.Element => {
   return (
@@ -10,5 +11,22 @@ const DetailProductPage: NextPage = (): JSX.Element => {
     </Layout>
   );
 };
+
+export async function getServerSideProps(context:NextPageContext){
+  const cookies = nookies.get(context)
+  if(!cookies.token){
+    return {
+      redirect: {
+        destination: "/login"
+      }
+    }
+  }
+
+  return {
+    props: {
+      title: "Detail Product"
+    }
+  }
+}
 
 export default DetailProductPage;

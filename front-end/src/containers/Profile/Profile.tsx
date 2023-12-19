@@ -13,12 +13,10 @@ import {
   Textarea
 } from "@chakra-ui/react";
 import { RiLockPasswordFill } from "react-icons/ri";
-import { IoMdLogOut } from "react-icons/io";
-import {destroyCookie} from 'nookies'
-import { useRouter } from "next/router";
 
 const Profile: React.FC = (): JSX.Element => {
   const { user } = useAuth();
+  console.log(user);
   
 
   
