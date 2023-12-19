@@ -28,3 +28,10 @@ export const validationSchemaLogin = yup.object().shape({
     "The password must contain special characters"
   ),
 });
+
+export const validationSchemaCreateProduct = yup.object().shape({
+  name: yup.string().required("Product name is required"),
+  price: yup.number().required("Price is required"),
+  stock: yup.number().required("Stock is required"),
+  description: yup.string().required("Description is required"),
+})

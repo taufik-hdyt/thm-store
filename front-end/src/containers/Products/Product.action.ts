@@ -2,6 +2,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useUploadImage } from "@/hooks/useUploadImage";
 import { ICreateProduct } from "@/interface/product.interface";
 import { API } from "@/libs/API";
+import { validationSchemaCreateProduct } from "@/utils/validation";
 import { useToast } from "@chakra-ui/react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -94,9 +95,10 @@ export const useProductAction = () => {
       description: "",
       image: "",
     },
+    validationSchema: validationSchemaCreateProduct,
     onSubmit: () => {
       uploadImage();
-    },
+    }
   });
 
   // handleform

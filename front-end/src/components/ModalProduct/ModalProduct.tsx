@@ -5,6 +5,7 @@ import { IBrand } from "@/interface/brand.interfaces";
 import {
   Button,
   FormControl,
+  FormErrorMessage,
   FormLabel,
   Grid,
   Image,
@@ -77,15 +78,16 @@ const ModalProduct: React.FC<IProps> = ({
         <ModalCloseButton />
         <ModalBody>
           <Grid gridTemplateColumns="1fr 1fr" gap={2}>
-            <FormControl>
+            <FormControl isInvalid={formik.errors.name ? true: false}>
               <FormLabel>Product Name</FormLabel>
               <Input
                 onChange={handleForm}
                 name="name"
                 placeholder="input your product"
               />
+              <FormErrorMessage>{formik.errors.name}</FormErrorMessage>
             </FormControl>
-            <FormControl>
+            <FormControl isInvalid={formik.errors.price ? true: false}>
               <FormLabel>Price</FormLabel>
               <InputGroup>
                 <InputLeftElement roundedLeft="lg" bg="secondary">
@@ -98,8 +100,9 @@ const ModalProduct: React.FC<IProps> = ({
                   placeholder="Price"
                 />
               </InputGroup>
+              <FormErrorMessage>{formik.errors.price}</FormErrorMessage>
             </FormControl>
-            <FormControl>
+            <FormControl isInvalid={formik.errors.stock ? true: false}>
               <FormLabel>Stock</FormLabel>
               <Input
                 onChange={handleForm}
@@ -107,8 +110,9 @@ const ModalProduct: React.FC<IProps> = ({
                 type="number"
                 placeholder="Stock"
               />
+              <FormErrorMessage>{formik.errors.stock}</FormErrorMessage>
             </FormControl>
-            <FormControl>
+            <FormControl >
               <FormLabel>Brand</FormLabel>
               <Select onChange={handleForm} name="brand_id">
                 {dataBrands?.data.data.map((e: IBrand, idx: number) => (
@@ -119,7 +123,7 @@ const ModalProduct: React.FC<IProps> = ({
               </Select>
             </FormControl>
           </Grid>
-          <FormControl mt={4}>
+          <FormControl mt={4} isInvalid={formik.errors.description ? true: false}>
             <FormLabel>Description</FormLabel>
             <Textarea
               onChange={handleForm}
@@ -128,6 +132,7 @@ const ModalProduct: React.FC<IProps> = ({
               resize="none"
               placeholder="add product description"
             />
+            <FormErrorMessage>{formik.errors.description}</FormErrorMessage>
           </FormControl>
 
           {selectedImageFile && (
