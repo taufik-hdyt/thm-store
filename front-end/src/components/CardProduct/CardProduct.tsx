@@ -21,8 +21,6 @@ const CardProduct: React.FC<IProps> = ({price,stock,title,image,id}): JSX.Elemen
     <Link href={`detail-product/${id}`}>
     <Box
       p={2}
-      // w={{ base: "150px", md: "250px" }}
-      // h={{ base: "220px", md: "320px" }}
       border="1px solid #ebebeb"
       rounded="lg"
       bg="white"
@@ -30,7 +28,7 @@ const CardProduct: React.FC<IProps> = ({price,stock,title,image,id}): JSX.Elemen
     >
       <Image
        w="full"
-       h="200px"
+       h="170px"
         rounded="lg"
         src={image}
         alt={title}
