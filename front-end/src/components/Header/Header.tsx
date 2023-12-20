@@ -9,43 +9,32 @@ import {
   InputGroup,
   InputRightElement,
   Stack,
-  Text,
+  Text
 } from "@chakra-ui/react";
 import Link from "next/link";
 
-import { useAuth } from "@/hooks/useAuth";
+import useScrolledSize from "@/utils/scrolledSize";
 import { useRouter } from "next/router";
 import { destroyCookie } from "nookies";
-import { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { IoCartOutline } from "react-icons/io5";
 
-const Header: React.FC = (): JSX.Element => {
-  const { token } = useAuth();
+interface IProps {
+  onOpenCart?: () => void;
+}
+
+const Header: React.FC<IProps> = ({ onOpenCart }): JSX.Element => {
   const router = useRouter();
   function handleLogout() {
     destroyCookie(null, "token");
     router.push("/login");
   }
 
-  const [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+  const scrolled = useScrolledSize();
 
   return (
+    
     <HStack
       justify="space-between"
       px={{ base: 2, md: 10 }}
@@ -59,11 +48,15 @@ const Header: React.FC = (): JSX.Element => {
     >
       <Link href="/">
         <Flex align="center">
-          <Image w="60px" src="https://i.imgur.com/Vgx5X7G.png" alt="logo" />
+          <Image
+            w="60px"
+            src="https://res.cloudinary.com/doushe6hn/image/upload/v1702611440/thm-store/wsgtz2aummbaotpeq0qq.png"
+            alt="logo"
+          />
           <Text fontWeight="semibold">THM Store</Text>
         </Flex>
       </Link>
-
+      1
       <HStack>
         <InputGroup w="fit-content">
           <InputRightElement>
@@ -80,7 +73,9 @@ const Header: React.FC = (): JSX.Element => {
           variant="ghost"
           aria-label="cart"
           icon={<IoCartOutline size={24} />}
+          onClick={onOpenCart}
         />
+
         <IconButton
           variant="ghost"
           aria-label="cart"
@@ -104,6 +99,7 @@ const Header: React.FC = (): JSX.Element => {
         </Button>
       </HStack>
     </HStack>
+      
   );
 };
 
