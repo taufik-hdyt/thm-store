@@ -1,16 +1,12 @@
+import { IProducts } from "@/interface/product.interface";
 import { Box, HStack, Image, Stack, Text } from "@chakra-ui/react";
 import Link from "next/link";
 import { FaCartPlus } from "react-icons/fa6";
 
-
-interface IProps{
-  title?: string
-  price?: number
-  stock?:number
-  image?: string
-  id?:number
+interface IProps {
+  product?: IProducts;
 }
-const CardProduct: React.FC<IProps> = ({price,stock,title,image,id}): JSX.Element => {
+const CardProduct: React.FC<IProps> = ({ product }): JSX.Element => {
   const customStyleTitle: React.CSSProperties = {
     display: "-webkit-box",
     WebkitLineClamp: 1,
@@ -18,39 +14,38 @@ const CardProduct: React.FC<IProps> = ({price,stock,title,image,id}): JSX.Elemen
     overflow: "hidden",
   };
   return (
-    <Link href={`detail-product/${id}`}>
-    <Box
-      p={2}
-      border="1px solid #ebebeb"
-      rounded="lg"
-      bg="white"
-      boxSizing="border-box"
-    >
-      <Image
-       w="full"
-       h="170px"
+    <Link href={`detail-product/1`}>
+      <Box
+        p={2}
+        border="1px solid #ebebeb"
         rounded="lg"
-        src={image}
-        alt={title}
-      />
-      <Text  style={customStyleTitle} mt="2" fontWeight="medium">
-        {title}
-      </Text>
-      <HStack justify="space-between" >
-        
-          <Text fontSize={{base: 'xs', md: "md"}} fontWeight="medium" color="primary">
-            Rp {price}
+        bg="white"
+        boxSizing="border-box"
+      >
+        <Image
+          w="full"
+          h="170px"
+          rounded="lg"
+          src="https://mandalikamusic.com/cdn/shop/products/DTS-02samping_1024x1024.jpg?v=1644046849"
+          alt="gitar"
+        />
+        <Text style={customStyleTitle} mt="2" fontWeight="medium">
+          Gitar Cowboy
+        </Text>
+        <HStack justify="space-between">
+          <Text
+            fontSize={{ base: "xs", md: "md" }}
+            fontWeight="medium"
+            color="primary"
+          >
+            Rp 1.200.000
           </Text>
 
-          <Text fontSize="xs" color="gray">
-            10 Sold
-          </Text>
-{/*         
-        <Box cursor="pointer">
-          <FaCartPlus  color="black" size={24} />
-        </Box> */}
-      </HStack>
-    </Box>
+          <Box cursor="pointer">
+            <FaCartPlus color="#39A7FF" size={24} />
+          </Box>
+        </HStack>
+      </Box>
     </Link>
   );
 };

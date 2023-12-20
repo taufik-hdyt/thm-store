@@ -1,30 +1,23 @@
 import CardProduct from "@/components/CardProduct";
-import ModalProduct from "@/components/ModalProduct";
-import { useAuth } from "@/hooks/useAuth";
+import { Loading } from "@/components/LoadingAnimation/loadingAnimation";
 import { IBrand } from "@/interface/brand.interfaces";
+import { IProducts } from "@/interface/product.interface";
 import {
   Box,
   Button,
   Center,
-  Flex,
   Grid,
   HStack,
   Input,
   InputGroup,
   InputLeftElement,
-  Select,
-  useDisclosure,
+  Select
 } from "@chakra-ui/react";
 import { CiSearch } from "react-icons/ci";
-import { IoIosAddCircle } from "react-icons/io";
 import { useHomeAction } from "../Home/Home.action";
 import { useProductAction } from "./Product.action";
-import { IProducts } from "@/interface/product.interface";
-import { Loading } from "@/components/LoadingAnimation/loadingAnimation";
 
 const Products: React.FC = (): JSX.Element => {
-  const { user } = useAuth();
-  const { onClose, onOpen, isOpen } = useDisclosure();
   const { dataBrands } = useHomeAction();
   const { dataProducts, loadingProducts } = useProductAction();
 
@@ -53,17 +46,6 @@ const Products: React.FC = (): JSX.Element => {
           </Button>
         </HStack>
 
-        {user?.isAdmin && (
-          <Button
-            display={{ base: "none", lg: "flex" }}
-            color="white"
-            bg="primary"
-            rightIcon={<IoIosAddCircle size={24} color="white" />}
-            onClick={onOpen}
-          >
-            Add Product
-          </Button>
-        )}
       </HStack>
 
       {loadingProducts && (
@@ -97,9 +79,9 @@ const Products: React.FC = (): JSX.Element => {
         ))}
       </Grid>
 
-      {isOpen && (
+      {/* {isOpen && (
         <ModalProduct isOpen={isOpen} onClose={onClose} title="Add Product" />
-      )}
+      )} */}
     </Box>
   );
 };

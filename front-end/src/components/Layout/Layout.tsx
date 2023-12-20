@@ -8,27 +8,24 @@ import Footer from "../Footer";
 interface IProps {
   children?: React.ReactNode;
   headTitle?: string;
-  isNavMobile?: boolean
+  isNavMobile?: boolean;
 }
-const Layout: React.FC<IProps> = ({ children, headTitle,isNavMobile }): JSX.Element => {
+const Layout: React.FC<IProps> = ({
+  children,
+  headTitle,
+  isNavMobile,
+}): JSX.Element => {
   const screenSize = useScreenSize();
-
 
   return (
     <Box>
       <Head title={headTitle} />
-
-      <Box pos="fixed" zIndex={999} bg="white" w="full">
-        <Header />
+      <Header />
+      <Box px={{ base: 4, md: 20 }} minH="100vh" pt={24} pb={10}>
+        {children}
       </Box>
-
-      <Box  minH="100vh" pt="32" >
-      {children}
-      </Box>
-
       <Footer />
-      {screenSize.width < 768 && isNavMobile &&  <NavbarMobile />}
-
+      {screenSize.width < 768 && isNavMobile && <NavbarMobile />}
     </Box>
   );
 };

@@ -55,7 +55,7 @@ const Footer: React.FC = (): JSX.Element => {
         </GridItem>
       </Grid>
       <Divider mt={8} />
-      <Text mt={4} color="GrayText" textAlign="center">
+      <Text py={4} color="GrayText" textAlign="center">
         Copyright THMstore 2023. All right reserved
       </Text>
     </Box>

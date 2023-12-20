@@ -37,7 +37,7 @@ const Login: React.FC = (): JSX.Element => {
             h="80vh"
             w="full"
             bgSize="cover"
-            src="home.jpg"
+            src="https://i.pinimg.com/736x/0f/d8/57/0fd8577fe8c1c38f28280f9cc3e8d237.jpg"
             alt="image"
           />
         </GridItem>
@@ -47,7 +47,7 @@ const Login: React.FC = (): JSX.Element => {
             onSubmit={formik.handleSubmit}
             style={{ width: "100%", display: "flex", justifyContent: "center" }}
           >
-            <Stack w={{ base: "full", md: "500px" }} bg="white" rounded="lg" p="3">
+            <Stack w={{ base: "full", md: "400px" }} bg="white" rounded="lg" p="3">
               <Text fontSize="3xl" fontWeight="600">
                 Log in
               </Text>

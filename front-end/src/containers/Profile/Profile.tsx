@@ -21,7 +21,7 @@ const Profile: React.FC = (): JSX.Element => {
 
   
   return (
-    <Box  px={3}>
+    <Box  px={3} mb={4}>
         <Box  w="fit-content" mx='auto'>
           <Card px={4} py={6} >
             <Text fontWeight="semibold" color="primary">

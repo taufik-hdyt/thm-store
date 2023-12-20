@@ -12,22 +12,22 @@ const HomePage: NextPage = (): JSX.Element => {
 };
 
 
-export async function getServerSideProps(context:NextPageContext){
-  const cookies = nookies.get(context)
-  if(!cookies.token){
-    return {
-      redirect: {
-        destination: "/login"
-      }
-    }
-  }
+// export async function getServerSideProps(context:NextPageContext){
+//   const cookies = nookies.get(context)
+//   if(!cookies.token){
+//     return {
+//       redirect: {
+//         destination: "/login"
+//       }
+//     }
+//   }
 
-  return {
-    props: {
-      title: "login"
-    }
-  }
-}
+//   return {
+//     props: {
+//       title: "login"
+//     }
+//   }
+// }
 
 
 export default HomePage;

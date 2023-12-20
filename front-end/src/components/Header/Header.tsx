@@ -1,25 +1,25 @@
 import {
   Button,
+  Divider,
   Flex,
   HStack,
+  IconButton,
   Image,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
+  Input,
+  InputGroup,
+  InputRightElement,
+  Stack,
   Text,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import TextLink from "../TextLink/TextLink";
 
 import { useAuth } from "@/hooks/useAuth";
-import { FaRegCircleUser, FaUser } from "react-icons/fa6";
-import { IoIosHeartEmpty } from "react-icons/io";
-import { IoCartOutline } from "react-icons/io5";
-import { RiLogoutCircleFill } from "react-icons/ri";
 import { useRouter } from "next/router";
 import { destroyCookie } from "nookies";
 import { useEffect, useState } from "react";
+import { CiSearch } from "react-icons/ci";
+import { IoIosHeartEmpty } from "react-icons/io";
+import { IoCartOutline } from "react-icons/io5";
 
 const Header: React.FC = (): JSX.Element => {
   const { token } = useAuth();
@@ -47,15 +47,14 @@ const Header: React.FC = (): JSX.Element => {
 
   return (
     <HStack
-    color={scrolled ? "white" : "black"}
       justify="space-between"
       px={{ base: 2, md: 10 }}
       py={2}
-      bg={
-        scrolled
-          ? "primary"
-          : "transparent"
-      }
+      pos="fixed"
+      top="0"
+      zIndex={9999}
+      bg="white"
+      w="full"
       boxShadow={scrolled ? "lg" : "none"}
     >
       <Link href="/">
@@ -65,50 +64,44 @@ const Header: React.FC = (): JSX.Element => {
         </Flex>
       </Link>
 
-      {/* <Button variant="unstyled" p={0} display={{ base: "block", lg: "none" }}>
-        <IoIosHeartEmpty size={25} />
-      </Button> */}
-      <HStack spacing={10} display={{ base: "none", lg: "flex" }}>
-        <Link href="/">Home</Link>
-        <Link href="/products">Products</Link>
-        <Link href="/contact">Contact</Link>
-        <Link href="/about">About</Link>
-        {/* {!token && <Link href="/register">Register</Link>} */}
-
-        {/* <InputGroup>
+      <HStack>
+        <InputGroup w="fit-content">
           <InputRightElement>
             <CiSearch size={24} />
           </InputRightElement>
-          <Input placeholder="search for items" />
-        </InputGroup> */}
+          <Input placeholder="Search for items" />
+        </InputGroup>
 
-        {token && (
-          <HStack spacing={4}>
-            {/* <TextLink link="/">
-            <IoIosHeartEmpty size={24} />
-          </TextLink> */}
-            <TextLink link="/">
-              <IoCartOutline size={24} />
-            </TextLink>
-            <Menu>
-              <MenuButton>
-                <FaRegCircleUser size={24} />
-              </MenuButton>
+        <Stack direction="row" h="60px" p={4}>
+          <Divider orientation="vertical" />
+        </Stack>
 
-              <MenuList>
-                <MenuItem
-                  onClick={() => router.push("/profile")}
-                  icon={<FaUser />}
-                >
-                  Profile
-                </MenuItem>
-                <MenuItem onClick={handleLogout} icon={<RiLogoutCircleFill />}>
-                  Logout
-                </MenuItem>
-              </MenuList>
-            </Menu>
-          </HStack>
-        )}
+        <IconButton
+          variant="ghost"
+          aria-label="cart"
+          icon={<IoCartOutline size={24} />}
+        />
+        <IconButton
+          variant="ghost"
+          aria-label="cart"
+          icon={<IoIosHeartEmpty size={24} />}
+        />
+
+        <Stack direction="row" h="60px" p={4}>
+          <Divider orientation="vertical" />
+        </Stack>
+        <Button
+          variant="outline"
+          color="primary"
+          border="1px solid #39A7FF"
+          as={Link}
+          href="/login"
+        >
+          Sign in
+        </Button>
+        <Button bg="primary" color="white" as={Link} href="/register">
+          Sign Up
+        </Button>
       </HStack>
     </HStack>
   );

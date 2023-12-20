@@ -35,7 +35,7 @@ const Register: React.FC = (): JSX.Element => {
             h="80vh"
             w="full"
             bgSize="cover"
-            src="home.jpg"
+            src="https://i.pinimg.com/736x/0f/d8/57/0fd8577fe8c1c38f28280f9cc3e8d237.jpg"
             alt="image"
           />
         </GridItem>
