@@ -56,6 +56,7 @@ const Header: React.FC = (): JSX.Element => {
           ? "primary"
           : "transparent"
       }
+      boxShadow={scrolled ? "lg" : "none"}
     >
       <Link href="/">
         <Flex align="center">
