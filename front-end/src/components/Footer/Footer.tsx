@@ -13,7 +13,7 @@ import { FaInstagram, FaLinkedin, FaTiktok, FaYoutube } from "react-icons/fa";
 
 const Footer: React.FC = (): JSX.Element => {
   return (
-    <Box px={10} pt={10}>
+    <Box px={10} pt={10} borderTop="1px solid #ebebeb">
       <Grid gridTemplateColumns={{base: "1fr", md: "1fr .5fr .5fr .5fr"}} gap={8}>
         <Stack>
           <Avatar
