@@ -36,7 +36,7 @@ const Products: React.FC = (): JSX.Element => {
             <InputLeftElement>
               <CiSearch size={24} />
             </InputLeftElement>
-            <Input variant="fill" placeholder="search for items" />
+            <Input variant="outline" placeholder="search for items" />
           </InputGroup>
           <Select
             // display={{ base: "none", lg: "flex" }}
