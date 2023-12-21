@@ -21,9 +21,11 @@ import { useProductAction } from "../Products/Product.action";
 import { useHomeAction } from "./Home.action";
 import { IBrand } from "@/interface/brand.interfaces";
 import { Loading } from "@/components/LoadingAnimation/loadingAnimation";
+import { IProducts } from "@/interface/product.interface";
 
 const Home: React.FC = (): JSX.Element => {
-  const { dataBrands, loadingBrands } = useHomeAction();
+  const { dataBrands, loadingBrands,dataProdutcs,loadingProducts } = useHomeAction();
+  
 
   return (
     <Box>
@@ -43,9 +45,16 @@ const Home: React.FC = (): JSX.Element => {
         </Text>
         <Box mt={4} bg="primary" rounded="lg">
           <Flex p={3} overflowX="auto" gap={4}>
-            <Box w="200px">
-              <CardProduct />
+          {
+                loadingBrands && <Loading />
+              }
+            {
+              dataProdutcs?.data.map((data: IProducts, idx: number)=>(
+            <Box w="200px" key={idx}>
+              <CardProduct product={data} />
             </Box>
+              ))
+            }
           </Flex>
         </Box>
 

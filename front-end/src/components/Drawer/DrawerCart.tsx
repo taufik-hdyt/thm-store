@@ -8,18 +8,37 @@ import {
   DrawerHeader,
   DrawerOverlay,
   HStack,
-  IconButton,
-  Image,
   Stack,
   Text,
 } from "@chakra-ui/react";
 import CartItem from "../CartItem";
+import { useAuth } from "@/hooks/useAuth";
+import { ICart } from "@/interface/customer.interfaces";
+import { formatRupiah } from "@/utils/formatRupiah";
+import { useEffect, useState } from "react";
 
 interface IProps {
   isOpen: boolean;
   onClose: () => void;
 }
 const DrawerCart: React.FC<IProps> = ({ isOpen, onClose }): JSX.Element => {
+  const { user} = useAuth()
+
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  const calculateTotalPrice = () => {
+    let total = 0
+    user?.cart.forEach((item:ICart) => {
+      total += item.product.price;
+    });
+    setTotalPrice(total);
+  };
+
+  useEffect(() => {
+    calculateTotalPrice();
+  }, []);
+
+
   return (
     <Drawer size="sm" isOpen={isOpen} placement="right" onClose={onClose}>
       <DrawerOverlay />
@@ -29,21 +48,19 @@ const DrawerCart: React.FC<IProps> = ({ isOpen, onClose }): JSX.Element => {
 
         <DrawerBody  maxH="100vh">
           <Stack>
-            <CartItem />
-            <CartItem />
-            <CartItem />
-            <CartItem />
-            <CartItem />
-            <CartItem />
-            <CartItem />
-            <CartItem />
+            {
+              user?.cart.map((data: ICart,idx: number)=> (
+                <CartItem  key={idx} data={data} />
+              ))
+            }
+
           </Stack>
         </DrawerBody>
         <DrawerFooter borderTop="2px solid #ebebeb">
           <Stack align="center" w="full">
             <HStack justify="space-between" w="full">
-          <Text>Total</Text>
-          <Text>Rp 1.200.000</Text>
+          <Text fontWeight="bold">Total</Text>
+          <Text fontWeight="semibold">{formatRupiah(totalPrice)}</Text>
             </HStack>
           <Button bg="primary" color="white" w="full">Checkout</Button>
           </Stack>

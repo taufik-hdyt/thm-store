@@ -22,9 +22,29 @@ export const useHomeAction = () => {
     },
   });
   
+  // DATA  PRODUCT
+  const {
+    data: dataProdutcs,
+    isLoading: loadingProducts,
+    refetch: refetchProducts,
+  } = useQuery({
+    queryKey: ["products"],
+    queryFn: async () => {
+      const response = await API.get("/products", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response.data
+    },
+  });
+  
   return {
     dataBrands,
     loadingBrands,
-    refetchBrands
+    refetchBrands,
+    dataProdutcs,
+    loadingProducts,
+    refetchProducts
   };
 };

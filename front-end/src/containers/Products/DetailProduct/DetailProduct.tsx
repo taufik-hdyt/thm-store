@@ -5,20 +5,53 @@ import {
   GridItem,
   HStack,
   Heading,
+  IconButton,
   Image,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
   Stack,
   Text,
 } from "@chakra-ui/react";
 import { useParams } from "next/navigation";
 import { BsCartPlus } from "react-icons/bs";
 import { useDetailProductAction } from "./DetailProduct.action";
+import { GoHeartFill } from "react-icons/go";
+import { formatRupiah } from "@/utils/formatRupiah";
+import { useState } from "react";
+import { FaInfoCircle } from "react-icons/fa";
 
 const DetailProduct: React.FC = (): JSX.Element => {
   const params = useParams();
   const idParam = Number(params.id);
+  const [qty, setQty] = useState(1);
+  const [message, setMessage] = useState("");
+  const [check, setCheck] = useState<boolean>(false);
 
   const { dataProduct } = useDetailProductAction(idParam);
-  
+  let messageQtyResponse = "";
+  function handleIncrement() {
+    if ((dataProduct ? dataProduct.stock : 0) <= qty) {
+      setMessage(`Maximum Order ${dataProduct?.stock}`);
+      setCheck(false);
+      return;
+    }
+    setQty(qty + 1);
+    setCheck(true);
+  }
+
+  console.log(messageQtyResponse);
+
+  function handleDecrement() {
+    if (qty <= 1) {
+      setMessage("Minimum order 1");
+      setCheck(false);
+      return;
+    }
+    setQty(qty - 1);
+    setCheck(true);
+  }
 
   return (
     <Box px={10}>
@@ -31,7 +64,18 @@ const DetailProduct: React.FC = (): JSX.Element => {
         gridTemplateColumns={{ base: "1fr", md: "400px 1fr" }}
       >
         <GridItem>
-          <Image w="full" h="400px" alt="product" src={dataProduct?.image} />
+          <Box pos="relative">
+            <Image w="full" h="400px" alt="product" src={dataProduct?.image} />
+            <IconButton
+              pos="absolute"
+              top={0}
+              right={0}
+              size="sm"
+              variant="unstyled"
+              aria-label="wishlist"
+              icon={<GoHeartFill color="white" size={24} />}
+            />
+          </Box>
         </GridItem>
         <GridItem>
           <Stack p={6}>
@@ -48,7 +92,47 @@ const DetailProduct: React.FC = (): JSX.Element => {
               <Text color="gray">Stock : {dataProduct?.stock}</Text>
             </Stack>
 
-            <HStack mt={10}>
+            <HStack spacing={6}>
+              <InputGroup w="100px" size="sm">
+                <InputLeftElement
+                  roundedLeft="lg"
+                  // color="white"
+                  // bg="primary"
+                  fontSize="xl"
+                  fontWeight="semibold"
+                  onClick={handleDecrement}
+                  cursor="pointer"
+                >
+                  -
+                </InputLeftElement>
+                <Input value={qty} textAlign="center" type="number" />
+                <InputRightElement
+                  roundedRight="lg"
+                  // color="white"
+                  // bg="primary"
+                  fontSize="xl"
+                  fontWeight="semibold"
+                  onClick={handleIncrement}
+                  cursor="pointer"
+                >
+                  +
+                </InputRightElement>
+              </InputGroup>
+
+              <HStack spacing={4}>
+                <Text>Subtotal</Text>
+                <Text fontWeight="semibold" fontSize="xl">
+                  {formatRupiah(dataProduct?.price ? dataProduct.price * 1 : 0)}
+                </Text>
+              </HStack>
+            </HStack>
+            {message !== "" && !check && (
+              <Text gap="2" color="red" display="flex" align="center">
+                <FaInfoCircle size={24} /> {message}
+              </Text>
+            )}
+
+            <HStack mt={6}>
               <Button
                 bg="secondary"
                 color="primary"
@@ -58,7 +142,7 @@ const DetailProduct: React.FC = (): JSX.Element => {
                 borderColor="primary"
                 variant="outline"
               >
-                Cart
+                Add To Cart
               </Button>
               <Button px={14} rounded="none" bg="primary" color="white">
                 Checkout

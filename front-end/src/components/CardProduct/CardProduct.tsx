@@ -1,7 +1,9 @@
 import { IProducts } from "@/interface/product.interface";
-import { Box, HStack, Image, Stack, Text } from "@chakra-ui/react";
+import { formatRupiah } from "@/utils/formatRupiah";
+import { Box, HStack, IconButton, Image, Stack, Text } from "@chakra-ui/react";
 import Link from "next/link";
 import { FaCartPlus } from "react-icons/fa6";
+import { GoHeartFill } from "react-icons/go";
 
 interface IProps {
   product?: IProducts;
@@ -14,7 +16,7 @@ const CardProduct: React.FC<IProps> = ({ product }): JSX.Element => {
     overflow: "hidden",
   };
   return (
-    <Link href={`detail-product/1`}>
+    <Link href={`detail-product/${product?.product_id}`}>
       <Box
         p={2}
         border="1px solid #ebebeb"
@@ -22,15 +24,18 @@ const CardProduct: React.FC<IProps> = ({ product }): JSX.Element => {
         bg="white"
         boxSizing="border-box"
       >
-        <Image
-          w="full"
-          h="170px"
-          rounded="lg"
-          src="https://mandalikamusic.com/cdn/shop/products/DTS-02samping_1024x1024.jpg?v=1644046849"
-          alt="gitar"
-        />
+        <Box pos="relative">
+          <Image
+            w="full"
+            h="170px"
+            rounded="lg"
+            src={product?.image}
+            alt={product?.product_name}
+          />
+          <IconButton pos="absolute" top={0} right={0} size="sm" variant="unstyled" aria-label="wishlist" icon={<GoHeartFill color="white" size={24} />} />
+        </Box>
         <Text style={customStyleTitle} mt="2" fontWeight="medium">
-          Gitar Cowboy
+          {product?.product_name}
         </Text>
         <HStack justify="space-between">
           <Text
@@ -38,12 +43,13 @@ const CardProduct: React.FC<IProps> = ({ product }): JSX.Element => {
             fontWeight="medium"
             color="primary"
           >
-            Rp 1.200.000
+            {formatRupiah(product?.price)}
           </Text>
 
-          <Box cursor="pointer">
+          {/* <Box cursor="pointer">
             <FaCartPlus color="#39A7FF" size={24} />
-          </Box>
+          </Box> */}
+          <Text color="gray" fontSize="xs">stock: {product?.stock}</Text>
         </HStack>
       </Box>
     </Link>

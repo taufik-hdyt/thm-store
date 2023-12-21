@@ -1,6 +1,8 @@
 import {
   Avatar,
+  Box,
   Button,
+  Center,
   Divider,
   Flex,
   HStack,
@@ -76,17 +78,32 @@ const Header: React.FC<IProps> = ({
           <Divider orientation="vertical" />
         </Stack>
 
-        <IconButton
-          variant="ghost"
-          aria-label="cart"
-          icon={<IoCartOutline size={24} />}
-          onClick={onOpenCart}
-        />
+        <Box pos="relative">
+          <IconButton
+            variant="ghost"
+            aria-label="cart"
+            icon={<IoCartOutline size={35} />}
+            onClick={onOpenCart}
+          />
+          <Center
+            bg="primary"
+            w="20px"
+            h="20px"
+            rounded="full"
+            pos="absolute"
+            top="-2"
+            right={-2}
+          >
+            <Text fontSize="x-small" fontWeight="semibold" color="white">
+              {user?.cart.length}
+            </Text>
+          </Center>
+        </Box>
 
         <IconButton
           variant="ghost"
           aria-label="wichlist"
-          icon={<IoIosHeartEmpty size={24} />}
+          icon={<IoIosHeartEmpty size={35} />}
           onClick={openWichlist}
         />
 

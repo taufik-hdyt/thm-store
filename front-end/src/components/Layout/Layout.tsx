@@ -5,6 +5,8 @@ import useScreenSize from "@/utils/screenSize";
 import NavbarMobile from "../NavbarMobile/NavbarMobile";
 import Footer from "../Footer";
 import { DrawerCart, DrawerWichlist } from "../Drawer";
+import { useAuth } from "@/hooks/useAuth";
+import { useRouter } from "next/router";
 
 interface IProps {
   children?: React.ReactNode;
@@ -17,22 +19,40 @@ const Layout: React.FC<IProps> = ({
   isNavMobile,
 }): JSX.Element => {
   const screenSize = useScreenSize();
-  const {isOpen: isOpenCart,onClose: closeCart,onOpen:onOpenCart} =useDisclosure()
-  const {isOpen: isOpenWichlist,onClose: closeWichlist,onOpen: onOpenWichlist} =useDisclosure()
+  const {
+    isOpen: isOpenCart,
+    onClose: closeCart,
+    onOpen: onOpenCart,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenWichlist,
+    onClose: closeWichlist,
+    onOpen: onOpenWichlist,
+  } = useDisclosure();
+  const router = useRouter();
 
-  const openCart = ()=> {
-    if(isOpenWichlist){
-      closeWichlist()
-    }
-    onOpenCart()
-  }
-  const openWichlist = ()=> {
-    if(isOpenCart){
-      closeCart()
-    }
-    onOpenWichlist()
-  }
+  const { token } = useAuth();
 
+  const openCart = () => {
+    if (isOpenWichlist) {
+      closeWichlist();
+    }
+    if (!token) {
+      return router.push("/login");
+    } else {
+      onOpenCart();
+    }
+  };
+  const openWichlist = () => {
+    if (isOpenCart) {
+      closeCart();
+    }
+    if (!token) {
+      return router.push("/login");
+    } else {
+      onOpenWichlist();
+    }
+  };
 
   return (
     <Box>
@@ -44,17 +64,11 @@ const Layout: React.FC<IProps> = ({
       <Footer />
       {screenSize.width < 768 && isNavMobile && <NavbarMobile />}
 
-      {
-        isOpenCart && 
-          <DrawerCart isOpen={isOpenCart} onClose={closeCart} />
-        
-      }
+      {isOpenCart && <DrawerCart isOpen={isOpenCart} onClose={closeCart} />}
 
-{
-        isOpenWichlist && 
-          <DrawerWichlist isOpen={isOpenWichlist} onClose={closeWichlist} />
-        
-      }
+      {isOpenWichlist && (
+        <DrawerWichlist isOpen={isOpenWichlist} onClose={closeWichlist} />
+      )}
     </Box>
   );
 };

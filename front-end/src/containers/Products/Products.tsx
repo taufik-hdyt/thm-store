@@ -68,12 +68,7 @@ const Products: React.FC = (): JSX.Element => {
        
         {dataProducts?.data.map((e: IProducts, idx: number) => (
           <Box key={idx} >
-            <CardProduct
-              id={e.product_id}
-              image={e.image}
-              title={e.product_name}
-              price={e.price}
-              stock={e.stock}
+            <CardProduct product={e}
             />
           </Box>
         ))}

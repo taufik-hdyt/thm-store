@@ -1,3 +1,5 @@
+import { IProducts } from "./product.interface";
+
 export interface ICreateCustomer {
   fullname: string;
   email: string;
@@ -18,8 +20,12 @@ export interface ICustomer {
     profile_picture: string;
     address: string;
     phone: number
-    cart: []
+    cart: ICart[]
     wishlist: []
     createdAt: string
   }
   
+  export interface ICart{
+    cart_id: number
+    product: IProducts
+  }

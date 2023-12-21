@@ -25,7 +25,7 @@ const callApi = async ({ctx,method,params,uri}:IProps) => {
     }
 
     const config = {
-        baseURL: process.env.BASE_URL,
+        baseURL: "http://localhost:5000/api/v1",
         headers: { Authorization: `Bearer ${token}` },
         url: uri,
         method: method,
