@@ -106,7 +106,7 @@ export default new (class AuthServices {
         where: {
           customer_id: loginSession.customer_id,
         },
-        relations: ["cart","wishlist"]
+        relations: ["cart.product","wishlist"]
       });
 
       if (!customer)
