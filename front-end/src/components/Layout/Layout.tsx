@@ -4,7 +4,7 @@ import Header from "../Header/Header";
 import useScreenSize from "@/utils/screenSize";
 import NavbarMobile from "../NavbarMobile/NavbarMobile";
 import Footer from "../Footer";
-import DrawerCart from "../Drawer";
+import { DrawerCart, DrawerWichlist } from "../Drawer";
 
 interface IProps {
   children?: React.ReactNode;
@@ -17,12 +17,27 @@ const Layout: React.FC<IProps> = ({
   isNavMobile,
 }): JSX.Element => {
   const screenSize = useScreenSize();
-  const {isOpen,onClose,onOpen} =useDisclosure()
+  const {isOpen: isOpenCart,onClose: closeCart,onOpen:onOpenCart} =useDisclosure()
+  const {isOpen: isOpenWichlist,onClose: closeWichlist,onOpen: onOpenWichlist} =useDisclosure()
+
+  const openCart = ()=> {
+    if(isOpenWichlist){
+      closeWichlist()
+    }
+    onOpenCart()
+  }
+  const openWichlist = ()=> {
+    if(isOpenCart){
+      closeCart()
+    }
+    onOpenWichlist()
+  }
+
 
   return (
     <Box>
       <Head title={headTitle} />
-      <Header onOpenCart={onOpen} />
+      <Header onOpenCart={openCart} openWichlist={openWichlist} />
       <Box px={{ base: 4, md: 20 }} minH="100vh" pt={24} pb={10}>
         {children}
       </Box>
@@ -30,9 +45,15 @@ const Layout: React.FC<IProps> = ({
       {screenSize.width < 768 && isNavMobile && <NavbarMobile />}
 
       {
-        isOpen && <Box >
-          <DrawerCart isOpen={isOpen} onClose={onClose} />
-        </Box>
+        isOpenCart && 
+          <DrawerCart isOpen={isOpenCart} onClose={closeCart} />
+        
+      }
+
+{
+        isOpenWichlist && 
+          <DrawerWichlist isOpen={isOpenWichlist} onClose={closeWichlist} />
+        
       }
     </Box>
   );

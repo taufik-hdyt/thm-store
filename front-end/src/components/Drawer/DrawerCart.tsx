@@ -19,15 +19,15 @@ interface IProps {
   isOpen: boolean;
   onClose: () => void;
 }
-const DrawerSideBar: React.FC<IProps> = ({ isOpen, onClose }): JSX.Element => {
+const DrawerCart: React.FC<IProps> = ({ isOpen, onClose }): JSX.Element => {
   return (
-    <Drawer size="md" isOpen={isOpen} placement="right" onClose={onClose}>
+    <Drawer size="sm" isOpen={isOpen} placement="right" onClose={onClose}>
       <DrawerOverlay />
       <DrawerContent pt="20">
         <DrawerCloseButton />
         <DrawerHeader>MyCart</DrawerHeader>
 
-        <DrawerBody bg="red" maxH="100vh">
+        <DrawerBody  maxH="100vh">
           <Stack>
             <CartItem />
             <CartItem />
@@ -39,9 +39,13 @@ const DrawerSideBar: React.FC<IProps> = ({ isOpen, onClose }): JSX.Element => {
             <CartItem />
           </Stack>
         </DrawerBody>
-        <DrawerFooter>
-          <Stack >
-          <Button>Checkout</Button>
+        <DrawerFooter borderTop="2px solid #ebebeb">
+          <Stack align="center" w="full">
+            <HStack justify="space-between" w="full">
+          <Text>Total</Text>
+          <Text>Rp 1.200.000</Text>
+            </HStack>
+          <Button bg="primary" color="white" w="full">Checkout</Button>
           </Stack>
         </DrawerFooter>
       </DrawerContent>
@@ -49,4 +53,4 @@ const DrawerSideBar: React.FC<IProps> = ({ isOpen, onClose }): JSX.Element => {
   );
 };
 
-export default DrawerSideBar;
+export default DrawerCart;

@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
 
 const DrawerCart = dynamic(import("./DrawerCart"), { ssr: false });
-export default DrawerCart;
+const DrawerWichlist = dynamic(import("./DrawerWichlist"), { ssr: false });
+export {DrawerCart,DrawerWichlist}

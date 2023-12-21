@@ -17,7 +17,9 @@ export interface ICustomer {
     password: string;
     profile_picture: string;
     address: string;
-    isAdmin: boolean
+    phone: number
+    cart: []
+    wishlist: []
     createdAt: string
   }
   

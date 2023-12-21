@@ -25,7 +25,7 @@ const callApi = async ({ctx,method,params,uri}:IProps) => {
     }
 
     const config = {
-        baseURL: "https://thm-store.onrender.com/api/v1",
+        baseURL: process.env.BASE_URL,
         headers: { Authorization: `Bearer ${token}` },
         url: uri,
         method: method,

@@ -18,9 +18,10 @@ export const useHomeAction = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      return response;
+      return response.data
     },
   });
+  
   return {
     dataBrands,
     loadingBrands,

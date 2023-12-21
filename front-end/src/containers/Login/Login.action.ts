@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import { validationSchemaLogin } from "@/utils/validation";
 import { useMutation } from "@tanstack/react-query";
 import { Ilogin } from "@/interface/customer.interfaces";
-import { API, setAuthToken } from "@/libs/API";
+import { API} from "@/libs/API";
 import axios from "axios";
 import { setCookie } from 'nookies';
 
@@ -34,10 +34,12 @@ export const useLoginAction = () => {
   const { mutate: loginCustomer ,isPending:loadingLogin} = useMutation({
     mutationFn: async (body: Ilogin) => {
       const response = await API.post("/login", body);
-      return response;
+      console.log(response);
+      
+      return response
     },
+
     onSuccess: (res) => {
-      setAuthToken(res.data.token)
       toast({
         title: res.data.message,
         status:"success",

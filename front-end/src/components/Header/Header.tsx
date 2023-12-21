@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Button,
   Divider,
   Flex,
@@ -9,7 +10,7 @@ import {
   InputGroup,
   InputRightElement,
   Stack,
-  Text
+  Text,
 } from "@chakra-ui/react";
 import Link from "next/link";
 
@@ -19,12 +20,19 @@ import { destroyCookie } from "nookies";
 import { CiSearch } from "react-icons/ci";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { IoCartOutline } from "react-icons/io5";
+import { useAuth } from "@/hooks/useAuth";
 
 interface IProps {
   onOpenCart?: () => void;
+  openWichlist?: () => void;
 }
 
-const Header: React.FC<IProps> = ({ onOpenCart }): JSX.Element => {
+const Header: React.FC<IProps> = ({
+  onOpenCart,
+  openWichlist,
+}): JSX.Element => {
+  const { token, user } = useAuth();
+
   const router = useRouter();
   function handleLogout() {
     destroyCookie(null, "token");
@@ -34,7 +42,6 @@ const Header: React.FC<IProps> = ({ onOpenCart }): JSX.Element => {
   const scrolled = useScrolledSize();
 
   return (
-    
     <HStack
       justify="space-between"
       px={{ base: 2, md: 10 }}
@@ -78,28 +85,34 @@ const Header: React.FC<IProps> = ({ onOpenCart }): JSX.Element => {
 
         <IconButton
           variant="ghost"
-          aria-label="cart"
+          aria-label="wichlist"
           icon={<IoIosHeartEmpty size={24} />}
+          onClick={openWichlist}
         />
 
         <Stack direction="row" h="60px" p={4}>
           <Divider orientation="vertical" />
         </Stack>
-        <Button
-          variant="outline"
-          color="primary"
-          border="1px solid #39A7FF"
-          as={Link}
-          href="/login"
-        >
-          Sign in
-        </Button>
-        <Button bg="primary" color="white" as={Link} href="/register">
-          Sign Up
-        </Button>
+        {token ? (
+          <Avatar size="sm" src={user?.profile_picture} />
+        ) : (
+          <>
+            <Button
+              variant="outline"
+              color="primary"
+              border="1px solid #39A7FF"
+              as={Link}
+              href="/login"
+            >
+              Sign in
+            </Button>
+            <Button bg="primary" color="white" as={Link} href="/register">
+              Sign Up
+            </Button>
+          </>
+        )}
       </HStack>
     </HStack>
-      
   );
 };
 
