@@ -3,12 +3,13 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
-  ManyToMany,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn
 } from "typeorm";
 import { Brand } from "./Brand";
-import { Customer } from "./Customer";
+import { Cart } from "./Cart";
+import { Wishlist } from "./Wichlist";
 
 @Entity("products")
 export class Product {
@@ -40,6 +41,10 @@ export class Product {
   @JoinColumn({name: "brand_id"})
   brand: Brand;
 
-  @ManyToMany(() => Customer, (customer) => customer.products)
-  customers: Customer[];
+  @OneToMany(()=> Cart, (cart)=> cart.product)
+  cart: Cart[]
+
+  @OneToMany(()=> Wishlist, (wishlist)=> wishlist.product)
+  wishlist: Wishlist[]
+
 }

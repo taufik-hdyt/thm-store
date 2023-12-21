@@ -21,12 +21,10 @@ export const validatioRegister = [
   check("email", "Email cannot be empty")
     .matches(/.+\@.+\..+/)
     .withMessage("email is incorrect, add @"),
-  check("password", "Password cannot be empty")
+    check("password", "Password cannot be empty")
     .notEmpty()
-    .isLength({ min: 6 })
-    .withMessage("Password must be at least 6 characters")
-    .matches(/^(?=.*[A-Z]).+$/)
-    .withMessage("Must start with a capital letter"),
+    .isLength({ min: 6 }).withMessage("Password must be at least 6 characters")
+    .matches(/^(?=.*[A-Z]).+$/).withMessage("Must start with a capital letter"),
 ];
 
 
@@ -36,8 +34,6 @@ export const validationLogin = [
     .withMessage("email is incorrect, add @"),
   check("password", "Password cannot be empty")
     .notEmpty()
-    .isLength({ min: 6 })
-    .withMessage("Password must be at least 6 characters")
-    .matches(/^(?=.*[A-Z]).+$/)
-    .withMessage("Must start with a capital letter"),
+    .isLength({ min: 6 }).withMessage("Password must be at least 6 characters")
+    .matches(/^(?=.*[A-Z]).+$/).withMessage("Must start with a capital letter"),
 ];

@@ -4,6 +4,8 @@ import { Customer } from "./entity/Customer"
 import "dotenv/config"
 import { Brand } from "./entity/Brand"
 import { Product } from "./entity/Product"
+import { Cart } from "./entity/Cart"
+import { Wishlist } from "./entity/Wichlist"
 
 export const AppDataSource = new DataSource({
     type: "postgres",
@@ -15,7 +17,7 @@ export const AppDataSource = new DataSource({
     ssl: true,
     synchronize: true,
     logging: false,
-    entities: [Customer,Brand,Product],
+    entities: [Customer,Brand,Product,Cart,Wishlist],
     migrations: ['src/migration/*.ts'],
     subscribers: [],
 })

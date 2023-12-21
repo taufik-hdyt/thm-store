@@ -32,7 +32,6 @@ export default new (class AuthServices {
         password: passwordHashed,
         profile_picture:
           "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
-        address: "",
       });
 
       const createdCustomer = await this.CustomerRepository.save(customer);
@@ -56,9 +55,9 @@ export default new (class AuthServices {
         },
       });
       if (!customerSelected)
-      return res.status(404).json({
-        message: "Email not found",
-      });
+        return res.status(404).json({
+          message: "Email not found",
+        });
 
       if (!email)
         return res.status(400).json({
@@ -93,6 +92,8 @@ export default new (class AuthServices {
         token,
       });
     } catch (error) {
+      console.log(error);
+      
       return res.status(500).json({
         message: error,
       });
@@ -105,16 +106,7 @@ export default new (class AuthServices {
         where: {
           customer_id: loginSession.customer_id,
         },
-        select: {
-          profile_picture: true,
-          address: true,
-          customer_id: true,
-          email:true,
-          password:false,
-          fullname:true,
-          isAdmin:true,
-          createdAt:true
-        }
+        relations: ["cart","wishlist"]
       });
 
       if (!customer)

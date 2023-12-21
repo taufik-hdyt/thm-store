@@ -1,12 +1,12 @@
 import {
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
-  ManyToMany,
-  JoinTable,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn
 } from "typeorm";
-import { Product } from "./Product";
+import { Cart } from "./Cart";
+import { Wishlist } from "./Wichlist";
 
 @Entity("customers")
 export class Customer {
@@ -19,33 +19,25 @@ export class Customer {
   @Column()
   email: string;
 
+  @Column({nullable: true})
+  phone: number;
+
   @Column()
   password: string;
 
-  @Column()
+  @Column({nullable:true})
   profile_picture: string;
 
   @Column ({nullable: true})
   address: string;
 
-  @Column("boolean", { default: false })
-  isAdmin: boolean;
-
   @CreateDateColumn({ type: "time with time zone" })
   createdAt: Date;
 
-  @ManyToMany(() => Product, (product) => product.customers)
-  @JoinTable({
-    name: "carts",
-    joinColumn: {
-      name: "product_id",
-      referencedColumnName: "customer_id",
-    },
-    inverseJoinColumn: {
-      name: "customer_id",
-      referencedColumnName: "product_id",
-    },
-  })
-  products: Product[];
+  @OneToMany(()=> Cart, (cart)=> cart.customer)
+  cart: Cart[]
+
+  @OneToMany(()=> Wishlist, (wishlist)=> wishlist.customer)
+  wishlist: Wishlist[]
   
 }

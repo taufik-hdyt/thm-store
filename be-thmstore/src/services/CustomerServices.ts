@@ -47,6 +47,7 @@ export default new (class CustomerServices {
       customer.fullname = data.fullname;
       customer.profile_picture = data.profile_picture;
       customer.password = data.password;
+      customer.phone = data.phone
       const update = await this.CustomerRepository.save(customer);
       return res.status(200).json(update);
     } catch (error) {
