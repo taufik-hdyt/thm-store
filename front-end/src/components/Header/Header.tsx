@@ -133,7 +133,7 @@ const Header: React.FC<IProps> = ({
           <Divider orientation="vertical" />
         </Stack>
         {token ? (
-          <Avatar size="sm" src={user?.profile_picture} />
+          <Avatar cursor="pointer" as={Link} href="/profile" size="sm" src={user?.profile_picture} />
         ) : (
           <>
             <Button

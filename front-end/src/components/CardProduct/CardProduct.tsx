@@ -1,3 +1,4 @@
+import { useWishlist } from "@/hooks/useWishlist";
 import { IProducts } from "@/interface/product.interface";
 import { formatRupiah } from "@/utils/formatRupiah";
 import { Box, HStack, IconButton, Image, Stack, Text } from "@chakra-ui/react";
@@ -15,6 +16,10 @@ const CardProduct: React.FC<IProps> = ({ product }): JSX.Element => {
     WebkitBoxOrient: "vertical",
     overflow: "hidden",
   };
+
+  const { addWishlist, loadingWishlist } = useWishlist();
+
+
   return (
     <Link href={`detail-product/${product?.product_id}`}>
       <Box
@@ -32,7 +37,16 @@ const CardProduct: React.FC<IProps> = ({ product }): JSX.Element => {
             src={product?.image}
             alt={product?.product_name}
           />
-          <IconButton pos="absolute" top={0} right={0} size="sm" variant="unstyled" aria-label="wishlist" icon={<FaRegHeart color="red" size={24} />} />
+          <IconButton
+            pos="absolute"
+            top={0}
+            right={0}
+            size="sm"
+            variant="unstyled"
+            aria-label="wishlist"
+            onClick={()=> addWishlist(product ? product.product_id: 0)}
+            icon={<FaRegHeart color="red" size={24} />}
+          />
         </Box>
         <Text style={customStyleTitle} mt="2" fontWeight="medium">
           {product?.product_name}
@@ -49,7 +63,9 @@ const CardProduct: React.FC<IProps> = ({ product }): JSX.Element => {
           {/* <Box cursor="pointer">
             <FaCartPlus color="#39A7FF" size={24} />
           </Box> */}
-          <Text color="gray" fontSize="xs">stock: {product?.stock}</Text>
+          <Text color="gray" fontSize="xs">
+            stock: {product?.stock}
+          </Text>
         </HStack>
       </Box>
     </Link>

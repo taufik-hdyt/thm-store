@@ -22,6 +22,7 @@ import { formatRupiah } from "@/utils/formatRupiah";
 import { useState } from "react";
 import { FaInfoCircle } from "react-icons/fa";
 import { useAuth } from "@/hooks/useAuth";
+import { useWishlist } from "@/hooks/useWishlist";
 
 const DetailProduct: React.FC = (): JSX.Element => {
   const params = useParams();
@@ -59,9 +60,9 @@ const DetailProduct: React.FC = (): JSX.Element => {
      cartMutation({
       quantity: qty
     })
-
-  
   }
+
+  const { addWishlist, loadingWishlist } = useWishlist();
 
   return (
     <Box px={10}>
@@ -82,6 +83,7 @@ const DetailProduct: React.FC = (): JSX.Element => {
               right={0}
               size="sm"
               variant="unstyled"
+              onClick={()=> addWishlist(dataProduct ? dataProduct.product_id : 0)}
               aria-label="wishlist"
               icon={<GoHeartFill color="white" size={24} />}
             />

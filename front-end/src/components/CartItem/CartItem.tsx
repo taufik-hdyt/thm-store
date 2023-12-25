@@ -4,11 +4,13 @@ import { API } from "@/libs/API";
 import { formatRupiah } from "@/utils/formatRupiah";
 import {
   Box,
+  Divider,
   HStack,
   IconButton,
   Image,
+  Stack,
   Text,
-  useToast
+  useToast,
 } from "@chakra-ui/react";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
@@ -27,26 +29,24 @@ const CartItem: React.FC<IProps> = ({ data }): JSX.Element => {
   };
 
   const [count, setCount] = useState(0);
-  const { token,getProfile } = useAuth();
+  const { token, getProfile } = useAuth();
 
   const quantity = count + (data ? data.quantity : 0);
 
   const increment = () => {
     setCount(count + 1);
     cartMutation({
-      quantity: quantity + 1,
+      quantity: quantity,
     });
   };
 
   const decrement = () => {
     setCount(count - 1);
     cartMutation({
-      quantity: quantity - 1,
+      quantity: quantity,
     });
   };
-  const toast = useToast()
-
-  
+  const toast = useToast();
 
   const { mutate: cartMutation, isPending } = useMutation({
     mutationFn: async (body: { quantity: number }) => {
@@ -60,37 +60,35 @@ const CartItem: React.FC<IProps> = ({ data }): JSX.Element => {
         }
       );
       return response.data;
-
     },
-    onSuccess: (res)=> {
-      getProfile()
+    onSuccess: (res) => {
+      getProfile();
       toast({
         title: res.message,
         position: "top",
-        status: "success"
-      })
-    }
+        status: "success",
+      });
+    },
   });
-  
 
-  const {mutate:deleteCart,isPending: loadingDelete} = useMutation({
-    mutationFn: async(id:number)=> {
-      const response = await API.delete(`/cart/${id}` , {
+  const { mutate: deleteCart, isPending: loadingDelete } = useMutation({
+    mutationFn: async (id: number) => {
+      const response = await API.delete(`/cart/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      })
-      return response.data
+      });
+      return response.data;
     },
-    onSuccess: (res)=> {
-      getProfile()
+    onSuccess: (res) => {
+      getProfile();
       toast({
         title: res.message,
         position: "top",
-        status: "success"
-      })
-    }
-  })
+        status: "success",
+      });
+    },
+  });
 
   return (
     <HStack p={2} border="1px solid #ebebeb" rounded="lg">
@@ -100,44 +98,54 @@ const CartItem: React.FC<IProps> = ({ data }): JSX.Element => {
         src={data?.product.image}
         alt={data?.product.product_name}
       />
-      <Box w="full">
+
+      <HStack w="full" justify="space-between" >
+        <Stack spacing={0}>
         <Text style={customStyleTitle}>{data?.product.product_name}</Text>
-        <HStack justify="space-between" pr={4}>
           <Text fontWeight="semibold">{formatRupiah(data?.product.price)}</Text>
-          <HStack bg="#ebebeb" w="fit-content">
-            <IconButton
-              bg="primary"
-              color="white"
-              size="sm"
-              aria-label="icon"
-              icon={<TiMinus size={24} />}
-              isDisabled={count + (data ? data.quantity : 0) <= 1}
-              onClick={decrement}
-            />
-            <Text w="20px" fontWeight="semibold" textAlign="center">
-              {count + (data ? data.quantity : 0)}
-            </Text>
-            <IconButton
-              rounded="sm"
-              bg="primary"
-              color="white"
-              size="sm"
-              aria-label="icon"
-              icon={<TiPlus size={24} />}
-              onClick={increment}
-            />
-          </HStack>
+          <Text>Qty: {data?.quantity}</Text>
+        </Stack>
+        <HStack justify="space-between" >
           <IconButton
             aria-label="delete"
             variant="unstyled"
             icon={<RiDeleteBin6Line size={24} color="red" />}
-            onClick={()=> deleteCart(data ? data.cart_id : 0)}
+            onClick={() => deleteCart(data ? data.cart_id : 0)}
             isLoading={loadingDelete}
           />
         </HStack>
-      </Box>
+      </HStack>
     </HStack>
   );
 };
 
 export default CartItem;
+
+// CART PLUS
+{
+  /* <HStack bg="#ebebeb" w="fit-content">
+  <IconButton
+    bg="primary"
+    color="white"
+    size="sm"
+    aria-label="icon"
+    icon={<TiMinus size={24} />}
+    isDisabled={count <= 1}
+    
+    onClick={decrement}
+  />
+  <Text w="20px" fontWeight="semibold" textAlign="center">
+    {count + (data ? data.quantity : 0)}
+  </Text>
+  <IconButton
+    rounded="sm"
+    bg="primary"
+    color="white"
+    size="sm"
+    aria-label="icon"
+    isDisabled={count + (data ? data.quantity : 0) <= 1}
+    icon={<TiPlus size={24} />}
+    onClick={increment}
+  />
+</HStack> */
+}

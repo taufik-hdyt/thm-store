@@ -16,13 +16,14 @@ import { useAuth } from "@/hooks/useAuth";
 import { ICart } from "@/interface/customer.interfaces";
 import { formatRupiah } from "@/utils/formatRupiah";
 import { useEffect, useState } from "react";
+import Empty from "../Empty";
 
 interface IProps {
   isOpen: boolean;
   onClose: () => void;
 }
 const DrawerCart: React.FC<IProps> = ({ isOpen, onClose }): JSX.Element => {
-  const { user,getProfile } = useAuth();
+  const { user, getProfile } = useAuth();
 
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -32,14 +33,13 @@ const DrawerCart: React.FC<IProps> = ({ isOpen, onClose }): JSX.Element => {
       total += item.product.price * item.quantity;
     });
     setTotalPrice(total);
-    getProfile()
+
+    getProfile();
   };
 
   useEffect(() => {
     calculateTotalPrice();
-  }, []);
-
-  
+  }, [user]);
 
   return (
     <Drawer size="sm" isOpen={isOpen} placement="right" onClose={onClose}>
@@ -47,25 +47,33 @@ const DrawerCart: React.FC<IProps> = ({ isOpen, onClose }): JSX.Element => {
       <DrawerContent pt="20">
         <DrawerCloseButton />
         <DrawerHeader>MyCart</DrawerHeader>
-
-        <DrawerBody maxH="100vh">
-          <Stack>
-            {user?.cart.map((data: ICart, idx: number) => (
-              <CartItem key={idx} data={data} />
-            ))}
-          </Stack>
-        </DrawerBody>
-        <DrawerFooter borderTop="2px solid #ebebeb">
-          <Stack align="center" w="full">
-            <HStack justify="space-between" w="full">
-              <Text fontWeight="bold">Total</Text>
-              <Text fontWeight="semibold">{formatRupiah(totalPrice)}</Text>
-            </HStack>
-            <Button bg="primary" color="white" w="full">
-              Checkout
-            </Button>
-          </Stack>
-        </DrawerFooter>
+        {!user?.cart.length ? (
+          <Empty
+            image="https://cdni.iconscout.com/illustration/premium/thumb/empty-cart-7359557-6024626.png"
+            description="Your cart is still empty!!!"
+          />
+        ) : (
+          <>
+            <DrawerBody maxH="100vh">
+              <Stack>
+                {user?.cart.map((data: ICart, idx: number) => (
+                  <CartItem key={idx} data={data} />
+                ))}
+              </Stack>
+            </DrawerBody>
+            <DrawerFooter borderTop="2px solid #ebebeb">
+              <Stack align="center" w="full">
+                <HStack justify="space-between" w="full">
+                  <Text fontWeight="bold">Total</Text>
+                  <Text fontWeight="semibold">{formatRupiah(totalPrice)}</Text>
+                </HStack>
+                <Button bg="primary" color="white" w="full">
+                  Checkout
+                </Button>
+              </Stack>
+            </DrawerFooter>
+          </>
+        )}
       </DrawerContent>
     </Drawer>
   );
