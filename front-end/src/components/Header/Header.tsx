@@ -34,6 +34,7 @@ const Header: React.FC<IProps> = ({
   openWichlist,
 }): JSX.Element => {
   const { token, user } = useAuth();
+  
 
   const router = useRouter();
   function handleLogout() {
@@ -85,7 +86,7 @@ const Header: React.FC<IProps> = ({
             icon={<IoCartOutline size={35} />}
             onClick={onOpenCart}
           />
-          {user?.cart.length !== 0 && (
+          {user?.cart.length && (
             <Center
               bg="primary"
               w="20px"
@@ -110,7 +111,7 @@ const Header: React.FC<IProps> = ({
           icon={<IoIosHeartEmpty size={35} />}
           onClick={openWichlist}
         />
-          {user?.wishlist.length !== 0 && (
+          {user?.wishlist.length && (
             <Center
               bg="primary"
               w="20px"
