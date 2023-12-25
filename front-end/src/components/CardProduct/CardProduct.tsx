@@ -21,7 +21,7 @@ const CardProduct: React.FC<IProps> = ({ product }): JSX.Element => {
 
 
   return (
-    <Link href={`detail-product/${product?.product_id}`}>
+    
       <Box
         p={2}
         border="1px solid #ebebeb"
@@ -48,9 +48,11 @@ const CardProduct: React.FC<IProps> = ({ product }): JSX.Element => {
             icon={<FaRegHeart color="red" size={24} />}
           />
         </Box>
+        <Link href={`detail-product/${product?.product_id}`}>
         <Text style={customStyleTitle} mt="2" fontWeight="medium">
           {product?.product_name}
         </Text>
+        </Link>
         <HStack justify="space-between">
           <Text
             fontSize={{ base: "xs", md: "md" }}
@@ -68,7 +70,7 @@ const CardProduct: React.FC<IProps> = ({ product }): JSX.Element => {
           </Text>
         </HStack>
       </Box>
-    </Link>
+    
   );
 };
 

@@ -25,7 +25,7 @@ import { useState } from "react";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { IoMdListBox, IoIosStats, IoMdHeartEmpty } from "react-icons/io";
 import { IoCartOutline } from "react-icons/io5";
-import MyProfile from "./partials";
+import { MyProfile, Transaction } from "./partials";
 import CartItem from "@/components/CartItem";
 import { ICart, IWishlist } from "@/interface/customer.interfaces";
 import WishlistItem from "@/components/Wishlist";
@@ -52,14 +52,14 @@ const Profile: React.FC = (): JSX.Element => {
             </h2>
             <AccordionPanel pb={4}>
               <List spacing={3}>
-                <ListItem cursor="pointer">
-                  <ListIcon fontSize={24} as={IoMdListBox} color="primary" />
+                <ListItem cursor="pointer" onClick={() => setSelectedMenu("transaction")}>
+                  <ListIcon fontSize={24} as={IoMdListBox} color="primary"  />
                   Transaction list
                 </ListItem>
-                <ListItem cursor="pointer">
+                {/* <ListItem cursor="pointer">
                   <ListIcon fontSize={24} as={IoIosStats} color="primary" />
                   Transaction status
-                </ListItem>
+                </ListItem> */}
               </List>
             </AccordionPanel>
           </AccordionItem>
@@ -91,6 +91,7 @@ const Profile: React.FC = (): JSX.Element => {
                 <ListItem
                   cursor="pointer"
                   onClick={() => setSelectedMenu("profile")}
+                  
                 >
                   <ListIcon
                     fontSize={24}
@@ -144,6 +145,12 @@ const Profile: React.FC = (): JSX.Element => {
             )}
           </>
         )}
+
+        {
+          selectedMenu === "transaction" && <>
+          <Transaction />
+          </>
+        }
       </GridItem>
     </Grid>
   );
