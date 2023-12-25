@@ -28,4 +28,5 @@ export interface ICustomer {
   export interface ICart{
     cart_id: number
     product: IProducts
+    quantity: number
   }

@@ -2,7 +2,7 @@ import { IProducts } from "@/interface/product.interface";
 import { formatRupiah } from "@/utils/formatRupiah";
 import { Box, HStack, IconButton, Image, Stack, Text } from "@chakra-ui/react";
 import Link from "next/link";
-import { FaCartPlus } from "react-icons/fa6";
+import { FaRegHeart } from "react-icons/fa6";
 import { GoHeartFill } from "react-icons/go";
 
 interface IProps {
@@ -32,7 +32,7 @@ const CardProduct: React.FC<IProps> = ({ product }): JSX.Element => {
             src={product?.image}
             alt={product?.product_name}
           />
-          <IconButton pos="absolute" top={0} right={0} size="sm" variant="unstyled" aria-label="wishlist" icon={<GoHeartFill color="white" size={24} />} />
+          <IconButton pos="absolute" top={0} right={0} size="sm" variant="unstyled" aria-label="wishlist" icon={<FaRegHeart color="red" size={24} />} />
         </Box>
         <Text style={customStyleTitle} mt="2" fontWeight="medium">
           {product?.product_name}

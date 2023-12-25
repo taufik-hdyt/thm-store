@@ -78,27 +78,29 @@ const Header: React.FC<IProps> = ({
           <Divider orientation="vertical" />
         </Stack>
 
-        <Box pos="relative">
-          <IconButton
-            variant="ghost"
-            aria-label="cart"
-            icon={<IoCartOutline size={35} />}
-            onClick={onOpenCart}
-          />
-          <Center
-            bg="primary"
-            w="20px"
-            h="20px"
-            rounded="full"
-            pos="absolute"
-            top="-2"
-            right={-2}
-          >
-            <Text fontSize="x-small" fontWeight="semibold" color="white">
-              {user?.cart.length}
-            </Text>
-          </Center>
-        </Box>
+        {user?.cart.length !== 0 && (
+          <Box pos="relative">
+            <IconButton
+              variant="ghost"
+              aria-label="cart"
+              icon={<IoCartOutline size={35} />}
+              onClick={onOpenCart}
+            />
+            <Center
+              bg="primary"
+              w="20px"
+              h="20px"
+              rounded="full"
+              pos="absolute"
+              top="-2"
+              right={-2}
+            >
+              <Text fontSize="x-small" fontWeight="semibold" color="white">
+                {user?.cart.length}
+              </Text>
+            </Center>
+          </Box>
+        )}
 
         <IconButton
           variant="ghost"

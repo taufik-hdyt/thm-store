@@ -2,30 +2,25 @@
 import CardBrand from "@/components/CardBrand";
 import CardProduct from "@/components/CardProduct";
 import ImageSlider from "@/components/ImageSlider";
+import { Loading } from "@/components/LoadingAnimation/loadingAnimation";
+import { IBrand } from "@/interface/brand.interfaces";
+import { IProducts } from "@/interface/product.interface";
 import {
-  AbsoluteCenter,
   Box,
-  Button,
-  Divider,
   Flex,
   HStack,
   IconButton,
-  Text,
+  Text
 } from "@chakra-ui/react";
 import {
   IoIosArrowDropleftCircle,
-  IoIosArrowDroprightCircle,
-  IoIosArrowRoundForward,
+  IoIosArrowDroprightCircle
 } from "react-icons/io";
-import { useProductAction } from "../Products/Product.action";
 import { useHomeAction } from "./Home.action";
-import { IBrand } from "@/interface/brand.interfaces";
-import { Loading } from "@/components/LoadingAnimation/loadingAnimation";
-import { IProducts } from "@/interface/product.interface";
 
 const Home: React.FC = (): JSX.Element => {
-  const { dataBrands, loadingBrands,dataProdutcs,loadingProducts } = useHomeAction();
-  
+  const { dataBrands, loadingBrands, dataProdutcs, loadingProducts } =
+    useHomeAction();
 
   return (
     <Box>
@@ -44,18 +39,14 @@ const Home: React.FC = (): JSX.Element => {
           Product New
         </Text>
         <Box mt={4} bg="primary" rounded="lg">
-          <Flex p={3} overflowX="auto" gap={4}>
-          {
-                loadingBrands && <Loading />
-              }
-            {
-              dataProdutcs?.data.map((data: IProducts, idx: number)=>(
-            <Box w="200px" key={idx}>
-              <CardProduct product={data} />
-            </Box>
-              ))
-            }
-          </Flex>
+          <HStack p={3} overflowX="auto">
+            {loadingBrands && <Loading />}
+            {dataProdutcs?.data.map((data: IProducts, idx: number) => (
+              <Box w="200px" key={idx}>
+                <CardProduct product={data} />
+              </Box>
+            ))}
+          </HStack>
         </Box>
 
         <Box mt={4} bg="white">
@@ -89,16 +80,13 @@ const Home: React.FC = (): JSX.Element => {
               icon={<IoIosArrowDropleftCircle size={35} />}
             />
 
-            <HStack overflowX="auto" >
-              {
-                loadingBrands && <Loading />
-              }
-              {dataBrands?.data?.map((data: IBrand,idx: number) => (
-                <Box key={idx} >
+            <HStack overflowX="auto">
+              {loadingBrands && <Loading />}
+              {dataBrands?.data?.map((data: IBrand, idx: number) => (
+                <Box key={idx}>
                   <CardBrand brand={data} />
                 </Box>
               ))}
-
             </HStack>
 
             <IconButton

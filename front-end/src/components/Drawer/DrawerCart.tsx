@@ -22,14 +22,14 @@ interface IProps {
   onClose: () => void;
 }
 const DrawerCart: React.FC<IProps> = ({ isOpen, onClose }): JSX.Element => {
-  const { user} = useAuth()
+  const { user } = useAuth();
 
   const [totalPrice, setTotalPrice] = useState(0);
 
   const calculateTotalPrice = () => {
-    let total = 0
-    user?.cart.forEach((item:ICart) => {
-      total += item.product.price;
+    let total = 0;
+    user?.cart.forEach((item: ICart) => {
+      total += item.product.price * item.quantity;
     });
     setTotalPrice(total);
   };
@@ -38,6 +38,7 @@ const DrawerCart: React.FC<IProps> = ({ isOpen, onClose }): JSX.Element => {
     calculateTotalPrice();
   }, []);
 
+  
 
   return (
     <Drawer size="sm" isOpen={isOpen} placement="right" onClose={onClose}>
@@ -46,23 +47,22 @@ const DrawerCart: React.FC<IProps> = ({ isOpen, onClose }): JSX.Element => {
         <DrawerCloseButton />
         <DrawerHeader>MyCart</DrawerHeader>
 
-        <DrawerBody  maxH="100vh">
+        <DrawerBody maxH="100vh">
           <Stack>
-            {
-              user?.cart.map((data: ICart,idx: number)=> (
-                <CartItem  key={idx} data={data} />
-              ))
-            }
-
+            {user?.cart.map((data: ICart, idx: number) => (
+              <CartItem key={idx} data={data} />
+            ))}
           </Stack>
         </DrawerBody>
         <DrawerFooter borderTop="2px solid #ebebeb">
           <Stack align="center" w="full">
             <HStack justify="space-between" w="full">
-          <Text fontWeight="bold">Total</Text>
-          <Text fontWeight="semibold">{formatRupiah(totalPrice)}</Text>
+              <Text fontWeight="bold">Total</Text>
+              <Text fontWeight="semibold">{formatRupiah(totalPrice)}</Text>
             </HStack>
-          <Button bg="primary" color="white" w="full">Checkout</Button>
+            <Button bg="primary" color="white" w="full">
+              Checkout
+            </Button>
           </Stack>
         </DrawerFooter>
       </DrawerContent>

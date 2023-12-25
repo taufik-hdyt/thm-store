@@ -29,7 +29,7 @@ const DetailProduct: React.FC = (): JSX.Element => {
   const [message, setMessage] = useState("");
   const [check, setCheck] = useState<boolean>(false);
 
-  const { dataProduct } = useDetailProductAction(idParam);
+  const { dataProduct ,cartMutation,loadingCart} = useDetailProductAction(idParam);
   let messageQtyResponse = "";
   function handleIncrement() {
     if ((dataProduct ? dataProduct.stock : 0) <= qty) {
@@ -51,6 +51,12 @@ const DetailProduct: React.FC = (): JSX.Element => {
     }
     setQty(qty - 1);
     setCheck(true);
+  }
+
+  const handleAddCart = ()=> {
+    cartMutation({
+      quantity: qty
+    })
   }
 
   return (
@@ -141,6 +147,8 @@ const DetailProduct: React.FC = (): JSX.Element => {
                 leftIcon={<BsCartPlus size={24} />}
                 borderColor="primary"
                 variant="outline"
+                onClick={handleAddCart}
+                isLoading={loadingCart}
               >
                 Add To Cart
               </Button>
