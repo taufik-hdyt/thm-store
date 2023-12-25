@@ -27,7 +27,7 @@ const CartItem: React.FC<IProps> = ({ data }): JSX.Element => {
   };
 
   const [count, setCount] = useState(0);
-  const { token } = useAuth();
+  const { token,getProfile } = useAuth();
 
   const quantity = count + (data ? data.quantity : 0);
 
@@ -63,8 +63,7 @@ const CartItem: React.FC<IProps> = ({ data }): JSX.Element => {
 
     },
     onSuccess: (res)=> {
-      console.log(res);
-      
+      getProfile()
       toast({
         title: res.message,
         position: "top",
@@ -84,7 +83,7 @@ const CartItem: React.FC<IProps> = ({ data }): JSX.Element => {
       return response.data
     },
     onSuccess: (res)=> {
-      console.log(res);
+      getProfile()
       toast({
         title: res.message,
         position: "top",

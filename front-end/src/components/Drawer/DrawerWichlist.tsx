@@ -15,12 +15,15 @@ import {
   } from "@chakra-ui/react";
   import CartItem from "../CartItem";
 import WichlistItem from "../Wichlist";
+import { useAuth } from "@/hooks/useAuth";
+import { IWishlist } from "@/interface/customer.interfaces";
   
   interface IProps {
     isOpen: boolean;
     onClose: () => void;
   }
   const DrawerWichlist: React.FC<IProps> = ({ isOpen, onClose }): JSX.Element => {
+    const {user} = useAuth()
     return (
       <Drawer size="sm" isOpen={isOpen} placement="right" onClose={onClose}>
         <DrawerOverlay />
@@ -30,13 +33,12 @@ import WichlistItem from "../Wichlist";
   
           <DrawerBody  maxH="100vh">
             <Stack>
-             <WichlistItem />
-             <WichlistItem />
-             <WichlistItem />
-             <WichlistItem />
-             <WichlistItem />
-             <WichlistItem />
-             <WichlistItem />
+              {
+                user?.wishlist.map((data: IWishlist,idx:number)=> (
+                  <WichlistItem key={idx} data={data} />
+                ))
+              }
+             
             </Stack>
           </DrawerBody>
         </DrawerContent>

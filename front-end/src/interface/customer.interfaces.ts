@@ -30,3 +30,8 @@ export interface ICustomer {
     product: IProducts
     quantity: number
   }
+
+  export interface IWishlist{
+    wishlist_id: number
+    product: IProducts
+  }

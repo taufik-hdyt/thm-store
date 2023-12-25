@@ -4,7 +4,7 @@ import { API } from "@/libs/API";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 export const useDetailProductAction = (id: number) => {
-  const { token } = useAuth();
+  const { token,getProfile } = useAuth();
 
   const { data: dataProduct, isLoading } = useQuery<IProducts>({
     queryKey: ["detail-product"],
@@ -33,9 +33,11 @@ export const useDetailProductAction = (id: number) => {
       );
       return response.data;
     },
+    onSuccess: ()=> {
+      getProfile()
+    }
   });
-
-
+  
   return {
     dataProduct,
     isLoading,

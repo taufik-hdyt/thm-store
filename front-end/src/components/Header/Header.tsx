@@ -78,14 +78,14 @@ const Header: React.FC<IProps> = ({
           <Divider orientation="vertical" />
         </Stack>
 
-        {user?.cart.length !== 0 && (
-          <Box pos="relative">
-            <IconButton
-              variant="ghost"
-              aria-label="cart"
-              icon={<IoCartOutline size={35} />}
-              onClick={onOpenCart}
-            />
+        <Box pos="relative">
+          <IconButton
+            variant="ghost"
+            aria-label="cart"
+            icon={<IoCartOutline size={35} />}
+            onClick={onOpenCart}
+          />
+          {user?.cart.length !== 0 && (
             <Center
               bg="primary"
               w="20px"
@@ -99,8 +99,10 @@ const Header: React.FC<IProps> = ({
                 {user?.cart.length}
               </Text>
             </Center>
-          </Box>
-        )}
+          )}
+        </Box>
+
+        <Box pos="relative">
 
         <IconButton
           variant="ghost"
@@ -108,6 +110,24 @@ const Header: React.FC<IProps> = ({
           icon={<IoIosHeartEmpty size={35} />}
           onClick={openWichlist}
         />
+          {user?.wishlist.length !== 0 && (
+            <Center
+              bg="primary"
+              w="20px"
+              h="20px"
+              rounded="full"
+              pos="absolute"
+              top="-2"
+              right={-2}
+            >
+              <Text fontSize="x-small" fontWeight="semibold" color="white">
+                {user?.wishlist.length}
+              </Text>
+            </Center>
+          )}
+        </Box>
+
+       
 
         <Stack direction="row" h="60px" p={4}>
           <Divider orientation="vertical" />

@@ -22,7 +22,7 @@ interface IProps {
   onClose: () => void;
 }
 const DrawerCart: React.FC<IProps> = ({ isOpen, onClose }): JSX.Element => {
-  const { user } = useAuth();
+  const { user,getProfile } = useAuth();
 
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -32,6 +32,7 @@ const DrawerCart: React.FC<IProps> = ({ isOpen, onClose }): JSX.Element => {
       total += item.product.price * item.quantity;
     });
     setTotalPrice(total);
+    getProfile()
   };
 
   useEffect(() => {

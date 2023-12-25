@@ -21,10 +21,12 @@ import { GoHeartFill } from "react-icons/go";
 import { formatRupiah } from "@/utils/formatRupiah";
 import { useState } from "react";
 import { FaInfoCircle } from "react-icons/fa";
+import { useAuth } from "@/hooks/useAuth";
 
 const DetailProduct: React.FC = (): JSX.Element => {
   const params = useParams();
   const idParam = Number(params.id);
+  const {getProfile} = useAuth()
   const [qty, setQty] = useState(1);
   const [message, setMessage] = useState("");
   const [check, setCheck] = useState<boolean>(false);
@@ -54,9 +56,11 @@ const DetailProduct: React.FC = (): JSX.Element => {
   }
 
   const handleAddCart = ()=> {
-    cartMutation({
+     cartMutation({
       quantity: qty
     })
+
+  
   }
 
   return (
