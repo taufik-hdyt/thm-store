@@ -1,6 +1,6 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../data-source";
-import { Request, Response } from "express";
+import { Request, Response, response } from "express";
 import { Product } from "../entity/Product";
 import { Customer } from "../entity/Customer";
 import { Cart } from "../entity/Cart";
@@ -16,6 +16,7 @@ export default new (class BrandServices {
   async addCart(req: Request, res: Response): Promise<Response> {
     try {
       const {id} = req.params
+      const {quantity} = req.body
       if(!id) return res.status(400).json({
         message: "Id is not valid"
       })
@@ -51,10 +52,13 @@ export default new (class BrandServices {
 
       // check jika ada cart maka akan di hapus
       if(cartSelected){
-        await this.CartRepository.delete(cartSelected.cart_id)
+        cartSelected.customer =customer
+        cartSelected.product = product
+        cartSelected.quantity = quantity
+        await this.CartRepository.save(cartSelected)
         return res.status(200).json({
-          message: "Deleted Cart",
-          status: "success"
+          message: "Update Cart",
+          data: cartSelected
         })
       }
 
@@ -62,6 +66,7 @@ export default new (class BrandServices {
       const cart = new Cart()
       cart.customer = customer 
       cart.product = product
+      cart.quantity = quantity
       await this.CartRepository.save(cart)
       return res.status(200).json({
         message: "Add to cart",
@@ -77,5 +82,27 @@ export default new (class BrandServices {
       });
     }
   }
+
+  async deleteCart(req:Request,res:Response):Promise<Response>{
+    try {
+      const id = Number(req.params.id)
+      const cartSelected = await this.CartRepository.findOne({
+        where:{
+          cart_id: id
+        }
+      })
+      if(!cartSelected) return res.status(404).json({
+        message: "Cart not found"
+      })
+      await this.CartRepository.delete(id)
+      return res.status(200).json({message: "Deleted Cart"})
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  }
+
 
 })();

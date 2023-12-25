@@ -1,4 +1,4 @@
-import { Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Customer } from "./Customer";
 import { Product } from "./Product";
 
@@ -14,4 +14,7 @@ export class Cart {
     @ManyToOne(()=> Product, (product)=> product.cart)
     @JoinColumn({name: "id_product"})
     product: Product
+
+    @Column( {default: 1})
+    quantity: number
 }
