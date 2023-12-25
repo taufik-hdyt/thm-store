@@ -8,6 +8,7 @@ import BrandRoutes from './routes/BrandRoutes'
 import UploadRoutes from './routes/UploadRoutes'
 import ProductRoutes from './routes/ProductRoutes'
 import CartRoutes from './routes/CartRoutes'
+import WishlistRoutes from './routes/WishlistRoutes'
 
 AppDataSource.initialize()
   .then(async () => {
@@ -27,6 +28,7 @@ AppDataSource.initialize()
     app.use('/api/v1', UploadRoutes)
     app.use('/api/v1', ProductRoutes)
     app.use('/api/v1', CartRoutes)
+    app.use('/api/v1', WishlistRoutes)
 
     
 
