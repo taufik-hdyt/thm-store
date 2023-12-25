@@ -14,9 +14,9 @@ import {
     Text,
   } from "@chakra-ui/react";
   import CartItem from "../CartItem";
-import WichlistItem from "../Wichlist";
 import { useAuth } from "@/hooks/useAuth";
 import { IWishlist } from "@/interface/customer.interfaces";
+import WishlistItem from "../Wishlist";
   
   interface IProps {
     isOpen: boolean;
@@ -35,7 +35,7 @@ import { IWishlist } from "@/interface/customer.interfaces";
             <Stack>
               {
                 user?.wishlist.map((data: IWishlist,idx:number)=> (
-                  <WichlistItem key={idx} data={data} />
+                  <WishlistItem key={idx} data={data} />
                 ))
               }
              
