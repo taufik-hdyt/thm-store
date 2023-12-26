@@ -1,23 +1,19 @@
+import { useAuth } from "@/hooks/useAuth";
+import { IWishlist } from "@/interface/customer.interfaces";
 import {
-  Button,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
   DrawerContent,
-  DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
-  HStack,
   IconButton,
-  Image,
   Stack,
-  Text,
+  Text
 } from "@chakra-ui/react";
-import CartItem from "../CartItem";
-import { useAuth } from "@/hooks/useAuth";
-import { IWishlist } from "@/interface/customer.interfaces";
-import WishlistItem from "../Wishlist";
+import { IoIosCloseCircleOutline } from "react-icons/io";
 import Empty from "../Empty/Empty";
+import WishlistItem from "../Wishlist";
 
 interface IProps {
   isOpen: boolean;
@@ -30,7 +26,10 @@ const DrawerWichlist: React.FC<IProps> = ({ isOpen, onClose }): JSX.Element => {
       <DrawerOverlay />
       <DrawerContent pt="20">
         <DrawerCloseButton />
-        <DrawerHeader>Wichlist</DrawerHeader>
+        <DrawerHeader display="flex" justifyContent="space-between">
+          <Text>Wishlist</Text>
+          <IconButton variant="unstyled" onClick={onClose} aria-label="close" icon={<IoIosCloseCircleOutline size={24} />} />
+        </DrawerHeader>
         {!user?.wishlist.length ? (
           <Empty description="Your wishlist is still empty" image="https://www.edeleita.com/assets/img/empty_wishlist.png" />
         ) : (

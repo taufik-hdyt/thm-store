@@ -1,5 +1,5 @@
 import Layout from "@/components/Layout";
-import { Box, Card, Container, HStack, Image, Stack, Text } from "@chakra-ui/react";
+import { Card, Container, HStack, Image, Stack, Text } from "@chakra-ui/react";
 
 const Cart: React.FC = (): JSX.Element => {
   return (

@@ -8,6 +8,7 @@ import {
   DrawerHeader,
   DrawerOverlay,
   HStack,
+  IconButton,
   Stack,
   Text,
 } from "@chakra-ui/react";
@@ -17,6 +18,7 @@ import { ICart } from "@/interface/customer.interfaces";
 import { formatRupiah } from "@/utils/formatRupiah";
 import { useEffect, useState } from "react";
 import Empty from "../Empty";
+import { IoIosCloseCircleOutline } from "react-icons/io";
 
 interface IProps {
   isOpen: boolean;
@@ -45,8 +47,10 @@ const DrawerCart: React.FC<IProps> = ({ isOpen, onClose }): JSX.Element => {
     <Drawer size="sm" isOpen={isOpen} placement="right" onClose={onClose}>
       <DrawerOverlay />
       <DrawerContent pt="20">
-        <DrawerCloseButton />
-        <DrawerHeader>MyCart</DrawerHeader>
+        <DrawerHeader display="flex" justifyContent="space-between">
+          <Text>MyCart</Text>
+          <IconButton variant="unstyled" onClick={onClose} aria-label="close" icon={<IoIosCloseCircleOutline size={24} />} />
+        </DrawerHeader>
         {!user?.cart.length ? (
           <Empty
             image="https://cdni.iconscout.com/illustration/premium/thumb/empty-cart-7359557-6024626.png"

@@ -26,6 +26,7 @@ const Transaction: React.FC = (): JSX.Element => {
         </Button>
         <Button variant="outline">Success</Button>
         <Button variant="outline">Failed</Button>
+        <Button variant="outline">Pending</Button>
       </HStack>
 
       <Stack mt={6}>

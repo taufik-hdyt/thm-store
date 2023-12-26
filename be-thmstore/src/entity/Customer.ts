@@ -7,6 +7,7 @@ import {
 } from "typeorm";
 import { Cart } from "./Cart";
 import { Wishlist } from "./Wichlist";
+import { Transaction } from "./Transaction";
 
 @Entity("customers")
 export class Customer {
@@ -39,5 +40,7 @@ export class Customer {
 
   @OneToMany(()=> Wishlist, (wishlist)=> wishlist.customer)
   wishlist: Wishlist[]
-  
+
+  @OneToMany(()=>Transaction, (transaction)=> transaction.customer)
+  transactions: Transaction[]
 }

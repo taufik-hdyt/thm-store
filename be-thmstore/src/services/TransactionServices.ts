@@ -13,6 +13,7 @@ export default new (class TransactionServices {
     private readonly ProductRepository: Repository<Product> =
     AppDataSource.getRepository(Product);
 
+<<<<<<< HEAD
 //   async addTransaction(req: Request, res: Response): Promise<Response> {
 //     try {
 
@@ -29,3 +30,26 @@ export default new (class TransactionServices {
 //     }
 //   }
 // })();
+=======
+  async addTransaction(req: Request, res: Response): Promise<Response> {
+    try {
+
+        // const customer = await this.CustomerRepository.findOne({
+        //     where: {
+        //         customer_id: 
+        //     }
+        // })
+
+
+
+
+
+
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  }
+})();
+>>>>>>> 86a46b973caf99199abf8ef17741806d59d4f535

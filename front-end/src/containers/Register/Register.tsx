@@ -39,7 +39,7 @@ const Register: React.FC = (): JSX.Element => {
             alt="image"
           />
         </GridItem>
-        <Stack justify="center" align="center"  px={{ base: 6, md: 0 }} >
+        <Stack justify="center" align="center"  px={{ base: 3, md: 0 }} >
             <form onSubmit={formik.handleSubmit} style={{width:"100%", display: "flex", justifyContent: "center"}}>
           <Stack w={{ base: "full", md: "400px" }} bg="white" rounded="lg" p={3 }>
             <Text fontSize="3xl" fontWeight="600">

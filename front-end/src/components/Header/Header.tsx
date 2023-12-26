@@ -11,6 +11,10 @@ import {
   Input,
   InputGroup,
   InputRightElement,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Stack,
   Text,
 } from "@chakra-ui/react";
@@ -20,8 +24,8 @@ import useScrolledSize from "@/utils/scrolledSize";
 import { useRouter } from "next/router";
 import { destroyCookie } from "nookies";
 import { CiSearch } from "react-icons/ci";
-import { IoIosHeartEmpty } from "react-icons/io";
-import { IoCartOutline } from "react-icons/io5";
+import { IoIosHeartEmpty,IoIosLogOut } from "react-icons/io";
+import { IoCartOutline,IoPerson } from "react-icons/io5";
 import { useAuth } from "@/hooks/useAuth";
 
 interface IProps {
@@ -34,6 +38,7 @@ const Header: React.FC<IProps> = ({
   openWichlist,
 }): JSX.Element => {
   const { token, user } = useAuth();
+  
 
   const router = useRouter();
   function handleLogout() {
@@ -67,7 +72,7 @@ const Header: React.FC<IProps> = ({
       </Link>
       1
       <HStack>
-        <InputGroup w="fit-content">
+        <InputGroup w="fit-content" display={{base:"none", md: "block"}}>
           <InputRightElement>
             <CiSearch size={24} />
           </InputRightElement>
@@ -82,18 +87,18 @@ const Header: React.FC<IProps> = ({
           <IconButton
             variant="ghost"
             aria-label="cart"
-            icon={<IoCartOutline size={35} />}
+            icon={<IoCartOutline size={30} />}
             onClick={onOpenCart}
           />
-          {user?.cart.length !== 0 && (
+          {user?.cart.length && (
             <Center
               bg="primary"
               w="20px"
               h="20px"
               rounded="full"
               pos="absolute"
-              top="-2"
-              right={-2}
+              top="-1"
+              right={-1}
             >
               <Text fontSize="x-small" fontWeight="semibold" color="white">
                 {user?.cart.length}
@@ -107,18 +112,18 @@ const Header: React.FC<IProps> = ({
         <IconButton
           variant="ghost"
           aria-label="wichlist"
-          icon={<IoIosHeartEmpty size={35} />}
+          icon={<IoIosHeartEmpty size={30} />}
           onClick={openWichlist}
         />
-          {user?.wishlist.length !== 0 && (
+          {user?.wishlist.length && (
             <Center
               bg="primary"
               w="20px"
               h="20px"
               rounded="full"
               pos="absolute"
-              top="-2"
-              right={-2}
+              top="-1"
+              right={-1}
             >
               <Text fontSize="x-small" fontWeight="semibold" color="white">
                 {user?.wishlist.length}
@@ -128,12 +133,22 @@ const Header: React.FC<IProps> = ({
         </Box>
 
        
-
-        <Stack direction="row" h="60px" p={4}>
+      
+        <Stack display={{base: 'none', md: "flex"}} direction="row" h="60px" p={4}>
           <Divider orientation="vertical" />
         </Stack>
+
+        <Box display={{base:"none",md: "flex"}} gap={3}>
         {token ? (
-          <Avatar cursor="pointer" as={Link} href="/profile" size="sm" src={user?.profile_picture} />
+          <Menu>
+            <MenuButton>
+            <Avatar cursor="pointer" as={Link} href="/profile" size="sm" src={user?.profile_picture} />
+            </MenuButton>
+            <MenuList>
+              <MenuItem onClick={()=>router.push("/profile")} icon={<IoPerson size={24} />}>Profile</MenuItem>
+              <MenuItem onClick={()=>handleLogout()} icon={<IoIosLogOut size={24} />}>Logout</MenuItem>
+            </MenuList>
+          </Menu>
         ) : (
           <>
             <Button
@@ -150,7 +165,11 @@ const Header: React.FC<IProps> = ({
             </Button>
           </>
         )}
+        </Box>
+
       </HStack>
+
+        
     </HStack>
   );
 };

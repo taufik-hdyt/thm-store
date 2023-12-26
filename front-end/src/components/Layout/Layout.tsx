@@ -58,7 +58,7 @@ const Layout: React.FC<IProps> = ({
     <Box>
       <Head title={headTitle} />
       <Header onOpenCart={openCart} openWichlist={openWichlist} />
-      <Box px={{ base: 4, md: 20 }} minH="100vh" pt={24} pb={10}>
+      <Box px={{ base: 2, md: 20 }} minH="100vh" pt={24} pb={10}>
         {children}
       </Box>
       <Footer />

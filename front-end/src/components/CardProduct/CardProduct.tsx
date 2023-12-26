@@ -1,4 +1,6 @@
+import { useAuth } from "@/hooks/useAuth";
 import { useWishlist } from "@/hooks/useWishlist";
+import { IWishlist } from "@/interface/customer.interfaces";
 import { IProducts } from "@/interface/product.interface";
 import { formatRupiah } from "@/utils/formatRupiah";
 import { Box, HStack, IconButton, Image, Stack, Text } from "@chakra-ui/react";
@@ -18,7 +20,12 @@ const CardProduct: React.FC<IProps> = ({ product }): JSX.Element => {
   };
 
   const { addWishlist, loadingWishlist } = useWishlist();
+  const {user} = useAuth()
+  const isWishlist = user?.wishlist.map((data: IWishlist)=> data.product.product_id).includes(product ? product.product_id : 0)
+  
 
+  
+  
 
   return (
     
@@ -42,10 +49,11 @@ const CardProduct: React.FC<IProps> = ({ product }): JSX.Element => {
             top={0}
             right={0}
             size="sm"
+            isLoading={loadingWishlist}
             variant="unstyled"
             aria-label="wishlist"
             onClick={()=> addWishlist(product ? product.product_id: 0)}
-            icon={<FaRegHeart color="red" size={24} />}
+            icon={isWishlist ? <GoHeartFill color="red" size={24} /> : <FaRegHeart color="black" size={24} />}
           />
         </Box>
         <Link href={`detail-product/${product?.product_id}`}>
