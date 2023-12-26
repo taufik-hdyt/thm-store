@@ -41,7 +41,7 @@ export const useLoginAction = () => {
 
     onSuccess: (res) => {
       toast({
-        title: res.message,
+        title: res.data.message,
         status:"success",
         position: "top"
       })
@@ -54,7 +54,7 @@ export const useLoginAction = () => {
     onError: (err) => {
       if (axios.isAxiosError(err)) {
         toast({
-            title: err.response?.message,
+            title: err.response?.data.message,
             status:"error",
             position: "top"
           })
