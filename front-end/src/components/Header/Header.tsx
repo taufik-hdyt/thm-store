@@ -72,7 +72,7 @@ const Header: React.FC<IProps> = ({
       </Link>
       1
       <HStack>
-        <InputGroup w="fit-content">
+        <InputGroup w="fit-content" display={{base:"none", md: "block"}}>
           <InputRightElement>
             <CiSearch size={24} />
           </InputRightElement>
@@ -133,10 +133,12 @@ const Header: React.FC<IProps> = ({
         </Box>
 
        
-
-        <Stack direction="row" h="60px" p={4}>
+      
+        <Stack display={{base: 'none', md: "flex"}} direction="row" h="60px" p={4}>
           <Divider orientation="vertical" />
         </Stack>
+
+        <Box display={{base:"none",md: "flex"}} gap={3}>
         {token ? (
           <Menu>
             <MenuButton>
@@ -144,7 +146,7 @@ const Header: React.FC<IProps> = ({
             </MenuButton>
             <MenuList>
               <MenuItem onClick={()=>router.push("/profile")} icon={<IoPerson size={24} />}>Profile</MenuItem>
-              <MenuItem onClick={handleLogout} icon={<IoIosLogOut size={24} />}>Logout</MenuItem>
+              <MenuItem onClick={()=>handleLogout()} icon={<IoIosLogOut size={24} />}>Logout</MenuItem>
             </MenuList>
           </Menu>
         ) : (
@@ -163,6 +165,8 @@ const Header: React.FC<IProps> = ({
             </Button>
           </>
         )}
+        </Box>
+
       </HStack>
 
         

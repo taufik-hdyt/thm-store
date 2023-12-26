@@ -17,10 +17,12 @@ import {
   IoIosArrowDroprightCircle
 } from "react-icons/io";
 import { useHomeAction } from "./Home.action";
+import { useAuth } from "@/hooks/useAuth";
 
 const Home: React.FC = (): JSX.Element => {
   const { dataBrands, loadingBrands, dataProdutcs, loadingProducts } =
     useHomeAction();
+    const {user} = useAuth()
 
   return (
     <Box>

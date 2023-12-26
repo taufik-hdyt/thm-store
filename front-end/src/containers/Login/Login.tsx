@@ -42,7 +42,7 @@ const Login: React.FC = (): JSX.Element => {
           />
         </GridItem>
 
-        <Stack justify="center" align="center" px={{ base: 6, md: 0 }} >
+        <Stack justify="center" align="center" px={{ base: 2, md: 0 }} >
           <form
             onSubmit={formik.handleSubmit}
             style={{ width: "100%", display: "flex", justifyContent: "center" }}
