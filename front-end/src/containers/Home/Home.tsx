@@ -22,7 +22,7 @@ import { useAuth } from "@/hooks/useAuth";
 const Home: React.FC = (): JSX.Element => {
   const { dataBrands, loadingBrands, dataProdutcs, loadingProducts } =
     useHomeAction();
-    const {user} = useAuth()
+    
 
   return (
     <Box>
@@ -42,7 +42,9 @@ const Home: React.FC = (): JSX.Element => {
         </Text>
         <Box mt={4} bg="primary" rounded="lg">
           <HStack p={3} overflowX="auto">
-            {loadingBrands && <Loading />}
+            {loadingBrands && <Box w="full" display="flex" justifyContent="center">
+              <Loading />
+              </Box>}
             {dataProdutcs?.data.map((data: IProducts, idx: number) => (
               <Box w="200px" key={idx}>
                 <CardProduct product={data} />

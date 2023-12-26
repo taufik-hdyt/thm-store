@@ -34,18 +34,16 @@ export const useLoginAction = () => {
   const { mutate: loginCustomer ,isPending:loadingLogin} = useMutation({
     mutationFn: async (body: Ilogin) => {
       const response = await API.post("/login", body);
-      console.log(response);
-      
-      return response
+      return response.data
     },
 
     onSuccess: (res) => {
       toast({
-        title: res.data.message,
+        title: res.message,
         status:"success",
         position: "top"
       })
-      setCookie(null,'token', res.data.token, {
+      setCookie(null,'token', res.token, {
         maxAge: 30 * 24 * 60 * 60,
         path: '/',
       });
