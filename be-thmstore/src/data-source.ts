@@ -6,6 +6,7 @@ import { Brand } from "./entity/Brand"
 import { Product } from "./entity/Product"
 import { Cart } from "./entity/Cart"
 import { Wishlist } from "./entity/Wichlist"
+import { Transaction } from "./entity/Transaction"
 
 export const AppDataSource = new DataSource({
     type: "postgres",
@@ -17,7 +18,7 @@ export const AppDataSource = new DataSource({
     ssl: true,
     synchronize: true,
     logging: false,
-    entities: [Customer,Brand,Product,Cart,Wishlist],
+    entities: [Customer,Brand,Product,Cart,Wishlist,Transaction],
     migrations: ['src/migration/*.ts'],
     subscribers: [],
 })
