@@ -3,19 +3,16 @@ import { ICart } from "@/interface/customer.interfaces";
 import { API } from "@/libs/API";
 import { formatRupiah } from "@/utils/formatRupiah";
 import {
-  Box,
-  Divider,
   HStack,
   IconButton,
   Image,
   Stack,
   Text,
-  useToast,
+  useToast
 } from "@chakra-ui/react";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { TiMinus, TiPlus } from "react-icons/ti";
 
 interface IProps {
   data?: ICart;

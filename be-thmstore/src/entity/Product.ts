@@ -10,6 +10,7 @@ import {
 import { Brand } from "./Brand";
 import { Cart } from "./Cart";
 import { Wishlist } from "./Wichlist";
+import { Transaction } from "./Transaction";
 
 @Entity("products")
 export class Product {
@@ -46,5 +47,8 @@ export class Product {
 
   @OneToMany(()=> Wishlist, (wishlist)=> wishlist.product)
   wishlist: Wishlist[]
+
+  @OneToMany(()=>Transaction, (transaction)=> transaction.product)
+  transactions: Transaction[]
 
 }
