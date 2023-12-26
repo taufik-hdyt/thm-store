@@ -15,6 +15,13 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTrigger,
   Stack,
   Text,
 } from "@chakra-ui/react";
@@ -24,9 +31,11 @@ import useScrolledSize from "@/utils/scrolledSize";
 import { useRouter } from "next/router";
 import { destroyCookie } from "nookies";
 import { CiSearch } from "react-icons/ci";
-import { IoIosHeartEmpty,IoIosLogOut } from "react-icons/io";
-import { IoCartOutline,IoPerson } from "react-icons/io5";
+import { IoIosHeartEmpty, IoIosLogOut } from "react-icons/io";
+import { IoCartOutline, IoPerson } from "react-icons/io5";
 import { useAuth } from "@/hooks/useAuth";
+import { ICart } from "@/interface/customer.interfaces";
+import { formatRupiah } from "@/utils/formatRupiah";
 
 interface IProps {
   onOpenCart?: () => void;
@@ -38,7 +47,10 @@ const Header: React.FC<IProps> = ({
   openWichlist,
 }): JSX.Element => {
   const { token, user } = useAuth();
-  
+  const totalQuantity = user?.cart.reduce(
+    (total, currentItem) => total + currentItem.quantity,
+    0
+  );
 
   const router = useRouter();
   function handleLogout() {
@@ -47,6 +59,13 @@ const Header: React.FC<IProps> = ({
   }
 
   const scrolled = useScrolledSize();
+
+  const customStyleTitle: React.CSSProperties = {
+    display: "-webkit-box",
+    WebkitLineClamp: 1,
+    WebkitBoxOrient: "vertical",
+    overflow: "hidden",
+  };
 
   return (
     <HStack
@@ -72,7 +91,7 @@ const Header: React.FC<IProps> = ({
       </Link>
       1
       <HStack>
-        <InputGroup w="fit-content" display={{base:"none", md: "block"}}>
+        <InputGroup w="fit-content" display={{ base: "none", md: "block" }}>
           <InputRightElement>
             <CiSearch size={24} />
           </InputRightElement>
@@ -83,38 +102,82 @@ const Header: React.FC<IProps> = ({
           <Divider orientation="vertical" />
         </Stack>
 
+        <Popover trigger="hover">
+          <PopoverTrigger>
+            <Box pos="relative">
+              <IconButton
+                variant="ghost"
+                aria-label="cart"
+                icon={<IoCartOutline size={30} />}
+                onClick={()=> router.push("/cart")}
+              />
+              {user?.cart.length && (
+                <Center
+                  bg="primary"
+                  w="20px"
+                  h="20px"
+                  rounded="full"
+                  pos="absolute"
+                  top="-1"
+                  right={-1}
+                >
+                  <Text fontSize="x-small" fontWeight="semibold" color="white">
+                    {totalQuantity}
+                  </Text>
+                </Center>
+              )}
+            </Box>
+          </PopoverTrigger>
+          <PopoverContent>
+            <PopoverArrow />
+            <PopoverHeader display="flex" justifyContent="space-between">
+              <Text fontSize="sm" fontWeight="semibold">
+                Cart ({totalQuantity})
+              </Text>
+              <Text cursor="pointer" onClick={()=> router.push("/cart")} fontSize="sm" fontWeight="semibold" color="primary">
+                view all
+              </Text>
+            </PopoverHeader>
+            <PopoverBody>
+              {user?.cart.map((data: ICart, idx: number) => (
+                <HStack
+                  key={idx}
+                  p={2}
+                  borderBottom="1px solid #ebebeb"
+                  w="full"
+                  
+                >
+                  <Image
+                    minW="50px"
+                    h="50px"
+                    src={data?.product.image}
+                    alt={data?.product.product_name}
+                  />
+
+                  <HStack w="full" justify="space-between">
+                    <Stack spacing={0}>
+                      <Text style={customStyleTitle} fontSize="sm">
+                        {data?.product.product_name}
+                      </Text>
+                      <Text fontSize="xs" fontWeight="semibold">
+                        {formatRupiah(data?.product.price)}
+                      </Text>
+                    </Stack>
+                      <Text fontSize="xs" >Qty: {data?.quantity}</Text>
+                  </HStack>
+                </HStack>
+              ))}
+            </PopoverBody>
+          </PopoverContent>
+        </Popover>
+
         <Box pos="relative">
           <IconButton
             variant="ghost"
-            aria-label="cart"
-            icon={<IoCartOutline size={30} />}
-            onClick={onOpenCart}
+            aria-label="wichlist"
+            icon={<IoIosHeartEmpty size={30} />}
+            onClick={openWichlist}
           />
-          {user?.cart.length && (
-            <Center
-              bg="primary"
-              w="20px"
-              h="20px"
-              rounded="full"
-              pos="absolute"
-              top="-1"
-              right={-1}
-            >
-              <Text fontSize="x-small" fontWeight="semibold" color="white">
-                {user?.cart.length}
-              </Text>
-            </Center>
-          )}
-        </Box>
-
-        <Box pos="relative">
-
-        <IconButton
-          variant="ghost"
-          aria-label="wichlist"
-          icon={<IoIosHeartEmpty size={30} />}
-          onClick={openWichlist}
-        />
           {user?.wishlist.length && (
             <Center
               bg="primary"
@@ -132,44 +195,60 @@ const Header: React.FC<IProps> = ({
           )}
         </Box>
 
-       
-      
-        <Stack display={{base: 'none', md: "flex"}} direction="row" h="60px" p={4}>
+        <Stack
+          display={{ base: "none", md: "flex" }}
+          direction="row"
+          h="60px"
+          p={4}
+        >
           <Divider orientation="vertical" />
         </Stack>
 
-        <Box display={{base:"none",md: "flex"}} gap={3}>
-        {token ? (
-          <Menu>
-            <MenuButton>
-            <Avatar cursor="pointer" as={Link} href="/profile" size="sm" src={user?.profile_picture} />
-            </MenuButton>
-            <MenuList>
-              <MenuItem onClick={()=>router.push("/profile")} icon={<IoPerson size={24} />}>Profile</MenuItem>
-              <MenuItem onClick={()=>handleLogout()} icon={<IoIosLogOut size={24} />}>Logout</MenuItem>
-            </MenuList>
-          </Menu>
-        ) : (
-          <>
-            <Button
-              variant="outline"
-              color="primary"
-              border="1px solid #39A7FF"
-              as={Link}
-              href="/login"
-            >
-              Sign in
-            </Button>
-            <Button bg="primary" color="white" as={Link} href="/register">
-              Sign Up
-            </Button>
-          </>
-        )}
+        <Box display={{ base: "none", md: "flex" }} gap={3}>
+          {token ? (
+            <Menu>
+              <MenuButton>
+                <Avatar
+                  cursor="pointer"
+                  as={Link}
+                  href="/profile"
+                  size="sm"
+                  src={user?.profile_picture}
+                />
+              </MenuButton>
+              <MenuList>
+                <MenuItem
+                  onClick={() => router.push("/profile")}
+                  icon={<IoPerson size={24} />}
+                >
+                  Profile
+                </MenuItem>
+                <MenuItem
+                  onClick={() => handleLogout()}
+                  icon={<IoIosLogOut size={24} />}
+                >
+                  Logout
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          ) : (
+            <>
+              <Button
+                variant="outline"
+                color="primary"
+                border="1px solid #39A7FF"
+                as={Link}
+                href="/login"
+              >
+                Sign in
+              </Button>
+              <Button bg="primary" color="white" as={Link} href="/register">
+                Sign Up
+              </Button>
+            </>
+          )}
         </Box>
-
       </HStack>
-
-        
     </HStack>
   );
 };

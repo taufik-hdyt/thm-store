@@ -1,11 +1,22 @@
 import { useAuth } from "@/hooks/useAuth";
+import { useCart } from "@/hooks/useCart";
 import { ICart } from "@/interface/customer.interfaces";
 import { API } from "@/libs/API";
 import { formatRupiah } from "@/utils/formatRupiah";
 import {
+  Button,
+  Checkbox,
   HStack,
   IconButton,
   Image,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTrigger,
+  Radio,
   Stack,
   Text,
   useToast
@@ -24,71 +35,13 @@ const CartItem: React.FC<IProps> = ({ data }): JSX.Element => {
     WebkitBoxOrient: "vertical",
     overflow: "hidden",
   };
+  
 
-  const [count, setCount] = useState(0);
-  const { token, getProfile } = useAuth();
-
-  const quantity = count + (data ? data.quantity : 0);
-
-  const increment = () => {
-    setCount(count + 1);
-    cartMutation({
-      quantity: quantity,
-    });
-  };
-
-  const decrement = () => {
-    setCount(count - 1);
-    cartMutation({
-      quantity: quantity,
-    });
-  };
-  const toast = useToast();
-
-  const { mutate: cartMutation, isPending } = useMutation({
-    mutationFn: async (body: { quantity: number }) => {
-      const response = await API.post(
-        `/product/${data?.product.product_id}/cart`,
-        body,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      return response.data;
-    },
-    onSuccess: (res) => {
-      getProfile();
-      toast({
-        title: res.message,
-        position: "top",
-        status: "success",
-      });
-    },
-  });
-
-  const { mutate: deleteCart, isPending: loadingDelete } = useMutation({
-    mutationFn: async (id: number) => {
-      const response = await API.delete(`/cart/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      return response.data;
-    },
-    onSuccess: (res) => {
-      getProfile();
-      toast({
-        title: res.message,
-        position: "top",
-        status: "success",
-      });
-    },
-  });
+  const {loadingDelete,deleteCart} = useCart()
 
   return (
-    <HStack p={2} border="1px solid #ebebeb" rounded="lg">
+    
+    <HStack p={2} border="1px solid #ebebeb" rounded="lg"  w="full"  >
       <Image
         minW="80px"
         h="80px"
@@ -113,13 +66,14 @@ const CartItem: React.FC<IProps> = ({ data }): JSX.Element => {
         </HStack>
       </HStack>
     </HStack>
+  
   );
 };
 
 export default CartItem;
 
 // CART PLUS
-{
+
   /* <HStack bg="#ebebeb" w="fit-content">
   <IconButton
     bg="primary"
@@ -145,4 +99,4 @@ export default CartItem;
     onClick={increment}
   />
 </HStack> */
-}
+
