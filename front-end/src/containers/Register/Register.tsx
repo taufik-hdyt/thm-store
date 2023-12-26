@@ -14,9 +14,9 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 
-import { useRegisterAction } from "./Register.action";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useRegisterAction } from "./Register.action";
 
 const Register: React.FC = (): JSX.Element => {
   const { formik, handleForm, loadingCreateCustomer } = useRegisterAction();
