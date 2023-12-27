@@ -48,9 +48,9 @@ const Products: React.FC = (): JSX.Element => {
               placeholder="search for items"
             />
           </InputGroup>
-          <Menu>
-            <MenuButton>
-              <Button borderColor="primary" variant="outline" rightIcon={<FaFilter size={20} color="#39A7FF"  />} color="primary">Filter Brand</Button>
+          <Menu >
+            <MenuButton >
+              <Button borderColor="primary" variant="outline" rightIcon={<FaFilter size={20} color="#39A7FF"  />} color="primary">Brand</Button>
             </MenuButton>
             <MenuList>
               {dataBrands?.data.map((data:IBrand,idx:number)=> (
@@ -59,10 +59,10 @@ const Products: React.FC = (): JSX.Element => {
             </MenuList>
           </Menu>
           <Button
-            isLoading={loadingProducts}
             onClick={handleSearch}
             bg="primary"
             color="white"
+            display={{base:"none", md:"block"}}
           >
             Search
           </Button>
