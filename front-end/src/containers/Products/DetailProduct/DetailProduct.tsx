@@ -1,10 +1,11 @@
+import { useWishlist } from "@/hooks/useWishlist";
+import { formatRupiah } from "@/utils/formatRupiah";
 import {
   Box,
   Button,
   Grid,
   GridItem,
   HStack,
-  Heading,
   IconButton,
   Image,
   Input,
@@ -12,28 +13,25 @@ import {
   InputLeftElement,
   InputRightElement,
   Stack,
-  Text,
+  Text
 } from "@chakra-ui/react";
 import { useParams } from "next/navigation";
-import { BsCartPlus } from "react-icons/bs";
-import { useDetailProductAction } from "./DetailProduct.action";
-import { GoHeartFill } from "react-icons/go";
-import { formatRupiah } from "@/utils/formatRupiah";
 import { useState } from "react";
+import { BsCartPlus } from "react-icons/bs";
 import { FaInfoCircle } from "react-icons/fa";
-import { useAuth } from "@/hooks/useAuth";
-import { useWishlist } from "@/hooks/useWishlist";
+import { GoHeartFill } from "react-icons/go";
+import { useDetailProductAction } from "./DetailProduct.action";
 
 const DetailProduct: React.FC = (): JSX.Element => {
   const params = useParams();
   const idParam = Number(params.id);
-  const {getProfile} = useAuth()
+
   const [qty, setQty] = useState(1);
   const [message, setMessage] = useState("");
   const [check, setCheck] = useState<boolean>(false);
 
   const { dataProduct ,cartMutation,loadingCart} = useDetailProductAction(idParam);
-  let messageQtyResponse = "";
+
   function handleIncrement() {
     if ((dataProduct ? dataProduct.stock : 0) <= qty) {
       setMessage(`Maximum Order ${dataProduct?.stock}`);
@@ -43,8 +41,6 @@ const DetailProduct: React.FC = (): JSX.Element => {
     setQty(qty + 1);
     setCheck(true);
   }
-
-  console.log(messageQtyResponse);
 
   function handleDecrement() {
     if (qty <= 1) {
@@ -56,27 +52,22 @@ const DetailProduct: React.FC = (): JSX.Element => {
     setCheck(true);
   }
 
-  const handleAddCart = ()=> {
-     cartMutation({
-      quantity: qty
-    })
-  }
 
   const { addWishlist, loadingWishlist } = useWishlist();
 
   return (
-    <Box px={10}>
+    <Box px={{base: 1,md:10}}>
       <Text>{`Brand > ${dataProduct?.brand?.brand_name} > ${dataProduct?.product_name}`}</Text>
       <Grid
         rounded="md"
-        p={8}
+        p={{base: 0, md:8}}
         mt={4}
         bg="white"
         gridTemplateColumns={{ base: "1fr", md: "400px 1fr" }}
       >
-        <GridItem>
+        <GridItem>  
           <Box pos="relative">
-            <Image w="full" h="400px" alt="product" src={dataProduct?.image} />
+            <Image w="full" alt="product" src={dataProduct?.image} />
             <IconButton
               pos="absolute"
               top={0}
@@ -89,15 +80,15 @@ const DetailProduct: React.FC = (): JSX.Element => {
             />
           </Box>
         </GridItem>
-        <GridItem>
-          <Stack p={6}>
+        <GridItem >
+          <Stack p={{base: 2, md:6}}>
             <Text fontSize="xl" fontWeight="semibold">
               {dataProduct?.product_name}
             </Text>
             {/* <Text fontSize="lg" fontWeight="bold" color="primary" bg="rgba(0,0,0,.02)" p={4}>Price : Rp 1200.000</Text> */}
             <Stack>
               <Text>Description</Text>
-              <Text fontSize="lg" bg="rgba(0,0,0,.02)" p={4}>
+              <Text fontSize="lg" bg="rgba(0,0,0,.02)" p={{base:2,md:4}}>
                 {dataProduct?.description}
               </Text>
 
@@ -131,7 +122,7 @@ const DetailProduct: React.FC = (): JSX.Element => {
                 </InputRightElement>
               </InputGroup>
 
-              <HStack spacing={4}>
+              <HStack spacing={3} >
                 <Text>Subtotal</Text>
                 <Text fontWeight="semibold" fontSize="xl">
                   {formatRupiah(dataProduct?.price ? dataProduct.price * 1 : 0)}
@@ -148,17 +139,21 @@ const DetailProduct: React.FC = (): JSX.Element => {
               <Button
                 bg="secondary"
                 color="primary"
-                px={10}
+                px={{base:4, md:10}}
                 rounded="none"
                 leftIcon={<BsCartPlus size={24} />}
                 borderColor="primary"
                 variant="outline"
-                onClick={handleAddCart}
+                onClick={()=> cartMutation({
+                  quantity:qty
+                })}
                 isLoading={loadingCart}
               >
                 Add To Cart
               </Button>
-              <Button px={14} rounded="none" bg="primary" color="white">
+              <Button
+              px={{base:"4", md:14}}
+              rounded="none" bg="primary" color="white">
                 Checkout
               </Button>
             </HStack>

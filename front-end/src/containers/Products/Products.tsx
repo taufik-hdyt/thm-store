@@ -31,16 +31,6 @@ const Products: React.FC = (): JSX.Element => {
             </InputLeftElement>
             <Input variant="outline" placeholder="search for items" />
           </InputGroup>
-          {/* <Select
-            // display={{ base: "none", lg: "flex" }}
-            variant="fill"
-            w="fit-content"
-            display="none"
-          >
-            {dataBrands?.data.data.map((e: IBrand, idx: number) => (
-              <option key={idx}>{e.brand_name}</option>
-            ))}
-          </Select> */}
           <Button bg="primary" color="white">
             Search
           </Button>
@@ -67,16 +57,12 @@ const Products: React.FC = (): JSX.Element => {
       >
        
         {dataProducts?.data.map((e: IProducts, idx: number) => (
-          <Box key={idx} w="200px">
+          <Box w="full" key={idx} >
             <CardProduct product={e}
             />
           </Box>
         ))}
       </Grid>
-
-      {/* {isOpen && (
-        <ModalProduct isOpen={isOpen} onClose={onClose} title="Add Product" />
-      )} */}
     </Box>
   );
 };

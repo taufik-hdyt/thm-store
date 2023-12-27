@@ -38,7 +38,7 @@ const Profile: React.FC = (): JSX.Element => {
   const [selectedMenu, setSelectedMenu] = useState("profile");
 
   return (
-    <Grid gridTemplateColumns="300px 1fr">
+    <Grid gridTemplateColumns={{base: "1fr", md: "300px 1fr"}}>
       <GridItem>
         <Accordion defaultIndex={[0, 1]} allowMultiple>
           <AccordionItem>
@@ -122,6 +122,7 @@ const Profile: React.FC = (): JSX.Element => {
               />
             ) : (
               <Stack>
+                <Text fontWeight="semibold">My Cart</Text>
                 {user?.cart.map((data: ICart, idx: number) => (
                   <CartItem key={idx} data={data} />
                 ))}
@@ -138,6 +139,7 @@ const Profile: React.FC = (): JSX.Element => {
               />
             ) : (
               <Stack>
+                <Text fontWeight="semibold">My Wishlist</Text>
                 {user?.wishlist.map((data: IWishlist, idx: number) => (
                   <WishlistItem key={idx} data={data} />
                 ))}
