@@ -18,24 +18,23 @@ import {
   Popover,
   PopoverArrow,
   PopoverBody,
-  PopoverCloseButton,
   PopoverContent,
   PopoverHeader,
   PopoverTrigger,
   Stack,
-  Text,
+  Text
 } from "@chakra-ui/react";
 import Link from "next/link";
 
+import { useAuth } from "@/hooks/useAuth";
+import { ICart } from "@/interface/customer.interfaces";
+import { formatRupiah } from "@/utils/formatRupiah";
 import useScrolledSize from "@/utils/scrolledSize";
 import { useRouter } from "next/router";
 import { destroyCookie } from "nookies";
 import { CiSearch } from "react-icons/ci";
 import { IoIosHeartEmpty, IoIosLogOut } from "react-icons/io";
 import { IoCartOutline, IoPerson } from "react-icons/io5";
-import { useAuth } from "@/hooks/useAuth";
-import { ICart } from "@/interface/customer.interfaces";
-import { formatRupiah } from "@/utils/formatRupiah";
 
 interface IProps {
   onOpenCart?: () => void;
@@ -46,7 +45,7 @@ const Header: React.FC<IProps> = ({
   onOpenCart,
   openWichlist,
 }): JSX.Element => {
-  const { token, user } = useAuth();
+  const { token, user,getProfile } = useAuth();
   const totalQuantity = user?.cart.reduce(
     (total, currentItem) => total + currentItem.quantity,
     0
@@ -55,6 +54,7 @@ const Header: React.FC<IProps> = ({
   const router = useRouter();
   function handleLogout() {
     destroyCookie(null, "token");
+    getProfile()
     router.push("/login");
   }
 
@@ -111,7 +111,7 @@ const Header: React.FC<IProps> = ({
                 icon={<IoCartOutline size={30} />}
                 onClick={()=> router.push("/cart")}
               />
-              {user?.cart.length !== 0 && (
+              {user?.cart.length && user?.cart.length !== 0 && (
                 <Center
                   bg="primary"
                   w="20px"
@@ -156,15 +156,17 @@ const Header: React.FC<IProps> = ({
                   />
 
                   <HStack w="full" justify="space-between">
-                    <Stack spacing={0}>
+                    <Stack spacing={0} w="full">
                       <Text style={customStyleTitle} fontSize="sm">
                         {data?.product.product_name}
                       </Text>
+                      <HStack justify="space-between"  >
                       <Text fontSize="xs" fontWeight="semibold">
                         {formatRupiah(data?.product.price)}
                       </Text>
-                    </Stack>
                       <Text fontSize="xs" >Qty: {data?.quantity}</Text>
+                      </HStack>
+                    </Stack>
                   </HStack>
                 </HStack>
               ))}
@@ -179,7 +181,7 @@ const Header: React.FC<IProps> = ({
             icon={<IoIosHeartEmpty size={30} />}
             onClick={openWichlist}
           />
-          {user?.wishlist.length !== 0 && (
+          {user?.wishlist.length && user?.cart.length !== 0 && (
             <Center
               bg="primary"
               w="20px"

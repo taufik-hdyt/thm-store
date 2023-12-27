@@ -52,12 +52,12 @@ const Products: React.FC = (): JSX.Element => {
           base: "1fr 1fr",
           sm: "1fr 1fr 1fr",
           md: "1fr 1fr 1fr 1fr",
-          lg: "1fr 1fr 1fr 1fr 1fr 1fr",
+          lg: "repeat(5,1fr)",
         }}
       >
        
         {dataProducts?.data.map((e: IProducts, idx: number) => (
-          <Box w="full" key={idx} >
+          <Box w="full"  h="250px" key={idx} >
             <CardProduct product={e}
             />
           </Box>

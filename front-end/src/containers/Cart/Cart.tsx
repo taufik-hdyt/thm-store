@@ -36,7 +36,7 @@ const Cart: React.FC = (): JSX.Element => {
 
   useEffect(() => {
     calculateTotalPrice();
-  }, [totalPrice]);
+  }, [totalQuantity]);
 
   
 
