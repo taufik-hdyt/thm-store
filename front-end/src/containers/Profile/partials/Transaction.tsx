@@ -71,7 +71,7 @@ const Transaction: React.FC = (): JSX.Element => {
                 </Box>
               </Stack>
               </HStack>
-              <Box display={{base: "block", md: "npne"}}>
+              <Box display={{base: "block", md: "none"}}>
               <Text  fontWeight="semibold">Total</Text>  
               <Text fontWeight="semibold">Rp 1.200.000</Text>
                 </Box>

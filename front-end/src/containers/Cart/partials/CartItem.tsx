@@ -2,6 +2,7 @@ import { useCart } from "@/hooks/useCart"
 import { ICart } from "@/interface/customer.interfaces"
 import { formatRupiah } from "@/utils/formatRupiah"
 import { HStack, IconButton, Image, Stack, Text } from "@chakra-ui/react"
+import { useState } from "react"
 import { RiDeleteBin6Line } from "react-icons/ri"
 import { TiMinus, TiPlus } from "react-icons/ti"
 
@@ -17,6 +18,33 @@ const CartItem:React.FC<IProps> = ({data}):JSX.Element => {
         WebkitBoxOrient: "vertical",
         overflow: "hidden",
       };
+
+      const [count,setCount] = useState(0)
+
+      const increment =()=> {
+        if(data && data.product.stock < count){
+          return alert("tidak bisa nambah")
+        }
+        setCount(count + 1)
+        cartMutation({
+          body: {
+            quantity: (data?.quantity ? data.quantity : 0) + 1
+          },
+          productId: (data?.product ? data.product.product_id : 0) 
+        })
+      }
+      const decrement =()=> {
+        if(data && data.quantity <= 1 ){
+          return alert("tidak bisa")
+        }
+        setCount(count - 1)
+        cartMutation({
+          body: {
+            quantity: (data?.quantity ? data.quantity : 0) - 1
+          },
+          productId: (data?.product ? data.product.product_id : 0) 
+        })
+      }
     return (
         <HStack
         p={2}
@@ -50,8 +78,8 @@ const CartItem:React.FC<IProps> = ({data}):JSX.Element => {
                   size="sm"
                   aria-label="icon"
                   icon={<TiMinus size={24} />}
-                  // isDisabled={count <= 1}
-                  // onClick={decrement}
+                  isDisabled={count <= 1 }
+                  onClick={decrement}
                 />
                 <Text w="20px" fontWeight="semibold" textAlign="center">
                   {data?.quantity}
@@ -64,7 +92,7 @@ const CartItem:React.FC<IProps> = ({data}):JSX.Element => {
                   aria-label="icon"
                   icon={<TiPlus size={24} />}
                   // isDisabled={count + (data ? data.quantity : 0) <= 1}
-                  //   onClick={increment}
+                    onClick={increment}
                 />
               </HStack>
               <IconButton

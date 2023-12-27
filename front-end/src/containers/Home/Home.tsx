@@ -5,17 +5,19 @@ import ImageSlider from "@/components/ImageSlider";
 import { Loading } from "@/components/LoadingAnimation/loadingAnimation";
 import { IBrand } from "@/interface/brand.interfaces";
 import { IProducts } from "@/interface/product.interface";
-import { Box, Flex, HStack, IconButton, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, HStack, IconButton, Text } from "@chakra-ui/react";
 import {
   IoIosArrowDropleftCircle,
   IoIosArrowDroprightCircle,
 } from "react-icons/io";
 import { useHomeAction } from "./Home.action";
 import { useAuth } from "@/hooks/useAuth";
+import { useRouter } from "next/router";
 
 const Home: React.FC = (): JSX.Element => {
   const { dataBrands, loadingBrands, dataProdutcs, loadingProducts } =
     useHomeAction();
+    const router = useRouter()
 
   return (
     <Box>
@@ -33,7 +35,7 @@ const Home: React.FC = (): JSX.Element => {
         >
           Product New
         </Text>
-        <Box mt={4} bg="primary" rounded="lg" >
+        <Box mt={4} pb="2" bg="primary" rounded="lg" >
           <HStack p={2} overflowX="auto">
             {loadingBrands && (
               <Box w="full" display="flex" justifyContent="center">
@@ -48,6 +50,11 @@ const Home: React.FC = (): JSX.Element => {
               </Box>
             ))}
           </HStack>
+
+          <Flex justify="center">
+          <Button onClick={()=> router.push("/products")}>Show All Product</Button>
+          </Flex>
+
         </Box>
 
         <Box mt={4} bg="white">
