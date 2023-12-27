@@ -57,7 +57,7 @@ const Products: React.FC = (): JSX.Element => {
       >
        
         {dataProducts?.data.map((e: IProducts, idx: number) => (
-          <Box w="full"  h="250px" key={idx} >
+          <Box w="full"  h="255px"  key={idx} >
             <CardProduct product={e}
             />
           </Box>

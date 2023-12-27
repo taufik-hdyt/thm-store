@@ -5,7 +5,6 @@ import { IProducts } from "@/interface/product.interface";
 import { formatRupiah } from "@/utils/formatRupiah";
 import { Box, HStack, IconButton, Image, Stack, Text } from "@chakra-ui/react";
 import Link from "next/link";
-import { FaRegHeart } from "react-icons/fa6";
 import { GoHeartFill } from "react-icons/go";
 
 interface IProps {
@@ -26,7 +25,7 @@ const CardProduct: React.FC<IProps> = ({ product }): JSX.Element => {
     .includes(product ? product.product_id : 0);
 
   return (
-    <Box p={2} border="1px solid #ebebeb" rounded="lg" bg="#eaeaea">
+    <Box p={2} h="full" border="1px solid #ebebeb" rounded="lg" bg="#eaeaea">
       <Box pos="relative">
         <Image
           w="full"
@@ -58,7 +57,7 @@ const CardProduct: React.FC<IProps> = ({ product }): JSX.Element => {
           {product?.product_name}
         </Text>
       </Link>
-      <HStack justify="space-between">
+      <Stack spacing={0} >
         <Text
           fontSize={{ base: "xs", md: "md" }}
           fontWeight="medium"
@@ -73,7 +72,7 @@ const CardProduct: React.FC<IProps> = ({ product }): JSX.Element => {
         <Text color="gray" fontSize="xs">
           stock: {product?.stock}
         </Text>
-      </HStack>
+      </Stack>
     </Box>
   );
 };

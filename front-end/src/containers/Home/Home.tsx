@@ -36,7 +36,7 @@ const Home: React.FC = (): JSX.Element => {
           Product New
         </Text>
         <Box mt={4} pb="2" bg="primary" rounded="lg" >
-          <HStack p={2} overflowX="auto">
+          <HStack p={2} overflowX="auto" >
             {loadingBrands && (
               <Box w="full" display="flex" justifyContent="center">
                 <Loading />
