@@ -111,7 +111,7 @@ const Header: React.FC<IProps> = ({
                 icon={<IoCartOutline size={30} />}
                 onClick={()=> router.push("/cart")}
               />
-              {user?.cart.length && (
+              {user?.cart.length !== 0 && (
                 <Center
                   bg="primary"
                   w="20px"
@@ -121,6 +121,7 @@ const Header: React.FC<IProps> = ({
                   top="-1"
                   right={-1}
                 >
+                  
                   <Text fontSize="x-small" fontWeight="semibold" color="white">
                     {totalQuantity}
                   </Text>
@@ -178,7 +179,7 @@ const Header: React.FC<IProps> = ({
             icon={<IoIosHeartEmpty size={30} />}
             onClick={openWichlist}
           />
-          {user?.wishlist.length && (
+          {user?.wishlist.length !== 0 && (
             <Center
               bg="primary"
               w="20px"

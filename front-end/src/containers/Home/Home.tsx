@@ -5,16 +5,10 @@ import ImageSlider from "@/components/ImageSlider";
 import { Loading } from "@/components/LoadingAnimation/loadingAnimation";
 import { IBrand } from "@/interface/brand.interfaces";
 import { IProducts } from "@/interface/product.interface";
-import {
-  Box,
-  Flex,
-  HStack,
-  IconButton,
-  Text
-} from "@chakra-ui/react";
+import { Box, Flex, HStack, IconButton, Text } from "@chakra-ui/react";
 import {
   IoIosArrowDropleftCircle,
-  IoIosArrowDroprightCircle
+  IoIosArrowDroprightCircle,
 } from "react-icons/io";
 import { useHomeAction } from "./Home.action";
 import { useAuth } from "@/hooks/useAuth";
@@ -22,7 +16,6 @@ import { useAuth } from "@/hooks/useAuth";
 const Home: React.FC = (): JSX.Element => {
   const { dataBrands, loadingBrands, dataProdutcs, loadingProducts } =
     useHomeAction();
-    
 
   return (
     <Box>
@@ -40,14 +33,18 @@ const Home: React.FC = (): JSX.Element => {
         >
           Product New
         </Text>
-        <Box mt={4} bg="primary" rounded="lg">
-          <HStack p={3} overflowX="auto">
-            {loadingBrands && <Box w="full" display="flex" justifyContent="center">
-              <Loading />
-              </Box>}
+        <Box mt={4} bg="primary" rounded="lg" >
+          <HStack p={2} overflowX="auto">
+            {loadingBrands && (
+              <Box w="full" display="flex" justifyContent="center">
+                <Loading />
+              </Box>
+            )}
             {dataProdutcs?.data.map((data: IProducts, idx: number) => (
-              <Box w="200px" key={idx}>
+              <Box   key={idx} >
+                <Box w="200px" boxSizing="border-box">
                 <CardProduct product={data} />
+                </Box>
               </Box>
             ))}
           </HStack>

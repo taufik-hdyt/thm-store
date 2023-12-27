@@ -23,7 +23,7 @@ export const useDetailProductAction = (id: number) => {
   const { mutate: cartMutation, isPending: loadingCart } = useMutation({
     mutationFn: async (body: { quantity: number }) => {
       const response = await API.post(
-        `/product/${dataProduct?.product_id}/cart`,
+        `/product/${id}/cart`,
         body,
         {
           headers: {
@@ -35,7 +35,7 @@ export const useDetailProductAction = (id: number) => {
     },
     onSuccess: ()=> {
       getProfile()
-    }
+    },
   });
   
   return {

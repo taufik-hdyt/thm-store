@@ -1,28 +1,13 @@
-import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/hooks/useCart";
 import { ICart } from "@/interface/customer.interfaces";
-import { API } from "@/libs/API";
 import { formatRupiah } from "@/utils/formatRupiah";
 import {
-  Button,
-  Checkbox,
   HStack,
   IconButton,
   Image,
-  Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverCloseButton,
-  PopoverContent,
-  PopoverHeader,
-  PopoverTrigger,
-  Radio,
   Stack,
-  Text,
-  useToast
+  Text
 } from "@chakra-ui/react";
-import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
 interface IProps {
@@ -60,7 +45,7 @@ const CartItem: React.FC<IProps> = ({ data }): JSX.Element => {
             aria-label="delete"
             variant="unstyled"
             icon={<RiDeleteBin6Line size={24} color="red" />}
-            onClick={() => deleteCart(data ? data.cart_id : 0)}
+            onClick={() => deleteCart(data ? data.cart_id: 0)}
             isLoading={loadingDelete}
           />
         </HStack>

@@ -6,6 +6,7 @@ import {
   Stack,
   Text,
   Image,
+  Flex,
 } from "@chakra-ui/react";
 import { MdOutlineShoppingBag } from "react-icons/md";
 
@@ -19,21 +20,24 @@ const Transaction: React.FC = (): JSX.Element => {
 
   return (
     <Box>
-      <HStack spacing={6}>
-        <Button variant="unstyled">Status</Button>
-        <Button color="primary" borderColor="primary" variant="outline">
+      
+      <HStack>
+        <Button size="sm" variant="unstyled">Status</Button>
+        <Button size="sm" color="primary" borderColor="primary" variant="outline">
           All
         </Button>
-        <Button variant="outline">Success</Button>
-        <Button variant="outline">Failed</Button>
-        <Button variant="outline">Pending</Button>
+        <Button size="sm" variant="outline">Success</Button>
+        <Button size="sm" variant="outline">Failed</Button>
+        <Button size="sm" variant="outline">Pending</Button>
+        
       </HStack>
+      
 
       <Stack mt={6}>
         <Card p={4}>
           <HStack spacing={4}>
             <MdOutlineShoppingBag size={24} />
-            <Text fontSize="sm">10 Sep 2022</Text>
+            <Text fontSize="xs">10 Sep 2022</Text>
             <Text
               fontSize="sm"
               px="3"
@@ -44,7 +48,7 @@ const Transaction: React.FC = (): JSX.Element => {
             >
               Done
             </Text>
-            <Text fontSize="sm">INV/20220910/MPL/2644063125</Text>
+            <Text fontSize="sm">INV/20220910</Text>
           </HStack>
 
           <HStack mt="2">
@@ -61,10 +65,16 @@ const Transaction: React.FC = (): JSX.Element => {
               <HStack justify="space-between" >
               <Text fontSize="xs">Qty 1 x Rp 1.200.000</Text>
               <Stack spacing={0}>
-              <Text fontWeight="semibold">Total</Text>  
+                <Box display={{base: "none", md: "block"}}>
+              <Text  fontWeight="semibold">Total</Text>  
               <Text fontWeight="semibold">Rp 1.200.000</Text>
+                </Box>
               </Stack>
               </HStack>
+              <Box display={{base: "block", md: "npne"}}>
+              <Text  fontWeight="semibold">Total</Text>  
+              <Text fontWeight="semibold">Rp 1.200.000</Text>
+                </Box>
             </Stack>
           </HStack>
         </Card>

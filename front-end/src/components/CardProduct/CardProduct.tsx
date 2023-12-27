@@ -34,7 +34,9 @@ const CardProduct: React.FC<IProps> = ({ product }): JSX.Element => {
         border="1px solid #ebebeb"
         rounded="lg"
         bg="white"
-        boxSizing="border-box"
+        
+    
+     
       >
         <Box pos="relative">
           <Image

@@ -1,5 +1,4 @@
 import { useAuth } from "@/hooks/useAuth";
-import { useCart } from "@/hooks/useCart";
 import { ICart } from "@/interface/customer.interfaces";
 import { formatRupiah } from "@/utils/formatRupiah";
 import {
@@ -8,15 +7,12 @@ import {
   Card,
   Grid,
   HStack,
-  IconButton,
-  Image,
   Stack,
-  Text,
+  Text
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { RiDeleteBin6Line } from "react-icons/ri";
-import { TiMinus, TiPlus } from "react-icons/ti";
 import CartItem from "./partials/CartItem";
+import Empty from "@/components/Empty";
 
 const Cart: React.FC = (): JSX.Element => {
   const { user, getProfile } = useAuth();
@@ -35,13 +31,12 @@ const Cart: React.FC = (): JSX.Element => {
       total += item.product.price * item.quantity;
     });
     setTotalPrice(total);
-
     getProfile();
   };
 
   useEffect(() => {
     calculateTotalPrice();
-  }, [user]);
+  }, [totalPrice]);
 
   
 
@@ -58,9 +53,17 @@ const Cart: React.FC = (): JSX.Element => {
       <Grid gridTemplateColumns={{base: "1fr", md:"1fr auto"}} gap={6}>
         <Box h={{base: "fit-content", md: "100vh"}} overflowY="auto">
           <Stack mt={6}>
+            {!user?.cart.length ?   <Empty
+            image="https://cdni.iconscout.com/illustration/premium/thumb/empty-cart-7359557-6024626.png"
+            description="Your cart is still empty!!!"
+          />   : 
+
+          <>
             {user?.cart.map((data: ICart, idx: number) => (
               <CartItem key={idx} data={data} />
             ))}
+          </>
+          }
           </Stack>
         </Box>
 
@@ -87,7 +90,7 @@ const Cart: React.FC = (): JSX.Element => {
       <Text  fontWeight="semibold" mt={3} >Rp 225.000</Text>
       </HStack> */}
 
-          <Button bg="primary" color="white" mt={4}>
+          <Button isDisabled={totalPrice === 0} bg="primary" color="white" mt={4}>
             Buy
           </Button>
         </Card>
