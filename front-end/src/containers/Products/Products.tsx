@@ -16,10 +16,11 @@ import {
 import { CiSearch } from "react-icons/ci";
 import { useHomeAction } from "../Home/Home.action";
 import { useProductAction } from "./Product.action";
+import Empty from "@/components/Empty";
 
 const Products: React.FC = (): JSX.Element => {
   const { dataBrands } = useHomeAction();
-  const { dataProducts, loadingProducts } = useProductAction();
+  const { dataProducts, loadingProducts,handleSearch,setSearchQuery } = useProductAction();
 
   return (
     <Box mx={{ base: 4, md: 10 }} pb={{ base: 20, md: 6 }}>
@@ -29,9 +30,13 @@ const Products: React.FC = (): JSX.Element => {
             <InputLeftElement>
               <CiSearch size={24} />
             </InputLeftElement>
-            <Input variant="outline" placeholder="search for items" />
+            <Input onKeyUp={(e)=> {
+              if(e.key === "Enter"){
+                handleSearch()
+              }
+            }} onChange={(e)=> setSearchQuery(e.target.value)} variant="outline" placeholder="search for items" />
           </InputGroup>
-          <Button bg="primary" color="white">
+          <Button isLoading={loadingProducts} onClick={handleSearch} bg="primary" color="white">
             Search
           </Button>
         </HStack>
@@ -41,6 +46,14 @@ const Products: React.FC = (): JSX.Element => {
       {loadingProducts && (
           <Center w="full" h="80vh" >
             <Loading />
+          </Center>
+        )}
+
+{!dataProducts && (
+          <Center w="full" h="80vh" >
+            <Box w="300px">
+            <Empty image="https://cdn2.vectorstock.com/i/1000x1000/30/21/data-search-not-found-concept-vector-36073021.jpg" description="Product Not Found !!!" />
+            </Box>
           </Center>
         )}
 

@@ -3,6 +3,7 @@ import { Box, Center, Image, Text } from "@chakra-ui/react"
 interface IProps{
     image?: string
     description?: string
+
 }
 const Empty:React.FC<IProps> = ({image,description}):JSX.Element => {
     return (
