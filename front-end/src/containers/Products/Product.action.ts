@@ -38,6 +38,7 @@ export const useProductAction = () => {
     dataProducts,
     loadingProducts,
     handleSearch,
-    setSearchQuery
+    setSearchQuery,
+    searchResult
   };
 };
