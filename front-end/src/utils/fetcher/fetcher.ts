@@ -1,6 +1,7 @@
 import axios, { AxiosError } from 'axios'
 import nookies from 'nookies'
 import { redirect}from './redirect-windows'
+import 'dotenv/config'
 
 interface IProps{
     ctx: any
@@ -25,7 +26,7 @@ const callApi = async ({ctx,method,params,uri}:IProps) => {
     }
 
     const config = {
-        baseURL: "http://localhost:5000/api/v1",
+        baseURL: process.env.NEXT_PUBLIC_API_URL,
         headers: { Authorization: `Bearer ${token}` },
         url: uri,
         method: method,
