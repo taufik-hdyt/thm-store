@@ -32,13 +32,13 @@ export const useProductAction = () => {
     },100)
   }
 
-
-
   return {
     dataProducts,
     loadingProducts,
     handleSearch,
     setSearchQuery,
-    searchResult
+    searchResult,
+    refetch,
+    setSearchResult
   };
 };
