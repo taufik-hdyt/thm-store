@@ -17,7 +17,9 @@ export default new (class TransactionServices {
 
   async addTransaction(req: Request, res: Response): Promise<Response> {
     try {
-      
+
+      const {products,customer_name,customer_email} = req.body
+      const numberRandom = generateRandomNumber()
 
     } catch (error) {
       return res.status(500).json({
