@@ -54,8 +54,8 @@ const Header: React.FC<IProps> = ({
   const router = useRouter();
   function handleLogout() {
     destroyCookie(null, "token");
-    getProfile()
     router.push("/login");
+    getProfile()
   }
 
   const scrolled = useScrolledSize();
