@@ -21,8 +21,10 @@ export default new (class ProductServices {
         ,
         order: {
           product_name: "DESC"
-        }
+        },
+        relations: ["brand"]
       });
+
       return res.status(200).json({
         data: products,
         message: "Success get all products",
