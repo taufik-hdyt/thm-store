@@ -122,12 +122,11 @@ const DetailProduct: React.FC = (): JSX.Element => {
                 </InputRightElement>
               </InputGroup>
 
-              <HStack spacing={3} >
-                <Text>Subtotal</Text>
+              
                 <Text fontWeight="semibold" fontSize="xl">
                   {formatRupiah(dataProduct?.price ? dataProduct.price * 1 : 0)}
                 </Text>
-              </HStack>
+              
             </HStack>
             {message !== "" && !check && (
               <Text gap="2" color="red" display="flex" align="center">
