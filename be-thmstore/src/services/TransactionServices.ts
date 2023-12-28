@@ -4,6 +4,8 @@ import { Request, Response } from "express";
 import { Customer } from "../entity/Customer";
 import { Product } from "../entity/Product";
 import { Transaction } from "../entity/Transaction";
+import "dotenv/config"
+import { generateRandomNumber } from "../utils/randomNumber";
 
 export default new (class TransactionServices {
   private readonly TransactionRepository: Repository<Transaction> =
@@ -15,21 +17,7 @@ export default new (class TransactionServices {
 
   async addTransaction(req: Request, res: Response): Promise<Response> {
     try {
-
-        // ambil id user login
-
-        // const customer = await this.CustomerRepository.findOne({
-        //     where: {
-        //         customer_id: 
-        //     }
-        // })
-
-        
-
-
-
-
-
+      
 
     } catch (error) {
       return res.status(500).json({
