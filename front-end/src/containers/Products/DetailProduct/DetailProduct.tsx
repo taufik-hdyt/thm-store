@@ -154,7 +154,7 @@ const DetailProduct: React.FC = (): JSX.Element => {
               <Button
               px={{base:"4", md:14}}
               rounded="none" bg="primary" color="white">
-                Checkout
+                Buy Now
               </Button>
             </HStack>
           </Stack>

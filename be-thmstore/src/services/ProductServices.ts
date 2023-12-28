@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Repository } from "typeorm";
+import { ILike, Repository } from "typeorm";
 import { Product } from "../entity/Product";
 import { AppDataSource } from "../data-source";
 import { Brand } from "../entity/Brand";
@@ -12,7 +12,13 @@ export default new (class ProductServices {
 
   async find(req: Request, res: Response): Promise<Response> {
     try {
+      const {search= ""} = req.query
       const products = await this.ProductRepository.find({
+        where: [
+          {product_name:  ILike(`%${search}%`)},
+          {brand: {brand_name:   ILike(`%${search}%`)}},
+        ]
+        ,
         order: {
           product_name: "DESC"
         }

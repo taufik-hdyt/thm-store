@@ -78,7 +78,7 @@ const CartItem:React.FC<IProps> = ({data}):JSX.Element => {
                   size="sm"
                   aria-label="icon"
                   icon={<TiMinus size={24} />}
-                  isDisabled={count <= 1 }
+                  isDisabled={(data ? data?.quantity: 0) <= 1 }
                   onClick={decrement}
                 />
                 <Text w="20px" fontWeight="semibold" textAlign="center">
@@ -91,7 +91,7 @@ const CartItem:React.FC<IProps> = ({data}):JSX.Element => {
                   size="sm"
                   aria-label="icon"
                   icon={<TiPlus size={24} />}
-                  // isDisabled={count + (data ? data.quantity : 0) <= 1}
+                  isDisabled={(data ? data.quantity : 0) >=  (data ? data.product.stock: 0)}
                     onClick={increment}
                 />
               </HStack>
