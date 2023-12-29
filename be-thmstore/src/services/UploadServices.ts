@@ -10,7 +10,7 @@ export default new class UploadServices{
             let image : string | undefined = undefined
             if(req.file?.filename){
                 image = await uploadToCloudinary(req.file)
-                deleteFile(req.file.path)
+                // deleteFile(req.file.path)
             }
             return res.status(200).json({
                 status: "success",
