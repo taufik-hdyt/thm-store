@@ -37,32 +37,17 @@ export const useUploadImage = ({onSuccess,onError}: IProps)=> {
         },
         onSuccess: onSuccess,
         onError: onError
-        // onSuccess: (res)=> {
-        //     addBrand({
-        //         brand_name: formik.values.brand_name,
-        //         brand_logos: res.url
-        //     })
-
-        // },
-        // onError: (err)=> {
-        //     if (axios.isAxiosError(err)) {
-        //         toast({
-        //           title: err.response?.data.message,
-        //           position: "top",
-        //           status: "error",
-        //         });
-        //       }
-        // }
     })   
 
 
     return {
         handleChangeImage,
         selectedImageFile,
+        uploadImage,
+
         setSelectedImageFile,
         setSelectedFile,
         selectedFile,
-        uploadImage,
         loadingUploadImage,
     }
 }
