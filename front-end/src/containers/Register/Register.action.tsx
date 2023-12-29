@@ -14,7 +14,7 @@ export const useRegisterAction = () => {
     useMutation({
       mutationFn: async (body: ICreateCustomer) => {
         const response = await API.post("/register", body);
-        return response;
+        return response.data
       },
       onSuccess: (res) => {
         toast({

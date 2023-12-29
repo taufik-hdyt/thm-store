@@ -102,9 +102,10 @@ export default new (class AuthServices {
   async profileMe(req: Request, res: Response): Promise<Response> {
     try {
       const loginSession = res.locals.auth;
+      
       const customer = await this.CustomerRepository.findOne({
         where: {
-          customer_id: loginSession.customer_id,
+          customer_id: loginSession.id,
         },
         relations: ["cart.product","wishlist.product"]
       });
