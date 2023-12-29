@@ -9,7 +9,9 @@ export class Transaction {
     @CreateDateColumn({ type: "time with time zone" })
     transaction_date: Date;
     @Column()
-    status: string
+    status_payment: string
+    @Column()
+    status_pengiriman: string
     @Column()
     quantity: number
     @Column()

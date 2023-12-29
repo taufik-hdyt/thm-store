@@ -35,3 +35,13 @@ export interface ICustomer {
     wishlist_id: number
     product: IProducts
   }
+
+  export interface IUpdateCustomer {
+    fullname: string;
+    email: string;
+    // profile_picture: string;
+    address: string;
+    phone: string | number
+    profile_picture?: string
+    password?:string
+  }

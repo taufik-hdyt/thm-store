@@ -49,7 +49,10 @@ export default new (class CustomerServices {
       customer.password = data.password;
       customer.phone = data.phone
       const update = await this.CustomerRepository.save(customer);
-      return res.status(200).json(update);
+      return res.status(200).json({
+        message: "Success Update Profile",
+        data:update
+      });
     } catch (error) {
       res.status(500).json({
         message: error.message,
