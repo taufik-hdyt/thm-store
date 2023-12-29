@@ -35,6 +35,7 @@ import { destroyCookie } from "nookies";
 import { CiSearch } from "react-icons/ci";
 import { IoIosHeartEmpty, IoIosLogOut } from "react-icons/io";
 import { IoCartOutline, IoPerson } from "react-icons/io5";
+import { isNullOrUndefined } from "util";
 
 interface IProps {
   onOpenCart?: () => void;
@@ -111,7 +112,7 @@ const Header: React.FC<IProps> = ({
                 icon={<IoCartOutline size={30} />}
                 onClick={()=> router.push("/cart")}
               />
-              {user?.cart.length !== 0 && (
+              {token && user?.cart.length !== 0 && (
                 <Center
                   bg="primary"
                   w="20px"
@@ -180,7 +181,7 @@ const Header: React.FC<IProps> = ({
             icon={<IoIosHeartEmpty size={30} />}
             onClick={openWichlist}
           />
-          {user?.wishlist.length !== 0 && (
+          {token && user?.wishlist.length !== 0 && (
             <Center
               bg="primary"
               w="20px"
