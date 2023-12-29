@@ -20,8 +20,8 @@ export class Customer {
   @Column()
   email: string;
 
-  @Column({nullable: true})
-  phone: number;
+  @Column({nullable: true,type: "varchar"})
+  phone: string;
 
   @Column()
   password: string;
