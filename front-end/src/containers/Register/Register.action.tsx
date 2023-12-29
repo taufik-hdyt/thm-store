@@ -22,7 +22,6 @@ export const useRegisterAction = () => {
           position: "top",
           status: "success",
         });
-        router.push("/login");
       },
       onError: (err) => {
         if (axios.isAxiosError(err)) {
@@ -33,6 +32,9 @@ export const useRegisterAction = () => {
           });
         }
       },
+      onSettled: ()=> {
+        router.push("/login");
+      }
     });
 
   function handleSubmit() {
