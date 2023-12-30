@@ -1,11 +1,14 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Customer } from "./Customer";
 import { Product } from "./Product";
+import { generateRandomNumber } from "../utils/randomNumber";
 
 @Entity("transactions")
 export class Transaction {
     @PrimaryGeneratedColumn()
     transaction_id: number
+    @Column()
+    no_transaction: string = `TRX-${generateRandomNumber()}`
     @CreateDateColumn({ type: "time with time zone" })
     transaction_date: Date;
     @Column()

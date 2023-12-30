@@ -6,5 +6,6 @@ const router = express.Router();
 
 // products
 router.post("/transaction", jwtAuth, TransactionControllers.createTransaction);
+router.post("/payment", jwtAuth, TransactionControllers.paymentToken);
 
 export default router;
