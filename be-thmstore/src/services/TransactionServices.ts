@@ -139,4 +139,36 @@ export default new (class TransactionServices {
       });
     }
   }
+  async midtransCallback(req:Request,res:Response):Promise<Response>{
+    try {
+
+      const orderId = req.body.orderId
+      const transactionStatus = req.body.transactionStatus
+
+      const transaction = await this.TransactionRepository.findOne({
+        where: {
+          no_transaction: orderId
+        }
+      })
+      if(!transaction) return res.status(404).json({
+        message: "Transaction not found",
+        status: false
+      })
+
+      if(transactionStatus === "settlement" || transactionStatus === "capture"){
+        transaction.status_payment = transactionStatus
+        await this.TransactionRepository.save(transaction)
+      }
+
+      return res.status(200).json({
+        message: "Success updated payment",
+        success: true
+      })
+      
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  }
 })();

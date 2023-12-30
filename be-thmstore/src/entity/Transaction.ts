@@ -7,7 +7,7 @@ import { generateRandomNumber } from "../utils/randomNumber";
 export class Transaction {
     @PrimaryGeneratedColumn()
     transaction_id: number
-    @Column()
+    @Column({nullable:true})
     no_transaction: string = `TRX-${generateRandomNumber()}`
     @CreateDateColumn({ type: "time with time zone" })
     transaction_date: Date;
