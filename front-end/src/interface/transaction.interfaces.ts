@@ -22,4 +22,7 @@ export interface ITransaction {
   quantity: number
   subtotal: number
   product: IProducts
+  snap_token: string 
+  redirect_url: string
 }
+
