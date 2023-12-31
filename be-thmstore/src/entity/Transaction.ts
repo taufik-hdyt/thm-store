@@ -25,4 +25,8 @@ export class Transaction {
     @ManyToOne(()=> Product, (product)=> product.transactions)
     @JoinColumn({name: "product_id"})
     product: Product
+    @Column({nullable:true})
+    snap_token: string
+    @Column({nullable:true})
+    redirect_url: string
 }

@@ -75,7 +75,7 @@ export default new (class TransactionServices {
 
   async payment(req: Request, res: Response): Promise<Response> {
     try {
-      const { subtotal, product_name, price, quantity, product_id } = req.body;
+      const { subtotal, quantity, product_id } = req.body;
       const user = await this.CustomerRepository.findOne({
         where: {
           customer_id: res.locals.auth.id,
@@ -124,6 +124,8 @@ export default new (class TransactionServices {
         subtotal: subtotal,
         status_payment: "PENDING",
         status_pengiriman: "ON PROCCESS",
+        snap_token: transactionToken.token,
+        redirect_url: transactionToken.redirect_url
       });
       await this.TransactionRepository.save(newTransaction);
       return res
@@ -142,12 +144,12 @@ export default new (class TransactionServices {
   async midtransCallback(req:Request,res:Response):Promise<Response>{
     try {
 
-      const orderId = req.body.orderId
+      const order_id = req.body.order_id
       const transactionStatus = req.body.transactionStatus
 
       const transaction = await this.TransactionRepository.findOne({
         where: {
-          no_transaction: orderId
+          no_transaction: order_id
         }
       })
       if(!transaction) return res.status(404).json({
@@ -156,7 +158,7 @@ export default new (class TransactionServices {
       })
 
       if(transactionStatus === "settlement" || transactionStatus === "capture"){
-        transaction.status_payment = transactionStatus
+        transaction.status_payment = "SUCCESS"
         await this.TransactionRepository.save(transaction)
       }
 

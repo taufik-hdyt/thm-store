@@ -8,4 +8,7 @@ export default new (class TransactionControllers {
   paymentToken(req: Request, res: Response) {
     TransactionServices.payment(req,res)
   }
+  callbackMidtrans(req: Request, res: Response) {
+    TransactionServices.midtransCallback(req,res)
+  }
 })();
