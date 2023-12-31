@@ -16,7 +16,6 @@ import { MdOutlineShoppingBag } from "react-icons/md";
 import moment from "moment";
 import Empty from "@/components/Empty";
 import { useEffect } from "react";
-import { useProfileAction } from "../Profile.action";
 
 const Transaction: React.FC = (): JSX.Element => {
   const customStyleTitle: React.CSSProperties = {
@@ -27,7 +26,7 @@ const Transaction: React.FC = (): JSX.Element => {
   };
 
   const { user } = useAuth();
-  const snap = (window as any).pay
+
 
 
   useEffect(() => {
@@ -132,7 +131,11 @@ const Transaction: React.FC = (): JSX.Element => {
               {data.status_payment === "PENDING" && (
                 <Flex justify="end">
                   <Button
-                    onClick={()=>window.snap.pay(data.snap_token)}
+                    onClick={()=>{
+                      if(data.snap_token){
+                        snap.pay(data.snap_token)
+                      }
+                    }}
                     bg="primary"
                     color="white"
                     w="fit-content"
