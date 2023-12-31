@@ -7,6 +7,6 @@ const router = express.Router();
 // products
 router.post("/transaction", jwtAuth, TransactionControllers.createTransaction);
 router.post("/payment", jwtAuth, TransactionControllers.paymentToken);
-router.post("/paymentCallback", jwtAuth, TransactionControllers.callbackMidtrans);
+router.post("/paymentNotification", TransactionControllers.callbackMidtrans);
 
 export default router;
