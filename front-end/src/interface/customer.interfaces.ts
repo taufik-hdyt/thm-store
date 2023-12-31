@@ -1,4 +1,5 @@
 import { IProducts } from "./product.interface";
+import { ITransaction } from "./transaction.interfaces";
 
 export interface ICreateCustomer {
   fullname: string;
@@ -23,6 +24,7 @@ export interface ICustomer {
     cart: ICart[]
     wishlist: []
     createdAt: string
+    transactions: ITransaction[]
   }
   
   export interface ICart{
@@ -45,3 +47,5 @@ export interface ICustomer {
     profile_picture?: string
     password?:string
   }
+
+ 
