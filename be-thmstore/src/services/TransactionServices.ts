@@ -7,6 +7,7 @@ import { Transaction } from "../entity/Transaction";
 import "dotenv/config";
 import * as midtransClient from "midtrans-client";
 import { generateRandomNumber } from "../utils/randomNumber";
+import * as crypto from "crypto"
 
 export default new (class TransactionServices {
   private readonly TransactionRepository: Repository<Transaction> =
@@ -144,27 +145,50 @@ export default new (class TransactionServices {
   async midtransCallback(req:Request,res:Response):Promise<Response>{
     try {
 
-      const order_id = req.body.order_id
-      const transactionStatus = req.body.transactionStatus
 
-      const transaction = await this.TransactionRepository.findOne({
+      const data = req.body
+      console.log(data);
+      
+      const hash = crypto
+      .createHash("sha512")
+      .update(`${data.order_id}${data.status_code}${data.gross_amount}${process.env.MIDTRANS_SERVER_KEY}`)
+      .digest("hex")
+
+      if(data.signature_key !== hash) return res.status(400).json({
+        message: "Signature key invalid, please try again your action"
+      })
+
+      const transactionStatus = data.transaction_status
+      const fraudStatus = data.fraud_sattus
+
+      const updateTransaction = await this.TransactionRepository.findOne({
         where: {
-          no_transaction: order_id
+          no_transaction: data.order_id
         }
       })
-      if(!transaction) return res.status(404).json({
-        message: "Transaction not found",
-        status: false
-      })
 
-      if(transactionStatus === "settlement" || transactionStatus === "capture"){
-        transaction.status_payment = "SUCCESS"
-        await this.TransactionRepository.save(transaction)
+      if(transactionStatus == "capture"){
+        if(fraudStatus == "accept"){
+          updateTransaction.status_payment = "SUCCESS"
+          await this.TransactionRepository.save(updateTransaction)
+        }
+      }else if(transactionStatus == "settlement"){
+        updateTransaction.status_payment = "SUCCESS"
+          await this.TransactionRepository.save(updateTransaction)
+      }else if(
+        transactionStatus == "cancel" || transactionStatus == "denny" || transactionStatus == "expire"
+      ){
+        updateTransaction.status_payment = "FAILED"
+          await this.TransactionRepository.save(updateTransaction)
+      } else if (transactionStatus == "pending") {
+        updateTransaction.status_payment = "PENDING"
+        await this.TransactionRepository.save(updateTransaction)
       }
 
       return res.status(200).json({
-        message: "Success updated payment",
-        success: true
+        code: 200,
+        status: "success",
+        message: "Transaction Notification Webhook Success"
       })
       
     } catch (error) {
