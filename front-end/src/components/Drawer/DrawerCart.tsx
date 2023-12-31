@@ -1,8 +1,10 @@
+import { useAuth } from "@/hooks/useAuth";
+import { ICart } from "@/interface/customer.interfaces";
+import { formatRupiah } from "@/utils/formatRupiah";
 import {
   Button,
   Drawer,
   DrawerBody,
-  DrawerCloseButton,
   DrawerContent,
   DrawerFooter,
   DrawerHeader,
@@ -10,15 +12,12 @@ import {
   HStack,
   IconButton,
   Stack,
-  Text,
+  Text
 } from "@chakra-ui/react";
-import CartItem from "../CartItem";
-import { useAuth } from "@/hooks/useAuth";
-import { ICart } from "@/interface/customer.interfaces";
-import { formatRupiah } from "@/utils/formatRupiah";
 import { useEffect, useState } from "react";
-import Empty from "../Empty";
 import { IoIosCloseCircleOutline } from "react-icons/io";
+import CartItem from "../CartItem";
+import Empty from "../Empty";
 
 interface IProps {
   isOpen: boolean;
