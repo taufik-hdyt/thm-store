@@ -15,17 +15,15 @@ const Footer: React.FC = (): JSX.Element => {
   return (
     <Box px={10} pt={10} borderTop="1px solid #ebebeb">
       <Grid gridTemplateColumns={{base: "1fr", md: "1fr .5fr .5fr .5fr"}} gap={8}>
-        <Stack>
+        <HStack align="center">
           <Avatar
             src="https://res.cloudinary.com/doushe6hn/image/upload/v1702611440/thm-store/wsgtz2aummbaotpeq0qq.png"
-            size="lg"
+            size="xl"
           />
-          <Text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
-            natus laudantium ullam magnam vitae aspernatur obcaecati porro
-            similique dolor
-          </Text>
-        </Stack>
+          {/* <Text>
+            THM Store
+          </Text> */}
+        </HStack>
         <GridItem>
           <Stack>
             <Text fontWeight="semibold">Company</Text>

@@ -34,10 +34,10 @@ const Cart: React.FC = (): JSX.Element => {
     getProfile();
   };
 
+
   useEffect(() => {
     calculateTotalPrice();
   }, [totalQuantity]);
-
   
 
   return (
