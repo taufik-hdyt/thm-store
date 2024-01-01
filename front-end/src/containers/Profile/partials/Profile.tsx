@@ -87,7 +87,7 @@ const Profile: React.FC<IProps> = ({ user }): JSX.Element => {
             <Input
               onChange={handleForm}
               value={formData.phone}
-              w="fit-content"
+              w="full"
               name="phone"
             />
           </FormControl>
