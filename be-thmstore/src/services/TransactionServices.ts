@@ -166,6 +166,13 @@ export default new (class TransactionServices {
           no_transaction: data.order_id
         }
       })
+    
+
+      const product = await this.ProductRepository.findOne({
+        where: {
+          product_id: updateTransaction.product.product_id
+        }
+      })
 
       if(transactionStatus == "capture"){
         if(fraudStatus == "accept"){
@@ -174,7 +181,9 @@ export default new (class TransactionServices {
         }
       }else if(transactionStatus == "settlement"){
         updateTransaction.status_payment = "SUCCESS"
+        product.stock = product.stock - updateTransaction.quantity
           await this.TransactionRepository.save(updateTransaction)
+          await this.ProductRepository.save(product)
       }else if(
         transactionStatus == "cancel" || transactionStatus == "denny" || transactionStatus == "expire"
       ){
