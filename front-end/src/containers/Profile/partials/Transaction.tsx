@@ -45,7 +45,7 @@ const Transaction: React.FC = (): JSX.Element => {
 
   return (
     <Box>
-      <HStack>
+      {/* <HStack>
         <Button size="sm" variant="unstyled">
           Status
         </Button>
@@ -66,7 +66,8 @@ const Transaction: React.FC = (): JSX.Element => {
         <Button size="sm" variant="outline">
           Pending
         </Button>
-      </HStack>
+      </HStack> */}
+      <Text fontWeight="semibold">All Transaction</Text>
 
       <Stack mt={6} spacing={4}>
         {!user?.transactions.length && (
@@ -80,9 +81,11 @@ const Transaction: React.FC = (): JSX.Element => {
           const transactionDate = waktuMoment.format("YYYY-MM-DD");
           return (
             <Card key={idx} p={4}>
-              <HStack spacing={4}>
+
+              <Flex   overflowX="auto">
+              <HStack w="100%" spacing={4} >
                 <MdOutlineShoppingBag size={24} />
-                <Text fontSize="xs">{transactionDate}</Text>
+                <Text  fontSize="xs">{transactionDate}</Text>
                 <Text
                   fontSize="sm"
                   px="3"
@@ -90,11 +93,15 @@ const Transaction: React.FC = (): JSX.Element => {
                   rounded="xl"
                   color="green"
                   fontWeight="semibold"
+                  
                 >
                   {data.status_payment}
                 </Text>
-                <Text fontSize="sm">{data.no_transaction}</Text>
+                <Text   fontSize="sm">{data.no_transaction}</Text>
+                {data.status_payment === "SUCCESS" && <Text>Delivery : <strong style={{color: '#39A7FF'}}>{data.status_pengiriman}</strong></Text>}
               </HStack>
+              </Flex>
+              
 
               <HStack mt="2">
                 <Image
