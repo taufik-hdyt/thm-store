@@ -180,10 +180,10 @@ export default new (class TransactionServices {
           await this.TransactionRepository.save(updateTransaction)
         }
       }else if(transactionStatus == "settlement"){
-        updateTransaction.status_payment = "SUCCESS"
         product.stock = product.stock - updateTransaction.quantity
+        updateTransaction.status_payment = "SUCCESS"
+        await this.ProductRepository.save(product)
           await this.TransactionRepository.save(updateTransaction)
-          await this.ProductRepository.save(product)
       }else if(
         transactionStatus == "cancel" || transactionStatus == "denny" || transactionStatus == "expire"
       ){
