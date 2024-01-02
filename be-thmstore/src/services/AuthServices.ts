@@ -88,6 +88,7 @@ export default new (class AuthServices {
       return res.status(200).json({
         code: 201,
         status: "success",
+        email: customerSelected.email,
         message: "Login Success",
         token,
       });
