@@ -175,7 +175,7 @@ export default new (class TransactionServices {
       })
 
       if(transactionStatus == "capture"){
-        if(fraudStatus == "accept"){
+        if(fraudStatus === "accept"){
           updateTransaction.status_payment = "SUCCESS"
           await this.TransactionRepository.save(updateTransaction)
         }
