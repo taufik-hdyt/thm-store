@@ -210,7 +210,9 @@ export default new (class TransactionServices {
   async find(req: Request, res: Response): Promise<Response> {
     try {
 
-      const transactions = await this.TransactionRepository.find()    
+      const transactions = await this.TransactionRepository.find({
+        relations: ["product"]
+      })    
       return res.status(200).json({
         message: "data all transaction",
         code: 200,
