@@ -57,7 +57,7 @@ const CartItem: React.FC<IProps> = ({ data}): JSX.Element => {
 
 
   return (
-    <HStack cursor="pointer" bg={selected ? "primary": "transparent"} onClick={()=>handleSelected(data?.product.product_id)} p={2} border="1px solid #ebebeb" rounded="lg" w="full">
+    <HStack cursor="pointer"  onClick={()=>handleSelected(data?.product.product_id)} p={2} border="1px solid #ebebeb" rounded="lg" w="full">
       <Image
         minW="80px"
         h="80px"

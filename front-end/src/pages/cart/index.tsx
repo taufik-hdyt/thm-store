@@ -4,6 +4,7 @@ import { NextPage, NextPageContext } from "next";
 import nookies from "nookies"
 
 const CartPage: NextPage = (): JSX.Element => {
+  
   return (
     <Layout isNavMobile headTitle="Cart">
       <Cart />

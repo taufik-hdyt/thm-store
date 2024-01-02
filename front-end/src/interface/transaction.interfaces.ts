@@ -14,7 +14,7 @@ export interface ICreateTransaction {
 
 export interface ITransaction {
   transaction_id: number
-  no_transaction: number
+  no_transaction: string
   customer: number
   transaction_date: string
   status_payment: string
