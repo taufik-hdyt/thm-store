@@ -58,8 +58,7 @@ export default new (class ProductServices {
   async create(req: Request, res: Response): Promise<Response> {
     try {
       const {name,price,stock,brand_id,description,image} = req.body
-      
-
+  
       const brand = await this.BrandRepository.findOne({
         where: {
           brand_id: brand_id
@@ -68,7 +67,8 @@ export default new (class ProductServices {
 
       if(!brand) return res.status(404).json({
         message: "Brand not found"
-      })
+      })      
+
 
       const product = this.ProductRepository.create({
         product_name: name,
@@ -78,6 +78,8 @@ export default new (class ProductServices {
         description: description,
         image: image,
       })
+
+
 
       const createProduct = await this.ProductRepository.save(product)
       return res.status(200).json({
@@ -111,6 +113,53 @@ export default new (class ProductServices {
         message: "Success add product",
         status: true
       })
+
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  }
+
+  async update(req: Request, res: Response): Promise<Response> {
+    try {
+      const id = Number(req.params.id)
+      const {name,price,stock,brand_id,description,image} = req.body
+  
+      const brand = await this.BrandRepository.findOne({
+        where: {
+          brand_id: brand_id
+        }
+      })
+
+      if(!brand) return res.status(404).json({
+        message: "Brand not found"
+      })    
+
+      const product = await this.ProductRepository.findOne({
+        where: {
+          product_id: id
+        }
+      })
+      if(!product) return res.status(404).json({
+        message: "Product not found"
+      })
+
+      product.product_name = name
+      product.stock = stock
+      product.description = description
+      product.price = price
+      product.image = image
+
+      await this.ProductRepository.save(product)
+      return res.status(200).json({
+        message: "Product Update Success",
+        status: true
+      })
+
+
+
+     
     } catch (error) {
       return res.status(500).json({
         message: error.message,
