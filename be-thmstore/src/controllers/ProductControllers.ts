@@ -13,5 +13,8 @@ export default new (class BrandControllers {
   create(req: Request, res: Response) {
     ProductServices.create(req,res)
   }
+  delete(req: Request, res: Response) {
+    ProductServices.delete(req,res)
+  }
 
 })();

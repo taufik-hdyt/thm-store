@@ -8,5 +8,6 @@ const router = express.Router();
 router.get("/products", jwtAuth, ProductControllers.find);
 router.get("/product/:id", jwtAuth, ProductControllers.findOne);
 router.post("/product", jwtAuth, ProductControllers.create);
+router.delete("/product/:id", jwtAuth, ProductControllers.delete);
 
 export default router;
