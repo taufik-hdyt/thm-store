@@ -206,4 +206,21 @@ export default new (class TransactionServices {
       });
     }
   }
+
+  async find(req: Request, res: Response): Promise<Response> {
+    try {
+
+      const transactions = await this.TransactionRepository.find()    
+      return res.status(200).json({
+        message: "data all transaction",
+        code: 200,
+        status: "success",
+        data: transactions,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  }
 })();

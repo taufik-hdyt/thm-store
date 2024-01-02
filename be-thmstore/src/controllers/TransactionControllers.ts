@@ -11,4 +11,7 @@ export default new (class TransactionControllers {
   callbackMidtrans(req: Request, res: Response) {
     TransactionServices.midtransCallback(req,res)
   }
+  find(req: Request, res: Response) {
+    TransactionServices.find(req,res)
+  }
 })();
