@@ -12,8 +12,8 @@ const AdminPage: NextPage = (): JSX.Element => {
  
 
   useEffect(()=>{
-    if(user?.email === "admin@gmail.com"){
-      router.push("/admin")
+    if(user?.email !== "admin@gmail.com"){
+      router.push("/")
     }
   },[user])
 
