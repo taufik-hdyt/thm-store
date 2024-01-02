@@ -14,4 +14,7 @@ export default new (class TransactionControllers {
   find(req: Request, res: Response) {
     TransactionServices.find(req,res)
   }
+  update(req: Request, res: Response) {
+    TransactionServices.update(req,res)
+  }
 })();

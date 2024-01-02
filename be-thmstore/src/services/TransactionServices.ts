@@ -124,7 +124,7 @@ export default new (class TransactionServices {
         quantity: quantity,
         subtotal: subtotal,
         status_payment: "PENDING",
-        status_pengiriman: "ON PROCCESS",
+        status_pengiriman: "PENDING",
         snap_token: transactionToken.token,
         redirect_url: transactionToken.redirect_url
       });
@@ -218,6 +218,36 @@ export default new (class TransactionServices {
         code: 200,
         status: "success",
         data: transactions,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  }
+
+  async update(req: Request, res: Response): Promise<Response> {
+    try {
+
+      const noTransaction = req.params.noTransaction
+      const {delivery_status} = req.body
+      const transaction = await this.TransactionRepository.findOne({
+        where: {
+          no_transaction: noTransaction
+        }
+      })
+
+      if(!transaction) return res.status(404).json({
+        message: "Transaction Not Found"
+      })
+
+      transaction.status_pengiriman = delivery_status
+      await this.TransactionRepository.save(transaction)
+
+      return res.status(200).json({
+        message: "Update Transaction",
+        code: 200,
+        status: "success",
       });
     } catch (error) {
       return res.status(500).json({
