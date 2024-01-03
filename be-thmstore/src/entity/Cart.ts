@@ -11,7 +11,7 @@ export class Cart {
     @JoinColumn({name: "id_customer"})
     customer: Customer
 
-    @ManyToOne(()=> Product, (product)=> product.cart)
+    @ManyToOne(()=> Product, (product)=> product.cart, {onDelete: "CASCADE", onUpdate: "CASCADE"})
     @JoinColumn({name: "id_product"})
     product: Product
 
