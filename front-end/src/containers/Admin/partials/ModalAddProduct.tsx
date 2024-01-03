@@ -22,6 +22,7 @@ import {
   Textarea,
   InputGroup,
   InputLeftAddon,
+  Image,
 } from "@chakra-ui/react";
 import { useMutation } from "@tanstack/react-query";
 import { useFormik } from "formik";
@@ -56,7 +57,7 @@ const ModalAddProduct: React.FC<IProps> = ({
     }
   })
 
-  const {handleChangeImage,loadingUploadImage,uploadImage,selectedImageFile} = useUploadImage({
+  const {handleChangeImage,loadingUploadImage,uploadImage,selectedImageFile,setSelectedImageFile,setSelectedFile} = useUploadImage({
     onSuccess: (res)=> {
       console.log(res);
       
@@ -92,11 +93,18 @@ const ModalAddProduct: React.FC<IProps> = ({
     formik.setFieldValue(target.name, target.value);
   };
 
+  const handleClose = ()=> {
+    formik.resetForm()
+    setSelectedImageFile("")
+    setSelectedFile("")
+    onClose()
+  }
+
 
   
 
   return (
-    <Modal isCentered size="xl" isOpen={isOpen} onClose={onClose}>
+    <Modal isCentered size="xl" isOpen={isOpen} onClose={handleClose}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Add Product</ModalHeader>
@@ -138,6 +146,10 @@ const ModalAddProduct: React.FC<IProps> = ({
             />
           </FormControl>
 
+          {
+            selectedImageFile && <Image src={selectedImageFile} alt="product" />
+          }
+
           <InputGroup mt={3} onClick={()=> {
             if(inputRef.current){
               inputRef.current.click()
@@ -155,7 +167,7 @@ const ModalAddProduct: React.FC<IProps> = ({
             borderColor="primary"
             variant="outline"
             mr={3}
-            onClick={onClose}
+            onClick={handleClose}
           >
             Close
           </Button>
