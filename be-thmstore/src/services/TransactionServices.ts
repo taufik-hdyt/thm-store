@@ -158,14 +158,20 @@ export default new (class TransactionServices {
         message: "Signature key invalid, please try again your action"
       })
 
+    
+      
+
       const transactionStatus = data.transaction_status
       const fraudStatus = data.fraud_sattus
 
       const updateTransaction = await this.TransactionRepository.findOne({
+        relations: ["product"],
         where: {
           no_transaction: data.order_id
         }
       })
+    
+      
       const product = await this.ProductRepository.findOne({
         where: {
           product_id: updateTransaction.product.product_id
@@ -174,19 +180,23 @@ export default new (class TransactionServices {
 
       if (transactionStatus == "capture") {
         if (fraudStatus == "accept") {
+          
+          
           updateTransaction.status_payment = "SUCCESS"
           await this.TransactionRepository.save(updateTransaction)
         }
       } else if (transactionStatus == "settlement") {
+        console.log("BBB");
         updateTransaction.status_payment = "SUCCESS"
-          await this.TransactionRepository.save(updateTransaction)
-          product.stock = product.stock - updateTransaction.quantity
-          await this.ProductRepository.save(product)
+        await this.TransactionRepository.save(updateTransaction)
+        product.stock = product.stock - updateTransaction.quantity
+        await this.ProductRepository.save(product)
       } else if (
         transactionStatus == "cancel" ||
         transactionStatus == "deny" ||
         transactionStatus == "expire"
-      ) {
+        ) {
+        console.log("CCC");
         updateTransaction.status_payment = "FAILED"
           await this.TransactionRepository.save(updateTransaction)
       }
@@ -199,6 +209,8 @@ export default new (class TransactionServices {
       })
       
     } catch (error) {
+      console.log(error);
+      
       return res.status(500).json({
         message: error.message,
       });
