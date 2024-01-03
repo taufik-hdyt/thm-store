@@ -166,6 +166,8 @@ export default new (class TransactionServices {
           no_transaction: data.order_id
         }
       })
+      console.log(updateTransaction);
+      
     
 
       const product = await this.ProductRepository.findOne({
@@ -175,11 +177,11 @@ export default new (class TransactionServices {
       })
 
       if(transactionStatus == "capture"){
-        if(fraudStatus === "accept"){
-          updateTransaction.status_payment = "SUCCESS"
+        if(fraudStatus == "accept"){
+          updateTransaction.status_payment = 'SUCCESS'
           await this.TransactionRepository.save(updateTransaction)
         }
-      }else if(transactionStatus == "settlement"){
+      }else if(transactionStatus == 'settlement'){
         updateTransaction.status_payment = "SUCCESS"
         await this.TransactionRepository.save(updateTransaction)
         product.stock = product.stock - updateTransaction.quantity
@@ -187,10 +189,10 @@ export default new (class TransactionServices {
       }else if(
         transactionStatus == "cancel" || transactionStatus == "denny" || transactionStatus == "expire"
       ){
-        updateTransaction.status_payment = "FAILED"
+        updateTransaction.status_payment = 'FAILED'
           await this.TransactionRepository.save(updateTransaction)
-      } else if (transactionStatus == "pending") {
-        updateTransaction.status_payment = "PENDING"
+      } else if (transactionStatus == 'pending') {
+        updateTransaction.status_payment = 'PENDING'
         await this.TransactionRepository.save(updateTransaction)
       }
 
