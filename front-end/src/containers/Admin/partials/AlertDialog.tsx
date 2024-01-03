@@ -66,7 +66,8 @@
               </Button>
               <Button
                 isLoading={isPending}
-                colorScheme="red"
+                bg="primary"
+                color="white"
                 ml={3}
                 onClick={() => {
                   updateTransaction({
