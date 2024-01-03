@@ -172,12 +172,11 @@ export default new (class TransactionServices {
         }
       })
 
-      if(transactionStatus == "capture"){
-        if(fraudStatus == "accept"){
-          updateTransaction.status_payment = 'SUCCESS'
-          await this.TransactionRepository.save(updateTransaction)
-        }
-      }else if(transactionStatus == 'settlement'){
+      if(transactionStatus == "settlement"){
+        // if(fraudStatus == "accept"){
+        //   updateTransaction.status_payment = 'SUCCESS'
+        //   await this.TransactionRepository.save(updateTransaction)
+        // }
         updateTransaction.status_payment = "SUCCESS"
         await this.TransactionRepository.save(updateTransaction)
         product.stock = product.stock - updateTransaction.quantity
