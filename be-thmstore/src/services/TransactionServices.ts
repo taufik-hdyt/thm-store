@@ -147,7 +147,7 @@ export default new (class TransactionServices {
 
 
       const data = req.body
-      console.log(data);
+      console.log(data.transaction_status);
       
       const hash = crypto
       .createHash("sha512")
@@ -166,10 +166,6 @@ export default new (class TransactionServices {
           no_transaction: data.order_id
         }
       })
-      console.log(updateTransaction);
-      
-    
-
       const product = await this.ProductRepository.findOne({
         where: {
           product_id: updateTransaction.product.product_id
