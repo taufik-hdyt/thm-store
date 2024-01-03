@@ -90,7 +90,9 @@ const Cart: React.FC = (): JSX.Element => {
       <Text  fontWeight="semibold" mt={3} >Rp 225.000</Text>
       </HStack> */}
 
-          <Button isDisabled={totalPrice === 0} bg="primary" color="white" mt={4}>
+          <Button onClick={()=> {
+            alert("While it's not possible yet, it's still in the development stage, please checkout 1 product in the product details")
+          }} isDisabled={totalPrice === 0} bg="primary" color="white" mt={4}>
             Buy
           </Button>
         </Card>
