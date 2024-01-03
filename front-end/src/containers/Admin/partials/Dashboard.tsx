@@ -15,7 +15,7 @@ import { formatRupiah } from "@/utils/formatRupiah";
 
     const totalOrder = dataTransaction?.data.length
     const totalOrders = dataTransaction?.data.filter((data:ITransaction)=> data.status_payment === "SUCCESS")
-    const totalRevenue = totalOrders.reduce((acc:any, transaction:ITransaction) => acc + transaction.subtotal, 0);
+    const totalRevenue = totalOrders?.reduce((acc:any, transaction:ITransaction) => acc  + transaction.subtotal, 0);
 
     
     
@@ -52,7 +52,7 @@ import { formatRupiah } from "@/utils/formatRupiah";
               <Stack>
             <MdLabel size={20} color="black" />
             <Stack mt={2} spacing={0}>
-            <Text fontWeight="semibold">{totalOrders.length}</Text>
+            <Text fontWeight="semibold">{totalOrders?.length}</Text>
             <Text fontSize="sm">Product Sold</Text>
             </Stack>
               </Stack>
