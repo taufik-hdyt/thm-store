@@ -186,7 +186,7 @@ export default new (class TransactionServices {
           await this.TransactionRepository.save(updateTransaction)
         }
       } else if (transactionStatus == "settlement") {
-        console.log("BBB");
+        
         updateTransaction.status_payment = "SUCCESS"
         await this.TransactionRepository.save(updateTransaction)
         product.stock = product.stock - updateTransaction.quantity
@@ -196,7 +196,7 @@ export default new (class TransactionServices {
         transactionStatus == "deny" ||
         transactionStatus == "expire"
         ) {
-        console.log("CCC");
+      
         updateTransaction.status_payment = "FAILED"
           await this.TransactionRepository.save(updateTransaction)
       }
