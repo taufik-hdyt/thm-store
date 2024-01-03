@@ -20,9 +20,9 @@ import { ITransaction } from "@/interface/transaction.interfaces";
 import { formatRupiah } from "@/utils/formatRupiah";
 import { AlertConfirm } from ".";
 import { useState } from "react";
+import { useTransaction } from "../hooks/useTransaction";
 
 const Orders: React.FC = (): JSX.Element => {
-  const { token } = useAuth();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [notrans, setNotrans] = useState("");
   const handleOpenAlert = (id: string) => {
@@ -30,17 +30,9 @@ const Orders: React.FC = (): JSX.Element => {
     onOpen();
   };
 
-  const { data: dataTransaction, refetch } = useQuery({
-    queryKey: ["transactions"],
-    queryFn: async () => {
-      const response = await API.get("/transactions", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      return response.data;
-    },
-  });
+  const {dataTransaction,refetch} = useTransaction()
+  
+  
 
   return (
     <TableContainer mt={3}>

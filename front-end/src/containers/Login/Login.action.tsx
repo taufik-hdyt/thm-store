@@ -47,12 +47,7 @@ export const useLoginAction = () => {
         maxAge: 30 * 24 * 60 * 60,
         path: '/',
       });
-      if(res.email === "admin@gmail.com"){
-        router.push("/admin")
-      }else{
-        router.push("/")
-      }
-    
+      router.push("/")    
     },
     onError: (err) => {
       console.log(err);

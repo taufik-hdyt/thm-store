@@ -16,7 +16,7 @@ const Sidebar: React.FC<IProps> = ({setState,selected}): JSX.Element => {
           <Avatar src="logo-profile.png" />
           <Text>THM Store</Text>
         </HStack>
-        <Button bg="primary" color="white">
+        <Button onClick={()=> setState("dashboard")} bg="primary" color="white">
           Dashboard
         </Button>
 

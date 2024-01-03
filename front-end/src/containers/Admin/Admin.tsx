@@ -10,7 +10,14 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import { Brands, ModalAddProduct, Orders, Sidebar, Users } from "./partials";
+import {
+  Brands,
+  Dashboard,
+  ModalAddProduct,
+  Orders,
+  Sidebar,
+  Users,
+} from "./partials";
 import { useState } from "react";
 import { IProducts } from "@/interface/product.interface";
 import CardProductAdmin from "./partials/CardProduct";
@@ -18,9 +25,9 @@ import { useHomeAction } from "../Home/Home.action";
 import { FiPlus, FiSearch } from "react-icons/fi";
 
 const Admin: React.FC = (): JSX.Element => {
-  const [selected, setSelected] = useState("products");
+  const [selected, setSelected] = useState("dashboard");
   const { dataProdutcs } = useHomeAction();
-  const {isOpen,onClose,onOpen} = useDisclosure()
+  const { isOpen, onClose, onOpen } = useDisclosure();
 
   return (
     <Grid gridTemplateColumns="300px 1fr">
@@ -81,11 +88,16 @@ const Admin: React.FC = (): JSX.Element => {
             <Brands />
           </>
         )}
+
+        {selected === "dashboard" && (
+          <>
+            <Text fontWeight="semibold">Dashboard</Text>
+            <Dashboard />
+          </>
+        )}
       </GridItem>
 
-{
-  isOpen && <ModalAddProduct isOpen={isOpen} onClose={onClose} />
-}
+      {isOpen && <ModalAddProduct isOpen={isOpen} onClose={onClose} />}
     </Grid>
   );
 };

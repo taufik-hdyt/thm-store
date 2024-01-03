@@ -1,5 +1,10 @@
 import { useHomeAction } from "@/containers/Home/Home.action";
+import { useAuth } from "@/hooks/useAuth";
+import { useUploadImage } from "@/hooks/useUploadImage";
 import { IBrand } from "@/interface/brand.interfaces";
+import { ICreateProduct } from "@/interface/product.interface";
+import { API } from "@/libs/API";
+import { validationSchemaCreateProduct } from "@/utils/validation";
 import {
   Modal,
   ModalOverlay,
@@ -18,6 +23,9 @@ import {
   InputGroup,
   InputLeftAddon,
 } from "@chakra-ui/react";
+import { useMutation } from "@tanstack/react-query";
+import { useFormik } from "formik";
+import { useRef } from "react";
 
 interface IProps {
   isOpen: boolean;
@@ -28,6 +36,65 @@ const ModalAddProduct: React.FC<IProps> = ({
   onClose,
 }): JSX.Element => {
   const { dataBrands } = useHomeAction();
+  const { refetchProducts } = useHomeAction();
+  const {token} = useAuth()
+  const inputRef = useRef<HTMLInputElement>(null)
+  const {mutate:addProduct,isPending:loadingProduct} = useMutation({
+    mutationFn: async(body: ICreateProduct)=> {
+      const response = await API.post("/product", body, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      return response.data
+    },
+    onSuccess: ()=> {
+      refetchProducts()
+      onClose()
+      formik.resetForm()
+
+    }
+  })
+
+  const {handleChangeImage,loadingUploadImage,uploadImage,selectedImageFile} = useUploadImage({
+    onSuccess: (res)=> {
+      console.log(res);
+      
+      addProduct({
+        name: formik.values.name,
+        brand_id: formik.values.brand,
+        description: formik.values.description,
+        price: formik.values.price,
+        stock: formik.values.stock,
+        image: res.url
+      })
+    },
+  })
+
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      price: 0,
+      stock: 0,
+      description: '',
+      brand: 0
+    },
+    onSubmit: ()=> {
+      uploadImage()
+
+    },
+    validationSchema: validationSchemaCreateProduct,
+  });
+
+
+  const handleForm = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { target } = event;
+    formik.setFieldValue(target.name, target.value);
+  };
+
+
+  
+
   return (
     <Modal isCentered size="xl" isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -38,19 +105,19 @@ const ModalAddProduct: React.FC<IProps> = ({
           <Grid gap={3} gridTemplateColumns="1fr 1fr ">
             <FormControl>
               <FormLabel>Product Name</FormLabel>
-              <Input name="name" placeholder="Product name" />
+              <Input onChange={handleForm} name="name" placeholder="Product name" />
             </FormControl>
             <FormControl>
               <FormLabel>Price</FormLabel>
-              <Input type="number" placeholder="Price" />
+              <Input onChange={handleForm} name="price" type="number" placeholder="Price" />
             </FormControl>
             <FormControl>
               <FormLabel>Stock</FormLabel>
-              <Input name="stock" type="number" placeholder="Stock" />
+              <Input onChange={handleForm} name="stock" type="number" placeholder="Stock" />
             </FormControl>
             <FormControl>
               <FormLabel>Brand</FormLabel>
-              <Select>
+              <Select name="brand" onChange={handleForm}>
                 {dataBrands?.data.map((data: IBrand, idx: number) => (
                   <option key={idx} value={data.brand_id}>
                     {data.brand_name}
@@ -63,6 +130,7 @@ const ModalAddProduct: React.FC<IProps> = ({
           <FormControl>
             <FormLabel>Description</FormLabel>
             <Textarea
+            onChange={handleForm}
               name="description"
               rows={5}
               resize="none"
@@ -70,9 +138,14 @@ const ModalAddProduct: React.FC<IProps> = ({
             />
           </FormControl>
 
-          <InputGroup mt={3}>
+          <InputGroup mt={3} onClick={()=> {
+            if(inputRef.current){
+              inputRef.current.click()
+            }
+          }}>
             <InputLeftAddon>Choose</InputLeftAddon>
-            <Input type="text" readOnly placeholder="" />
+            <Input type="text" readOnly placeholder={selectedImageFile} />
+            <Input ref={inputRef} type="file" display="none" name="image" onChange={handleChangeImage} placeholder="" />
           </InputGroup>
         </ModalBody>
 
@@ -86,7 +159,7 @@ const ModalAddProduct: React.FC<IProps> = ({
           >
             Close
           </Button>
-          <Button bg="primary" color="white">
+          <Button isLoading={loadingUploadImage || loadingProduct} onClick={()=>formik.handleSubmit()} bg="primary" color="white">
             Add Product
           </Button>
         </ModalFooter>
