@@ -7,7 +7,7 @@ const router = express.Router();
 // products
 router.post("/transaction", jwtAuth, TransactionControllers.createTransaction);
 router.get("/transactions", jwtAuth, TransactionControllers.find);
-router.patch("/transaction/:id", jwtAuth, TransactionControllers.update);
+router.patch("/transaction/:noTransaction", jwtAuth, TransactionControllers.update);
 router.post("/payment", jwtAuth, TransactionControllers.paymentToken);
 router.post("/paymentNotification", TransactionControllers.callbackMidtrans);
 
