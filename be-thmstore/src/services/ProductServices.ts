@@ -96,21 +96,20 @@ export default new (class ProductServices {
   async delete(req: Request, res: Response): Promise<Response> {
     try {
 
-      const idProduct = Number(req.params.idProduct)
-
+      const id = Number(req.params.id)
       const product = await this.ProductRepository.findOne({
         where: {
-          product_id: idProduct
+          product_id: id
         }
       })
       if(!product)return res.status(404).json({
         message: "Product not found"
       })
 
-      await this.ProductRepository.delete(idProduct)
+      await this.ProductRepository.delete(id)
       
       return res.status(200).json({
-        message: "Success add product",
+        message: "Success delete product",
         status: true
       })
 
