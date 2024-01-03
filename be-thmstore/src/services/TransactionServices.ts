@@ -172,24 +172,25 @@ export default new (class TransactionServices {
         }
       })
 
-      if(transactionStatus == "settlement"){
-        // if(fraudStatus == "accept"){
-        //   updateTransaction.status_payment = 'SUCCESS'
-        //   await this.TransactionRepository.save(updateTransaction)
-        // }
-        updateTransaction.status_payment = "SUCCESS"
-        await this.TransactionRepository.save(updateTransaction)
-        product.stock = product.stock - updateTransaction.quantity
-        await this.ProductRepository.save(product)
-      }else if(
-        transactionStatus == "cancel" || transactionStatus == "denny" || transactionStatus == "expire"
-      ){
-        updateTransaction.status_payment = 'FAILED'
+      if (transactionStatus == "capture") {
+        if (fraudStatus == "accept") {
+          updateTransaction.status_payment = "SUCCESS"
           await this.TransactionRepository.save(updateTransaction)
-      } else if (transactionStatus == 'pending') {
-        updateTransaction.status_payment = 'PENDING'
-        await this.TransactionRepository.save(updateTransaction)
+        }
+      } else if (transactionStatus == "settlement") {
+        updateTransaction.status_payment = "SUCCESS"
+          await this.TransactionRepository.save(updateTransaction)
+          product.stock = product.stock - updateTransaction.quantity
+          await this.ProductRepository.save(product)
+      } else if (
+        transactionStatus == "cancel" ||
+        transactionStatus == "deny" ||
+        transactionStatus == "expire"
+      ) {
+        updateTransaction.status_payment = "FAILED"
+          await this.TransactionRepository.save(updateTransaction)
       }
+
 
       return res.status(200).json({
         code: 200,
