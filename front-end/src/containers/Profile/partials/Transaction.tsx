@@ -91,7 +91,7 @@ const Transaction: React.FC = (): JSX.Element => {
                   px="3"
                   border={data.status_payment === "SUCCESS" ? "1px solid green" : data.status_payment === "PENDING" ? "1px solid #FF9800" : data.status_payment === "FAILED" ? "1px solid red" : ""}
                   rounded="xl"
-                  color="green"
+                  color={data.status_payment === "SUCCESS" ? "green" : data.status_payment === "PENDING" ? "#FF9800" : data.status_payment === "FAILED" ? "red" : ""}
                   fontWeight="semibold"
                   
                 >
